@@ -1,0 +1,28 @@
+---
+import Base from "../layouts/Base.astro";
+import { IDIOMA_POR_DEFECTO, rutaIdioma } from "../datos/sitio";
+import { contenido } from "../i18n";
+
+const idioma = IDIOMA_POR_DEFECTO;
+const t = contenido(idioma);
+---
+
+<Base
+  idioma={idioma}
+  titulo={`${t.error404.titulo} — ${t.meta.titulo}`}
+  descripcion={t.error404.bajada}
+  ruta="/404"
+  noindex
+>
+  <section class="contenedor flex min-h-[70svh] flex-col justify-center py-32">
+    <p class="cifra etiqueta text-humo">404</p>
+    <h1 class="mt-6 max-w-2xl text-titulo-sm text-escarcha md:text-titulo-lg">{t.error404.titulo}</h1>
+    <p class="mt-5 max-w-xl text-cuerpo text-ceniza">{t.error404.bajada}</p>
+    <a
+      href={rutaIdioma(idioma, "/")}
+      class="etiqueta boton-lima mt-9 inline-block w-fit rounded-none bg-lima px-6 py-3 text-vacio"
+    >
+      {t.error404.volver}
+    </a>
+  </section>
+</Base>

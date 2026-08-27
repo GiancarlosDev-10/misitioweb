@@ -1,0 +1,243 @@
+---
+import { SITIO, rutaIdioma, type Idioma } from "../../datos/sitio";
+import { contenido, otroIdioma } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+  /** Ruta lógica actual, sin prefijo de idioma. */
+  ruta?: string;
+}
+
+const { idioma, ruta = "/" } = Astro.props;
+const t = contenido(idioma);
+const alterno = otroIdioma(idioma);
+const inicio = rutaIdioma(idioma, "/");
+
+const enlaces = [
+  { href: "#proyectos", texto: t.nav.proyectos },
+  { href: "#negocio", texto: t.nav.negocio },
+  { href: "#experiencia", texto: t.nav.experiencia },
+];
+---
+
+<header class="fixed inset-x-0 top-0 z-50">
+  <div id="barra-header" class="contenedor flex h-14 items-center justify-between gap-6 border-b border-transparent bg-vacio/30 backdrop-blur-sm">
+    <a href={inicio} class="text-cuerpo tracking-tight text-escarcha" aria-label={SITIO.nombre}>
+      {SITIO.nombre}
+    </a>
+
+    <nav aria-label={t.nav.principal} class="nav-desktop hidden items-center gap-8 md:flex">
+      {
+        enlaces.map((enlace) => (
+          <a
+            href={enlace.href}
+            class="text-cuerpo text-ceniza transition-colors duration-200 hover:text-escarcha"
+          >
+            {enlace.texto}
+          </a>
+        ))
+      }
+      <a
+        href={SITIO.github}
+        rel="noopener noreferrer"
+        target="_blank"
+        class="text-cuerpo text-ceniza transition-colors duration-200 hover:text-escarcha"
+      >
+        {t.nav.cv}
+      </a>
+    </nav>
+
+    <div class="acciones-desktop flex items-center gap-4">
+      <a
+        href={rutaIdioma(alterno, ruta)}
+        hreflang={alterno}
+        aria-label={t.nav.etiquetaIdioma}
+        class="etiqueta text-humo transition-colors duration-200 hover:text-escarcha"
+      >
+        {t.nav.cambiarIdioma}
+      </a>
+      <a
+        href="#contacto"
+        class="etiqueta boton-lima hidden rounded-none bg-lima px-4 py-2 text-vacio sm:inline-block"
+      >
+        {t.nav.contacto}
+      </a>
+      <button
+        type="button"
+        id="boton-menu"
+        aria-expanded="false"
+        aria-controls="menu-movil"
+        aria-label={t.nav.abrirMenu}
+        class="grid h-8 w-8 shrink-0 place-items-center md:hidden"
+      >
+        <span aria-hidden="true" class="relative block h-[13px] w-[18px]">
+          <span class="linea-menu absolute inset-x-0 top-0 block h-[1.5px] bg-escarcha"></span>
+          <span class="linea-menu absolute inset-x-0 top-1/2 block h-[1.5px] -translate-y-1/2 bg-escarcha"></span>
+          <span class="linea-menu absolute inset-x-0 bottom-0 block h-[1.5px] bg-escarcha"></span>
+        </span>
+      </button>
+    </div>
+
+    <button
+      type="button"
+      id="boton-menu-desktop"
+      aria-expanded="false"
+      aria-controls="menu-desktop"
+      aria-label={t.nav.abrirMenu}
+      class="boton-desktop-menu hidden h-8 w-8 shrink-0 place-items-center"
+    >
+      <span aria-hidden="true" class="relative block h-[13px] w-[18px]">
+        <span class="linea-menu absolute inset-x-0 top-0 block h-[1.5px] bg-escarcha"></span>
+        <span class="linea-menu absolute inset-x-0 top-1/2 block h-[1.5px] -translate-y-1/2 bg-escarcha"></span>
+        <span class="linea-menu absolute inset-x-0 bottom-0 block h-[1.5px] bg-escarcha"></span>
+      </span>
+    </button>
+  </div>
+
+  <nav id="menu-movil" aria-label={t.nav.principal} hidden class="border-t border-[var(--linea)] bg-vacio md:hidden">
+    <div class="contenedor flex flex-col py-2">
+      {
+        enlaces.map((enlace) => (
+          <a href={enlace.href} class="border-b border-[var(--linea)] py-4 text-cuerpo text-ceniza last:border-b-0">
+            {enlace.texto}
+          </a>
+        ))
+      }
+      <a
+        href={SITIO.github}
+        rel="noopener noreferrer"
+        target="_blank"
+        class="border-b border-[var(--linea)] py-4 text-cuerpo text-ceniza sm:hidden"
+      >
+        {t.nav.cv}
+      </a>
+      <a href="#contacto" class="py-4 text-cuerpo text-escarcha sm:hidden">
+        {t.nav.contacto}
+      </a>
+    </div>
+  </nav>
+</header>
+
+<div id="menu-desktop" hidden class="fixed inset-0 z-40 justify-center bg-vacio/40 pt-24 backdrop-blur-md md:flex">
+  <div class="h-fit w-80 rounded-2xl border border-[var(--linea)] bg-escarcha/[0.06] p-6 backdrop-blur-2xl">
+    <nav aria-label={t.nav.principal} class="flex flex-col">
+      {
+        enlaces.map((enlace) => (
+          <a href={enlace.href} class="border-b border-[var(--linea)] py-3 text-cuerpo text-ceniza transition-colors duration-200 hover:text-escarcha last:border-b-0">
+            {enlace.texto}
+          </a>
+        ))
+      }
+      <a
+        href={SITIO.github}
+        rel="noopener noreferrer"
+        target="_blank"
+        class="py-3 text-cuerpo text-ceniza transition-colors duration-200 hover:text-escarcha"
+      >
+        {t.nav.cv}
+      </a>
+    </nav>
+    <div class="mt-4 flex items-center justify-between border-t border-[var(--linea)] pt-5">
+      <a
+        href={rutaIdioma(alterno, ruta)}
+        hreflang={alterno}
+        aria-label={t.nav.etiquetaIdioma}
+        class="etiqueta text-humo transition-colors duration-200 hover:text-escarcha"
+      >
+        {t.nav.cambiarIdioma}
+      </a>
+      <a href="#contacto" class="etiqueta boton-lima rounded-none bg-lima px-4 py-2 text-vacio">
+        {t.nav.contacto}
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const boton = document.querySelector<HTMLButtonElement>("#boton-menu");
+  const menu = document.querySelector<HTMLElement>("#menu-movil");
+
+  if (boton && menu) {
+    const cerrar = () => {
+      menu.hidden = true;
+      boton.setAttribute("aria-expanded", "false");
+    };
+
+    const alternar = () => {
+      const abierto = boton.getAttribute("aria-expanded") === "true";
+      menu.hidden = abierto;
+      boton.setAttribute("aria-expanded", String(!abierto));
+    };
+
+    boton.addEventListener("click", alternar);
+    menu.querySelectorAll("a").forEach((enlace) => enlace.addEventListener("click", cerrar));
+    document.addEventListener("keydown", (evento) => {
+      if (evento.key === "Escape") cerrar();
+    });
+
+    // Si la ventana pasa a desktop con el menú abierto, el nav de escritorio
+    // ya está visible: cerramos el desplegable para no dejarlo huérfano.
+    window.matchMedia("(min-width: 768px)").addEventListener("change", (evento) => {
+      if (evento.matches) cerrar();
+    });
+  }
+
+  // Píldora de escritorio: la barra se contrae al alejarse del tope y el
+  // desplegable centrado (glass) reemplaza al nav horizontal.
+  const barra = document.querySelector<HTMLElement>("#barra-header");
+  const botonDesktop = document.querySelector<HTMLButtonElement>("#boton-menu-desktop");
+  const menuDesktop = document.querySelector<HTMLElement>("#menu-desktop");
+
+  if (barra) {
+    const UMBRAL = 24;
+    let compacto = window.scrollY > UMBRAL;
+    barra.classList.toggle("compacto", compacto);
+
+    let ticking = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          const debe = window.scrollY > UMBRAL;
+          if (debe !== compacto) {
+            compacto = debe;
+            barra.classList.toggle("compacto", compacto);
+            if (!compacto && menuDesktop && !menuDesktop.hidden) {
+              menuDesktop.hidden = true;
+              botonDesktop?.setAttribute("aria-expanded", "false");
+            }
+          }
+          ticking = false;
+        });
+      },
+      { passive: true }
+    );
+  }
+
+  if (botonDesktop && menuDesktop) {
+    const cerrarDesktop = () => {
+      menuDesktop.hidden = true;
+      botonDesktop.setAttribute("aria-expanded", "false");
+    };
+
+    const alternarDesktop = () => {
+      const abierto = botonDesktop.getAttribute("aria-expanded") === "true";
+      menuDesktop.hidden = abierto;
+      botonDesktop.setAttribute("aria-expanded", String(!abierto));
+    };
+
+    botonDesktop.addEventListener("click", alternarDesktop);
+    menuDesktop.querySelectorAll("a").forEach((enlace) => enlace.addEventListener("click", cerrarDesktop));
+    menuDesktop.addEventListener("click", (evento) => {
+      if (evento.target === menuDesktop) cerrarDesktop();
+    });
+    document.addEventListener("keydown", (evento) => {
+      if (evento.key === "Escape") cerrarDesktop();
+    });
+    window.matchMedia("(min-width: 768px)").addEventListener("change", (evento) => {
+      if (!evento.matches) cerrarDesktop();
+    });
+  }
+</script>

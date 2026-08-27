@@ -1,0 +1,1249 @@
+[
+  {
+    "id": "colegio-profesores-notas",
+    "caso": "colegio",
+    "nombre": {
+      "es": "Bot de consulta de notas · docentes",
+      "en": "Grade lookup bot · teachers"
+    },
+    "ruta": "sistema-bots-colegio/bot-profesores-notas.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/sistema-bots-colegio/bot-profesores-notas.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/sistema-bots-colegio/bot-profesores-notas.json",
+    "nodos": 11,
+    "tecnologias": [
+      "Telegram",
+      "Custom JS",
+      "AI Agent",
+      "Memoria conversacional",
+      "Herramienta personalizada",
+      "OpenAI"
+    ],
+    "puntos": [
+      {
+        "x": 0,
+        "y": 0.3,
+        "tipo": "n8n-nodes-base.telegramTrigger"
+      },
+      {
+        "x": 0.1875,
+        "y": 0.3,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.375,
+        "y": 0.3,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.55,
+        "y": 0.1,
+        "tipo": "@n8n/n8n-nodes-langchain.agent"
+      },
+      {
+        "x": 0.5625,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.memoryBufferWindow"
+      },
+      {
+        "x": 0.675,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.toolCode"
+      },
+      {
+        "x": 0.7875,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.toolCode"
+      },
+      {
+        "x": 0.9,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.toolCode"
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.toolCode"
+      },
+      {
+        "x": 0.875,
+        "y": 0,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.425,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.lmChatOpenAi"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        9
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        5,
+        3
+      ],
+      [
+        6,
+        3
+      ],
+      [
+        7,
+        3
+      ],
+      [
+        8,
+        3
+      ],
+      [
+        10,
+        3
+      ]
+    ]
+  },
+  {
+    "id": "colegio-padres-notificacion",
+    "caso": "colegio",
+    "nombre": {
+      "es": "Notificación de asistencia · apoderados",
+      "en": "Attendance notification · parents"
+    },
+    "ruta": "sistema-bots-colegio/bot-padres-notificacion.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/sistema-bots-colegio/bot-padres-notificacion.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/sistema-bots-colegio/bot-padres-notificacion.json",
+    "nodos": 14,
+    "tecnologias": [
+      "Gmail",
+      "Telegram",
+      "Custom JS"
+    ],
+    "puntos": [
+      {
+        "x": 0.8585858585858586,
+        "y": 0,
+        "tipo": "n8n-nodes-base.gmail"
+      },
+      {
+        "x": 0,
+        "y": 0.6176470588235294,
+        "tipo": "n8n-nodes-base.telegramTrigger"
+      },
+      {
+        "x": 0.13131313131313133,
+        "y": 0.6176470588235294,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.2727272727272727,
+        "y": 0.6176470588235294,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.40404040404040403,
+        "y": 0.5882352941176471,
+        "tipo": "n8n-nodes-base.switch"
+      },
+      {
+        "x": 0.5656565656565656,
+        "y": 0.2647058823529412,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.696969696969697,
+        "y": 0.2647058823529412,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.8484848484848485,
+        "y": 0.29411764705882354,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.5656565656565656,
+        "y": 0.6176470588235294,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.696969696969697,
+        "y": 0.6176470588235294,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.8484848484848485,
+        "y": 0.5588235294117647,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.8484848484848485,
+        "y": 0.8823529411764706,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.5656565656565656,
+        "y": 1,
+        "tipo": "n8n-nodes-base.telegram"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        7
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        9
+      ],
+      [
+        4,
+        13
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        6,
+        8
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        10,
+        12
+      ]
+    ]
+  },
+  {
+    "id": "colegio-manual-ayuda",
+    "caso": "colegio",
+    "nombre": {
+      "es": "Bot de ayuda del sistema (texto y audio)",
+      "en": "System help bot (text and voice)"
+    },
+    "ruta": "sistema-bots-colegio/bot-manual-ayuda.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/sistema-bots-colegio/bot-manual-ayuda.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/sistema-bots-colegio/bot-manual-ayuda.json",
+    "nodos": 12,
+    "tecnologias": [
+      "Telegram",
+      "Custom JS",
+      "AI Agent",
+      "OpenAI",
+      "Memoria conversacional",
+      "Herramienta personalizada"
+    ],
+    "puntos": [
+      {
+        "x": 0,
+        "y": 0.4166666666666667,
+        "tipo": "n8n-nodes-base.telegramTrigger"
+      },
+      {
+        "x": 0.1414141414141414,
+        "y": 0.4166666666666667,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.2727272727272727,
+        "y": 0.4166666666666667,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.41414141414141414,
+        "y": 0.4166666666666667,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.5656565656565656,
+        "y": 0,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.7373737373737373,
+        "y": 0.4166666666666667,
+        "tipo": "@n8n/n8n-nodes-langchain.agent"
+      },
+      {
+        "x": 0.6363636363636364,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.lmChatOpenAi"
+      },
+      {
+        "x": 0.7373737373737373,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.memoryBufferWindow"
+      },
+      {
+        "x": 0.8282828282828283,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.toolCode"
+      },
+      {
+        "x": 0.9090909090909091,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.toolCode"
+      },
+      {
+        "x": 1,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.toolCode"
+      },
+      {
+        "x": 0.9393939393939394,
+        "y": 0.2916666666666667,
+        "tipo": "n8n-nodes-base.telegram"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        11
+      ],
+      [
+        6,
+        5
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        8,
+        5
+      ],
+      [
+        9,
+        5
+      ],
+      [
+        10,
+        5
+      ]
+    ]
+  },
+  {
+    "id": "colegio-padres-vinculacion",
+    "caso": "colegio",
+    "nombre": {
+      "es": "Vinculación de apoderados por DNI",
+      "en": "Parent linking by national ID"
+    },
+    "ruta": "sistema-bots-colegio/bot-padres-vinculacion.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/sistema-bots-colegio/bot-padres-vinculacion.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/sistema-bots-colegio/bot-padres-vinculacion.json",
+    "nodos": 3,
+    "tecnologias": [
+      "Webhooks",
+      "Custom JS",
+      "Telegram"
+    ],
+    "puntos": [
+      {
+        "x": 0,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.webhook"
+      },
+      {
+        "x": 0.4827586206896552,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 1,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.telegram"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ]
+  },
+  {
+    "id": "cotizaciones-principal",
+    "caso": "workflows",
+    "nombre": {
+      "es": "Cotizador inmobiliario · flujo principal",
+      "en": "Real-estate quoting bot · main flow"
+    },
+    "ruta": "bot-cotizaciones-inmobiliarias/cotizador-principal.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/bot-cotizaciones-inmobiliarias/cotizador-principal.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/bot-cotizaciones-inmobiliarias/cotizador-principal.json",
+    "nodos": 15,
+    "tecnologias": [
+      "Telegram",
+      "REST API",
+      "Custom JS",
+      "AI Agent",
+      "Memoria conversacional",
+      "OpenAI",
+      "Google Sheets"
+    ],
+    "puntos": [
+      {
+        "x": 0,
+        "y": 0.6153846153846154,
+        "tipo": "n8n-nodes-base.telegramTrigger"
+      },
+      {
+        "x": 0.11888111888111888,
+        "y": 0.5769230769230769,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.18181818181818182,
+        "y": 0,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.2517482517482518,
+        "y": 0,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.32167832167832167,
+        "y": 0,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.46153846153846156,
+        "y": 0,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.5384615384615384,
+        "y": 0.4230769230769231,
+        "tipo": "@n8n/n8n-nodes-langchain.agent"
+      },
+      {
+        "x": 0.3916083916083916,
+        "y": 0,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.5524475524475524,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.memoryBufferWindow"
+      },
+      {
+        "x": 0.46853146853146854,
+        "y": 0.9615384615384616,
+        "tipo": "@n8n/n8n-nodes-langchain.lmChatOpenAi"
+      },
+      {
+        "x": 0.6923076923076923,
+        "y": 0.4230769230769231,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.7832167832167832,
+        "y": 0.4230769230769231,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.9090909090909091,
+        "y": 0.6923076923076923,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.8951048951048951,
+        "y": 0.23076923076923078,
+        "tipo": "n8n-nodes-base.googleSheets"
+      },
+      {
+        "x": 1,
+        "y": 0.19230769230769232,
+        "tipo": "n8n-nodes-base.telegram"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        1,
+        6
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        7,
+        5
+      ],
+      [
+        8,
+        6
+      ],
+      [
+        9,
+        6
+      ],
+      [
+        6,
+        10
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        11,
+        13
+      ],
+      [
+        11,
+        12
+      ],
+      [
+        13,
+        14
+      ]
+    ]
+  },
+  {
+    "id": "cotizaciones-audio",
+    "caso": "workflows",
+    "nombre": {
+      "es": "Cotizador inmobiliario · con audio",
+      "en": "Real-estate quoting bot · voice input"
+    },
+    "ruta": "bot-cotizaciones-inmobiliarias/cotizador-con-audio.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/bot-cotizaciones-inmobiliarias/cotizador-con-audio.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/bot-cotizaciones-inmobiliarias/cotizador-con-audio.json",
+    "nodos": 17,
+    "tecnologias": [
+      "Telegram",
+      "Custom JS",
+      "REST API",
+      "Google Sheets",
+      "Google Drive",
+      "AI Agent",
+      "OpenAI",
+      "Memoria conversacional",
+      "Google Sheets (tool)"
+    ],
+    "puntos": [
+      {
+        "x": 0,
+        "y": 0.7368421052631579,
+        "tipo": "n8n-nodes-base.telegramTrigger"
+      },
+      {
+        "x": 0.5384615384615384,
+        "y": 0.05263157894736842,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.7777777777777778,
+        "y": 0.6052631578947368,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.5982905982905983,
+        "y": 0.2631578947368421,
+        "tipo": "n8n-nodes-base.googleSheets"
+      },
+      {
+        "x": 0.7094017094017094,
+        "y": 0.2631578947368421,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.8632478632478633,
+        "y": 0.34210526315789475,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 1,
+        "y": 0.34210526315789475,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.6495726495726496,
+        "y": 0,
+        "tipo": "n8n-nodes-base.googleDrive"
+      },
+      {
+        "x": 0.8888888888888888,
+        "y": 0.6052631578947368,
+        "tipo": "n8n-nodes-base.googleDrive"
+      },
+      {
+        "x": 0.17094017094017094,
+        "y": 0.631578947368421,
+        "tipo": "@n8n/n8n-nodes-langchain.agent"
+      },
+      {
+        "x": 0.10256410256410256,
+        "y": 1,
+        "tipo": "@n8n/n8n-nodes-langchain.lmChatOpenAi"
+      },
+      {
+        "x": 0.19658119658119658,
+        "y": 0.9736842105263158,
+        "tipo": "@n8n/n8n-nodes-langchain.memoryBufferWindow"
+      },
+      {
+        "x": 0.2905982905982906,
+        "y": 0.9473684210526315,
+        "tipo": "n8n-nodes-base.googleSheetsTool"
+      },
+      {
+        "x": 0.3076923076923077,
+        "y": 0.39473684210526316,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.38461538461538464,
+        "y": 0.42105263157894735,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.4700854700854701,
+        "y": 0.7105263157894737,
+        "tipo": "n8n-nodes-base.telegram"
+      },
+      {
+        "x": 0.47863247863247865,
+        "y": 0.2894736842105263,
+        "tipo": "n8n-nodes-base.code"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        9
+      ],
+      [
+        1,
+        3
+      ],
+      [
+        2,
+        8
+      ],
+      [
+        2,
+        5
+      ],
+      [
+        3,
+        7
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        7,
+        4
+      ],
+      [
+        9,
+        13
+      ],
+      [
+        10,
+        9
+      ],
+      [
+        11,
+        9
+      ],
+      [
+        12,
+        9
+      ],
+      [
+        13,
+        14
+      ],
+      [
+        14,
+        16
+      ],
+      [
+        14,
+        15
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        16,
+        1
+      ]
+    ]
+  },
+  {
+    "id": "instagram-analytics",
+    "caso": "workflows",
+    "nombre": {
+      "es": "Analytics de Instagram · +400 publicaciones",
+      "en": "Instagram analytics · 400+ posts"
+    },
+    "ruta": "pablo-instagram-analytics/workflow.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/pablo-instagram-analytics/workflow.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/pablo-instagram-analytics/workflow.json",
+    "nodos": 17,
+    "tecnologias": [
+      "OpenAI",
+      "REST API",
+      "Custom JS",
+      "Supabase",
+      "WhatsApp"
+    ],
+    "puntos": [
+      {
+        "x": 0.688,
+        "y": 0.09090909090909091,
+        "tipo": "@n8n/n8n-nodes-langchain.openAi"
+      },
+      {
+        "x": 0.512,
+        "y": 0.09090909090909091,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.6,
+        "y": 0,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.128,
+        "y": 0.42424242424242425,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.448,
+        "y": 0.30303030303030304,
+        "tipo": "n8n-nodes-base.switch"
+      },
+      {
+        "x": 0.76,
+        "y": 0.3333333333333333,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.216,
+        "y": 0.42424242424242425,
+        "tipo": "n8n-nodes-base.supabase"
+      },
+      {
+        "x": 0.328,
+        "y": 0.45454545454545453,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.864,
+        "y": 0.3333333333333333,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 1,
+        "y": 0.3333333333333333,
+        "tipo": "n8n-nodes-base.whatsApp"
+      },
+      {
+        "x": 0.544,
+        "y": 0.6060606060606061,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.608,
+        "y": 0.9696969696969697,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.712,
+        "y": 0.9696969696969697,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.824,
+        "y": 0.9696969696969697,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.928,
+        "y": 1,
+        "tipo": "n8n-nodes-base.whatsApp"
+      },
+      {
+        "x": 0,
+        "y": 0.42424242424242425,
+        "tipo": "n8n-nodes-base.whatsAppTrigger"
+      },
+      {
+        "x": 0.416,
+        "y": 0.7575757575757576,
+        "tipo": "n8n-nodes-base.whatsApp"
+      }
+    ],
+    "aristas": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        6
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        4,
+        10
+      ],
+      [
+        0,
+        5
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        4
+      ],
+      [
+        7,
+        16
+      ],
+      [
+        5,
+        8
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        11,
+        12
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        13,
+        14
+      ],
+      [
+        15,
+        3
+      ]
+    ]
+  },
+  {
+    "id": "karlant-informes",
+    "caso": "workflows",
+    "nombre": {
+      "es": "KARLANT · informes médicos con GPT-4o",
+      "en": "KARLANT · medical reports with GPT-4o"
+    },
+    "ruta": "karlant-informes-medicos/workflow.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/karlant-informes-medicos/workflow.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/karlant-informes-medicos/workflow.json",
+    "nodos": 12,
+    "tecnologias": [
+      "Google Sheets",
+      "Custom JS",
+      "OpenAI",
+      "Google Drive",
+      "Google Docs"
+    ],
+    "puntos": [
+      {
+        "x": 0,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.manualTrigger"
+      },
+      {
+        "x": 0.0847457627118644,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.googleSheets"
+      },
+      {
+        "x": 0.17796610169491525,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.filter"
+      },
+      {
+        "x": 0.2711864406779661,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.splitInBatches"
+      },
+      {
+        "x": 0.3644067796610169,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.4576271186440678,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.5508474576271186,
+        "y": 0.5,
+        "tipo": "@n8n/n8n-nodes-langchain.openAi"
+      },
+      {
+        "x": 0.6440677966101694,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.7372881355932204,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.googleDrive"
+      },
+      {
+        "x": 0.8305084745762712,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.googleDocs"
+      },
+      {
+        "x": 0.923728813559322,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.googleSheets"
+      },
+      {
+        "x": 1,
+        "y": 0.5,
+        "tipo": "n8n-nodes-base.wait"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        3
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        11,
+        3
+      ]
+    ]
+  },
+  {
+    "id": "karlant-sigeps",
+    "caso": "workflows",
+    "nombre": {
+      "es": "KARLANT · descarga masiva SIGEPS",
+      "en": "KARLANT · SIGEPS bulk download"
+    },
+    "ruta": "karlant-sigeps-pdfs/workflow.json",
+    "urlRaw": "https://raw.githubusercontent.com/GiancarlosDev-10/n8n-workflows/main/karlant-sigeps-pdfs/workflow.json",
+    "urlRepo": "https://github.com/GiancarlosDev-10/n8n-workflows/blob/main/karlant-sigeps-pdfs/workflow.json",
+    "nodos": 16,
+    "tecnologias": [
+      "REST API",
+      "Google Sheets",
+      "Custom JS",
+      "Google Drive"
+    ],
+    "puntos": [
+      {
+        "x": 0,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.manualTrigger"
+      },
+      {
+        "x": 0.07092198581560284,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.14184397163120568,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.14184397163120568,
+        "y": 1,
+        "tipo": "n8n-nodes-base.stickyNote"
+      },
+      {
+        "x": 0.2198581560283688,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.googleSheets"
+      },
+      {
+        "x": 0.2978723404255319,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.filter"
+      },
+      {
+        "x": 0.375886524822695,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.45390070921985815,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.splitInBatches"
+      },
+      {
+        "x": 0.5319148936170213,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.6099290780141844,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.httpRequest"
+      },
+      {
+        "x": 0.6879432624113475,
+        "y": 0.26666666666666666,
+        "tipo": "n8n-nodes-base.if"
+      },
+      {
+        "x": 0.7659574468085106,
+        "y": 0,
+        "tipo": "n8n-nodes-base.code"
+      },
+      {
+        "x": 0.8439716312056738,
+        "y": 0,
+        "tipo": "n8n-nodes-base.googleDrive"
+      },
+      {
+        "x": 0.9219858156028369,
+        "y": 0,
+        "tipo": "n8n-nodes-base.googleSheets"
+      },
+      {
+        "x": 0.7659574468085106,
+        "y": 0.6666666666666666,
+        "tipo": "n8n-nodes-base.googleSheets"
+      },
+      {
+        "x": 1,
+        "y": 0,
+        "tipo": "n8n-nodes-base.wait"
+      }
+    ],
+    "aristas": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        4
+      ],
+      [
+        4,
+        5
+      ],
+      [
+        5,
+        6
+      ],
+      [
+        6,
+        7
+      ],
+      [
+        7,
+        8
+      ],
+      [
+        8,
+        9
+      ],
+      [
+        9,
+        10
+      ],
+      [
+        10,
+        11
+      ],
+      [
+        10,
+        14
+      ],
+      [
+        11,
+        12
+      ],
+      [
+        12,
+        13
+      ],
+      [
+        13,
+        15
+      ],
+      [
+        14,
+        15
+      ],
+      [
+        15,
+        7
+      ]
+    ]
+  }
+]

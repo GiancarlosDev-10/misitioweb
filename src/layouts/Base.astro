@@ -1,0 +1,82 @@
+---
+import "../estilos/global.css";
+
+import Meta from "../componentes/seo/Meta.astro";
+import DatosEstructurados from "../componentes/seo/DatosEstructurados.astro";
+import Encabezado from "../componentes/estructura/Encabezado.astro";
+import Pie from "../componentes/estructura/Pie.astro";
+import TerminalCli from "../componentes/islas/TerminalCli.astro";
+import { LOCALES, type Idioma } from "../datos/sitio";
+import { contenido } from "../i18n";
+
+interface Props {
+  idioma: Idioma;
+  titulo: string;
+  descripcion: string;
+  ruta?: string;
+  tituloOg?: string;
+  noindex?: boolean;
+}
+
+const { idioma, titulo, descripcion, ruta = "/", tituloOg, noindex = false } = Astro.props;
+const t = contenido(idioma);
+---
+
+<!doctype html>
+<html lang={LOCALES[idioma]} class="scroll-pt-20">
+  <head>
+    <Meta
+      idioma={idioma}
+      titulo={titulo}
+      descripcion={descripcion}
+      ruta={ruta}
+      tituloOg={tituloOg}
+      noindex={noindex}
+    />
+    <DatosEstructurados idioma={idioma} />
+  </head>
+  <body class="min-h-screen antialiased">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:bg-lima focus:px-4 focus:py-2 focus:text-vacio"
+    >
+      {t.nav.saltarAlContenido}
+    </a>
+
+    <Encabezado idioma={idioma} ruta={ruta} />
+
+    <main id="contenido">
+      <slot />
+    </main>
+
+    <Pie idioma={idioma} />
+
+    <TerminalCli idioma={idioma} />
+
+    <script>
+      // Aparición al entrar en viewport. Sin librerías: 12 líneas y cero JS bloqueante.
+      const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const elementos = document.querySelectorAll<HTMLElement>(".aparece");
+
+      if (reducido) {
+        elementos.forEach((elemento) => elemento.classList.add("visible"));
+      } else {
+        const observador = new IntersectionObserver(
+          (entradas) => {
+            for (const entrada of entradas) {
+              if (!entrada.isIntersecting) continue;
+              entrada.target.classList.add("visible");
+              observador.unobserve(entrada.target);
+            }
+          },
+          { rootMargin: "0px 0px -10% 0px", threshold: 0.05 }
+        );
+
+        elementos.forEach((elemento, indice) => {
+          elemento.style.transitionDelay = `${Math.min(indice % 6, 5) * 60}ms`;
+          observador.observe(elemento);
+        });
+      }
+    </script>
+  </body>
+</html>

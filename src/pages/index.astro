@@ -1,0 +1,18 @@
+---
+import Base from "../layouts/Base.astro";
+import Portada from "../componentes/secciones/Portada.astro";
+import { contenido } from "../i18n";
+
+const idioma = "es" as const;
+const t = contenido(idioma);
+---
+
+<Base
+  idioma={idioma}
+  titulo={t.meta.titulo}
+  descripcion={t.meta.descripcion}
+  tituloOg={t.meta.tituloOg}
+  ruta="/"
+>
+  <Portada idioma={idioma} />
+</Base>

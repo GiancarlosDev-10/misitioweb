@@ -1,0 +1,102 @@
+---
+/**
+ * Grilla de puntos con perspectiva falsa (sin WebGL/Three.js): trigonometría
+ * simple en canvas 2D — los puntos lejanos se ven más chicos, juntos y tenues.
+ * Mismo patrón que CampoNodos: IntersectionObserver pausa el rAF fuera de
+ * pantalla, prefers-reduced-motion dibuja un solo frame estático.
+ */
+interface Props {
+  /** Opacidad global del canvas (0–1). Ajusta cuánto compite con el contenido. */
+  opacidad?: number;
+}
+
+const { opacidad = 1 } = Astro.props;
+---
+
+<canvas
+  class="grilla-puntos pointer-events-none absolute inset-0 h-full w-full"
+  style={`opacity:${opacidad}`}
+  aria-hidden="true"
+></canvas>
+
+<script>
+  const FILAS = 16;
+  const COLUMNAS = 26;
+  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll<HTMLCanvasElement>("canvas.grilla-puntos").forEach((lienzo) => {
+    const contexto = lienzo.getContext("2d");
+    if (!contexto) return;
+
+    let ancho = 0;
+    let alto = 0;
+
+    function redimensionar() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const caja = lienzo.getBoundingClientRect();
+      ancho = caja.width;
+      alto = caja.height;
+      lienzo.width = Math.round(ancho * dpr);
+      lienzo.height = Math.round(alto * dpr);
+      contexto!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function dibujar(desplazamiento: number) {
+      contexto!.clearRect(0, 0, ancho, alto);
+
+      for (let f = 0; f < FILAS; f++) {
+        // t=0 → fila más cercana (abajo, grande); t→1 → se pierde en el horizonte.
+        const t = ((f + desplazamiento) % FILAS) / FILAS;
+        const profundidad = 1 - t;
+        const y = alto * (1 - t * t * 0.96) - alto * 0.02;
+        const escala = 0.12 + profundidad * 0.88;
+        const opacidadFila = Math.max(0, profundidad - 0.05) * 0.8;
+        if (opacidadFila <= 0.01) continue;
+
+        for (let c = 0; c < COLUMNAS; c++) {
+          const xNorm = (c - (COLUMNAS - 1) / 2) / COLUMNAS;
+          const x = ancho / 2 + xNorm * ancho * escala;
+          const radio = 0.5 + escala * 1.1;
+
+          contexto!.fillStyle = `rgba(255, 255, 255, ${opacidadFila})`;
+          contexto!.fillRect(x - radio / 2, y - radio / 2, radio, radio);
+        }
+      }
+    }
+
+    redimensionar();
+    window.addEventListener("resize", () => {
+      redimensionar();
+      dibujar(0);
+    });
+
+    if (reducido) {
+      dibujar(0);
+      return;
+    }
+
+    let desplazamiento = 0;
+    let visible = false;
+    let corriendo = false;
+
+    function animar() {
+      desplazamiento += 0.006;
+      dibujar(desplazamiento);
+      corriendo = visible;
+      if (visible) requestAnimationFrame(animar);
+    }
+
+    new IntersectionObserver(
+      ([entrada]) => {
+        visible = entrada?.isIntersecting ?? false;
+        if (visible && !corriendo) {
+          corriendo = true;
+          requestAnimationFrame(animar);
+        }
+      },
+      { threshold: 0 }
+    ).observe(lienzo);
+
+    dibujar(0);
+  });
+</script>

@@ -1,0 +1,57 @@
+---
+import AvionPuntos from "../islas/AvionPuntos.astro";
+import type { Idioma } from "../../datos/sitio";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+---
+
+<section id="experiencia" class="border-b border-[var(--linea)] py-24 md:py-32">
+  <div class="contenedor">
+    <div class="flex items-center gap-4">
+      <header class="aparece max-w-3xl">
+        <p class="etiqueta text-humo">{t.experiencia.eyebrow}</p>
+        <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo-lg">{t.experiencia.titulo}</h2>
+      </header>
+
+      <div class="pointer-events-none relative hidden h-40 w-80 shrink-0 lg:block">
+        <AvionPuntos opacidad={0.8} />
+      </div>
+    </div>
+
+    <ol class="mt-16">
+      {
+        t.experiencia.lista.map((puesto) => (
+          <li class="aparece border-t border-[var(--linea)]">
+            <div class="grid gap-4 py-10 md:grid-cols-[16rem_1fr] md:gap-10">
+              <div>
+                <p class="text-cuerpo text-escarcha">{puesto.empresa}</p>
+                <p class="mt-1 text-leyenda text-humo">{puesto.lugar}</p>
+                <p class="cifra mt-3 text-leyenda text-pizarra">{puesto.periodo}</p>
+              </div>
+              <div>
+                <p class="text-subtitulo text-escarcha">{puesto.rol}</p>
+                <p class="mt-3 max-w-2xl text-cuerpo text-ceniza">{puesto.detalle}</p>
+                {"cita" in puesto && puesto.cita && (
+                  <blockquote class="mt-6 max-w-xl border-l-2 border-lima/50 pl-5 text-subtitulo text-escarcha">
+                    {puesto.cita}
+                  </blockquote>
+                )}
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="aparece mt-16 border-t border-[var(--linea)] pt-10">
+      <p class="etiqueta text-humo">{t.formacion.eyebrow}</p>
+      <p class="mt-4 max-w-3xl text-cuerpo text-ceniza">{t.formacion.texto}</p>
+    </div>
+  </div>
+</section>

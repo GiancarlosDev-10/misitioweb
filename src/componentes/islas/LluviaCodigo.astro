@@ -1,0 +1,130 @@
+---
+/**
+ * Lluvia de dígitos estilo Matrix, en el lima del sitio (no verde) para no
+ * romper la regla de un solo acento cromático. Canvas 2D nativo, sin
+ * librerías. Mismo patrón que GrillaPuntos: IntersectionObserver pausa el
+ * rAF fuera de pantalla, prefers-reduced-motion dibuja un solo frame estático.
+ */
+interface Props {
+  /** Opacidad global del canvas (0–1). */
+  opacidad?: number;
+}
+
+const { opacidad = 1 } = Astro.props;
+---
+
+<canvas
+  class="lluvia-codigo pointer-events-none absolute inset-0 h-full w-full"
+  style={`opacity:${opacidad}`}
+  aria-hidden="true"
+></canvas>
+
+<script>
+  const CARACTERES = "01";
+  const TAMANO_FUENTE = 14;
+  const ESPACIADO = 18;
+  const FUENTE = `${TAMANO_FUENTE}px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
+  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll<HTMLCanvasElement>("canvas.lluvia-codigo").forEach((lienzo) => {
+    const contexto = lienzo.getContext("2d");
+    if (!contexto) return;
+
+    let ancho = 0;
+    let alto = 0;
+    let columnas: { y: number; velocidad: number }[] = [];
+
+    // Semilla propia para el frame estático: mismo render en cada carga.
+    let semilla = 11;
+    const azar = () => {
+      semilla = (semilla * 1664525 + 1013904223) % 4294967296;
+      return semilla / 4294967296;
+    };
+
+    function redimensionar() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const caja = lienzo.getBoundingClientRect();
+      ancho = caja.width;
+      alto = caja.height;
+      lienzo.width = Math.round(ancho * dpr);
+      lienzo.height = Math.round(alto * dpr);
+      contexto!.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const total = Math.ceil(ancho / ESPACIADO);
+      columnas = Array.from({ length: total }, () => ({
+        y: azar() * -40,
+        velocidad: 0.06 + azar() * 0.12,
+      }));
+    }
+
+    function caracterAzar(fuente: () => number): string {
+      return CARACTERES[Math.floor(fuente() * CARACTERES.length)] ?? "0";
+    }
+
+    redimensionar();
+    window.addEventListener("resize", () => {
+      redimensionar();
+      if (reducido) dibujarEstatico();
+    });
+
+    function dibujarEstatico() {
+      contexto!.clearRect(0, 0, ancho, alto);
+      contexto!.font = FUENTE;
+      const filas = Math.ceil(alto / ESPACIADO);
+      columnas.forEach((_columna, indice) => {
+        const x = indice * ESPACIADO;
+        for (let fila = 0; fila < filas; fila++) {
+          if (azar() > 0.86) {
+            contexto!.fillStyle = `rgba(166, 255, 26, ${0.05 + azar() * 0.1})`;
+            contexto!.fillText(caracterAzar(azar), x, fila * ESPACIADO);
+          }
+        }
+      });
+    }
+
+    if (reducido) {
+      dibujarEstatico();
+      return;
+    }
+
+    contexto.font = FUENTE;
+
+    function dibujar() {
+      // Rastro: oscurece en vez de limpiar del todo, como el efecto real.
+      contexto!.fillStyle = "rgba(0, 0, 0, 0.15)";
+      contexto!.fillRect(0, 0, ancho, alto);
+
+      for (let indice = 0; indice < columnas.length; indice++) {
+        const columna = columnas[indice]!;
+        const x = indice * ESPACIADO;
+        const y = columna.y * ESPACIADO;
+        const esCabeza = Math.random() > 0.92;
+
+        contexto!.fillStyle = esCabeza ? "rgba(166, 255, 26, 0.5)" : "rgba(166, 255, 26, 0.14)";
+        contexto!.fillText(caracterAzar(Math.random), x, y);
+
+        columna.y += columna.velocidad;
+        if (y > alto && Math.random() > 0.975) columna.y = 0;
+      }
+    }
+
+    let visible = false;
+    let corriendo = false;
+    function animar() {
+      dibujar();
+      corriendo = visible;
+      if (visible) requestAnimationFrame(animar);
+    }
+
+    new IntersectionObserver(
+      ([entrada]) => {
+        visible = entrada?.isIntersecting ?? false;
+        if (visible && !corriendo) {
+          corriendo = true;
+          requestAnimationFrame(animar);
+        }
+      },
+      { threshold: 0 }
+    ).observe(lienzo);
+  });
+</script>

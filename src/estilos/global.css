@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+/* ── Tipografía ─────────────────────────────────────────────────────────
+   Inter Variable cubre el rol de abcOracle (cuerpo, UI, métricas).
+   General Sans Variable cubre el rol de gtPantheon (display, encabezados). */
+@font-face {
+  font-family: "Oracle";
+  src: url("/fuentes/inter-variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pantheon";
+  src: url("/fuentes/general-sans-variable.woff2") format("woff2-variations");
+  font-weight: 200 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* Paleta Aaru — no se agrega ningún color fuera de esta lista. */
+  --color-vacio: #000000;
+  --color-carbon: #0a0a0a;
+  --color-grafito: #18181b;
+  --color-escarcha: #ffffff;
+  --color-ceniza: #bababa;
+  --color-humo: #9d9d9d;
+  --color-pizarra: #858484;
+  --color-lima: #a6ff1a;
+  --color-plasma: #1019ec;
+
+  --font-cuerpo: "Oracle", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Pantheon", "Oracle", ui-sans-serif, system-ui, sans-serif;
+
+  /* Escala tipográfica Aaru */
+  --text-leyenda: 0.75rem;
+  --text-cuerpo: 0.9375rem;
+  --text-subtitulo: 1.25rem;
+  --text-titulo-sm: 1.875rem;
+  --text-titulo: 2.125rem;
+  --text-titulo-lg: 2.5rem;
+  --text-display: 3.125rem;
+
+  --radius-carta: 6px;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --linea: rgb(255 255 255 / 0.14);
+  }
+
+  html {
+    background-color: var(--color-vacio);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-vacio);
+    color: var(--color-escarcha);
+    font-family: var(--font-cuerpo);
+    font-size: var(--text-cuerpo);
+    font-weight: 330;
+    line-height: 1.6;
+    letter-spacing: 0.01em;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 330;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  ::selection {
+    background-color: var(--color-lima);
+    color: var(--color-vacio);
+  }
+
+  :focus-visible {
+    outline: 1px solid var(--color-lima);
+    outline-offset: 3px;
+  }
+
+  a,
+  button,
+  summary {
+    cursor: pointer;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility contenedor {
+  width: 100%;
+  max-width: 78rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+
+  @media (width >= 64rem) {
+    padding-inline: 3rem;
+  }
+}
+
+/* Números tabulares para toda métrica: las columnas no bailan. */
+@utility cifra {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.03em;
+}
+
+@utility etiqueta {
+  font-size: var(--text-leyenda);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+@utility hairline {
+  border-top: 1px solid var(--linea);
+}
+
+/* CTA lima: mismo hover en los 4 botones de acción del sitio. */
+@utility boton-lima {
+  transition:
+    transform 400ms cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 200ms ease;
+
+  &:hover {
+    transform: scale(1.03);
+    opacity: 0.9;
+  }
+}
+
+@utility enlace-subrayado {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  text-decoration-color: rgb(255 255 255 / 0.35);
+  transition: text-decoration-color 200ms ease;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* Aparición al hacer scroll. Sin transform pesado: solo opacidad y 8px. */
+.aparece {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aparece.visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aparece {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Encabezado.astro ──────────────────────────────────────────────────
+   CSS sin capa a propósito: necesita ganarle a las clases de Tailwind
+   (ej. md:flex) sin usar !important, igual que .aparece más arriba. */
+@media (min-width: 768px) {
+  #barra-header {
+    transition:
+      max-width 500ms cubic-bezier(0.19, 1, 0.22, 1),
+      margin-top 500ms cubic-bezier(0.19, 1, 0.22, 1),
+      border-radius 400ms ease,
+      border-color 400ms ease,
+      background-color 400ms ease;
+  }
+
+  #barra-header.compacto {
+    max-width: fit-content;
+    margin-inline: auto;
+    margin-top: 0.75rem;
+    padding-inline: 1.5rem;
+    border-radius: 9999px;
+    border-color: var(--linea);
+    background-color: rgb(0 0 0 / 0.7);
+    backdrop-filter: blur(20px);
+  }
+
+  #barra-header.compacto .nav-desktop,
+  #barra-header.compacto .acciones-desktop {
+    display: none;
+  }
+
+  #barra-header.compacto .boton-desktop-menu {
+    display: grid;
+  }
+}
+
+#boton-menu[aria-expanded="true"] .linea-menu:nth-child(1),
+#boton-menu-desktop[aria-expanded="true"] .linea-menu:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+#boton-menu[aria-expanded="true"] .linea-menu:nth-child(2),
+#boton-menu-desktop[aria-expanded="true"] .linea-menu:nth-child(2) {
+  opacity: 0;
+}
+#boton-menu[aria-expanded="true"] .linea-menu:nth-child(3),
+#boton-menu-desktop[aria-expanded="true"] .linea-menu:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+.linea-menu {
+  transition:
+    transform 200ms ease,
+    opacity 200ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #barra-header {
+    transition: none;
+  }
+  .linea-menu {
+    transition: none;
+  }
+}
+
+/* ── Pipeline.astro ────────────────────────────────────────────────────
+   CSS sin capa: position: sticky del efecto de tarjetas apiladas. */
+.tarjeta-apilable {
+  position: sticky;
+  min-height: 22rem;
+  margin-bottom: 1.5rem;
+}
+.tarjeta-apilable:last-child {
+  margin-bottom: 0;
+}
+.tarjeta-apilable > div {
+  box-shadow: 0 0 0 1px rgb(166 255 26 / 0.08) inset;
+}
+
+@media (min-width: 768px) {
+  .tarjeta-apilable {
+    min-height: 24rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta-apilable {
+    position: static;
+  }
+}

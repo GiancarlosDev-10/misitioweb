@@ -1,0 +1,47 @@
+---
+import type { Workflow } from "../../datos/n8n";
+
+interface Props {
+  workflow: Workflow;
+  titulo: string;
+}
+
+const { workflow, titulo } = Astro.props;
+
+const ANCHO = 320;
+const ALTO = 96;
+const MARGEN = 8;
+
+/** El SVG se arma en build time: la topología es HTML estático, sin JS. */
+const puntos = workflow.puntos.map((punto) => ({
+  x: MARGEN + punto.x * (ANCHO - MARGEN * 2),
+  y: MARGEN + punto.y * (ALTO - MARGEN * 2),
+}));
+
+const aristas = workflow.aristas
+  .map(([desde, hasta]) => ({ a: puntos[desde], b: puntos[hasta] }))
+  .filter((arista) => arista.a && arista.b);
+---
+
+<svg
+  viewBox={`0 0 ${ANCHO} ${ALTO}`}
+  class="h-auto w-full"
+  role="img"
+  aria-label={`Topología de ${workflow.nodos} nodos del workflow ${titulo}`}
+  preserveAspectRatio="xMidYMid meet"
+>
+  {
+    aristas.map((arista) => (
+      <line
+        x1={arista.a.x}
+        y1={arista.a.y}
+        x2={arista.b.x}
+        y2={arista.b.y}
+        stroke="currentColor"
+        stroke-width="0.75"
+        opacity="0.28"
+      />
+    ))
+  }
+  {puntos.map((punto) => <circle cx={punto.x} cy={punto.y} r="2" fill="currentColor" opacity="0.85" />)}
+</svg>

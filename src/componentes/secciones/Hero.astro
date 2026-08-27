@@ -1,0 +1,112 @@
+---
+import CampoNodos from "../islas/CampoNodos.astro";
+import { SITIO, type Idioma } from "../../datos/sitio";
+import { obtenerResumen } from "../../datos/n8n";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+const { workflows, totalWorkflows, totalNodos } = await obtenerResumen();
+
+const metricas = [
+  { valor: String(totalWorkflows), texto: t.hero.metricas.workflows },
+  { valor: String(totalNodos), texto: t.hero.metricas.nodos },
+  { valor: "5", texto: t.hero.metricas.productos },
+  { valor: "10+", texto: t.hero.metricas.años },
+];
+---
+
+<section class="relative isolate overflow-hidden border-b border-[var(--linea)]">
+  <CampoNodos workflows={workflows} />
+
+  <div class="contenedor relative flex min-h-[92svh] flex-col justify-end pb-14 pt-32">
+    <p class="etiqueta text-humo">{t.hero.eyebrow}</p>
+
+    <h1 class="mt-6 max-w-4xl text-titulo-sm text-escarcha md:text-titulo-lg lg:text-display">
+      {t.hero.titular}
+    </h1>
+
+    <p class="mt-7 max-w-2xl text-cuerpo font-[400] text-ceniza">{t.hero.bajada}</p>
+
+    <div class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+      <a href="#contacto" class="etiqueta boton-lima rounded-none bg-lima px-6 py-3 text-vacio">
+        {t.hero.cta}
+      </a>
+      <a
+        href={SITIO.github + "/n8n-workflows"}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
+      >
+        {t.hero.ctaSecundario}
+      </a>
+    </div>
+
+    <dl id="metricas-hero" class="mt-16 grid grid-cols-2 gap-px border-t border-[var(--linea)] md:grid-cols-4">
+      {
+        metricas.map((metrica) => (
+          <div class="border-r border-[var(--linea)] pr-4 pt-6 last:border-r-0 md:pt-8">
+            <dt class="cifra text-titulo-sm text-escarcha md:text-titulo" data-valor={metrica.valor}>
+              {metrica.valor}
+            </dt>
+            <dd class="mt-2 max-w-[22ch] text-leyenda leading-relaxed text-humo">{metrica.texto}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <p class="mt-10 max-w-md text-leyenda text-pizarra">{t.hero.leyendaCampo}</p>
+  </div>
+</section>
+
+<script>
+  // Conteo desde 0 al valor real, una sola vez, al entrar en viewport.
+  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const contenedor = document.querySelector<HTMLElement>("#metricas-hero");
+
+  if (contenedor && !reducido) {
+    const cifras = Array.from(contenedor.querySelectorAll<HTMLElement>("[data-valor]")).map((el) => {
+      const bruto = el.dataset.valor ?? "0";
+      const coincidencia = bruto.match(/^(\d+)(.*)$/);
+      return {
+        el,
+        numero: coincidencia ? Number(coincidencia[1]) : 0,
+        sufijo: coincidencia ? coincidencia[2] : "",
+      };
+    });
+
+    cifras.forEach(({ el, sufijo }) => {
+      el.textContent = `0${sufijo}`;
+    });
+
+    const suavizar = (t: number) => 1 - Math.pow(1 - t, 3);
+    const DURACION = 1200;
+    let animado = false;
+
+    const observador = new IntersectionObserver(
+      ([entrada]) => {
+        if (!entrada?.isIntersecting || animado) return;
+        animado = true;
+        observador.disconnect();
+
+        let inicio: number | null = null;
+        function paso(ahora: number) {
+          inicio ??= ahora;
+          const progreso = Math.min((ahora - inicio) / DURACION, 1);
+          const avance = suavizar(progreso);
+          for (const { el, numero, sufijo } of cifras) {
+            el.textContent = `${Math.round(numero * avance)}${sufijo}`;
+          }
+          if (progreso < 1) requestAnimationFrame(paso);
+        }
+        requestAnimationFrame(paso);
+      },
+      { threshold: 0.4 }
+    );
+    observador.observe(contenedor);
+  }
+</script>

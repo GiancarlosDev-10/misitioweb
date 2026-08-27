@@ -1,0 +1,275 @@
+---
+/**
+ * Terminal chica, tipo overlay — versión acotada de la idea de cris.fast.
+ * No duplica contenido: lee los mismos datos que ya arman el resto del
+ * sitio (SITIO + i18n), solo cambia la presentación. Comandos curados,
+ * sin sistema de archivos falso ni contenido inventado.
+ */
+import { SITIO, type Idioma } from "../../datos/sitio";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+
+const datos = {
+  nombre: SITIO.nombre,
+  eyebrow: t.hero.eyebrow,
+  email: SITIO.email,
+  telefono: SITIO.telefono,
+  linkedin: SITIO.linkedin,
+  github: SITIO.github,
+  about: t.hero.bajada,
+  experiencia: t.experiencia.lista.map((p) => ({
+    empresa: p.empresa,
+    rol: p.rol,
+    periodo: p.periodo,
+  })),
+  proyectos: t.proyectos.lista.map((p) => ({
+    titulo: p.titulo,
+    resultado: p.resultado,
+    urlVivo: p.urlVivo,
+  })),
+  textos: t.cli,
+  prompt: t.cli.prompt,
+};
+---
+
+<button
+  type="button"
+  id="cli-boton"
+  aria-haspopup="dialog"
+  aria-label={t.cli.abrir}
+  class="fixed bottom-5 right-5 z-40 rounded-full border border-[var(--linea)] bg-vacio/70 px-5 py-3 font-mono text-cuerpo text-lima backdrop-blur-md transition-colors duration-200 hover:text-escarcha"
+>
+  $ cli
+</button>
+
+<div
+  id="cli-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Terminal"
+  hidden
+  class="fixed inset-0 z-50 flex items-end justify-center bg-vacio/60 p-0 backdrop-blur-md sm:items-center sm:p-6"
+>
+  <div class="flex h-[70svh] w-full flex-col overflow-hidden border border-[var(--linea)] bg-vacio sm:h-[32rem] sm:max-w-2xl sm:rounded-2xl">
+    <div class="flex items-center justify-between border-b border-[var(--linea)] px-4 py-3">
+      <p class="font-mono text-leyenda text-humo">{datos.prompt}</p>
+      <button type="button" id="cli-cerrar" aria-label={t.cli.cerrar} class="text-humo transition-colors duration-200 hover:text-escarcha">
+        ✕
+      </button>
+    </div>
+
+    <div id="cli-salida" class="flex-1 space-y-2 overflow-y-auto whitespace-pre-wrap px-4 py-4 font-mono text-leyenda text-lima/80"></div>
+
+    <div class="flex items-center gap-2 border-t border-[var(--linea)] px-4 py-3">
+      <span class="font-mono text-leyenda text-lima">~$</span>
+      <input
+        id="cli-input"
+        type="text"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+        class="flex-1 bg-transparent font-mono text-leyenda text-escarcha outline-none"
+      />
+      <span id="cli-cursor" class="cli-cursor h-4 w-2 bg-lima"></span>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="cli-datos" set:html={JSON.stringify(datos).replace(/</g, "\\u003c")} is:inline />
+
+<style>
+  .cli-cursor {
+    animation: cli-parpadeo 1s step-start infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cli-cursor {
+      animation: none;
+    }
+  }
+
+  @keyframes cli-parpadeo {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>
+
+<script>
+  interface DatosCli {
+    nombre: string;
+    eyebrow: string;
+    email: string;
+    telefono: string;
+    linkedin: string;
+    github: string;
+    about: string;
+    experiencia: { empresa: string; rol: string; periodo: string }[];
+    proyectos: { titulo: string; resultado: string; urlVivo: string }[];
+    textos: {
+      bienvenida: string;
+      noEncontrado: string;
+      ayuda: Record<string, string>;
+      tituloExperiencia: string;
+      tituloProyectos: string;
+      verEnVivo: string;
+      sudo: string;
+    };
+    prompt: string;
+  }
+
+  const boton = document.querySelector<HTMLButtonElement>("#cli-boton");
+  const cerrar = document.querySelector<HTMLButtonElement>("#cli-cerrar");
+  const overlay = document.querySelector<HTMLElement>("#cli-overlay");
+  const salida = document.querySelector<HTMLElement>("#cli-salida");
+  const input = document.querySelector<HTMLInputElement>("#cli-input");
+  const bloqueDatos = document.querySelector<HTMLScriptElement>("#cli-datos");
+
+  if (boton && cerrar && overlay && salida && input && bloqueDatos) {
+    const datos = JSON.parse(bloqueDatos.textContent ?? "{}") as DatosCli;
+    const historial: string[] = [];
+    let indiceHistorial = -1;
+
+    function linea(texto: string, clase = "") {
+      const p = document.createElement("p");
+      p.textContent = texto;
+      if (clase) p.className = clase;
+      salida!.appendChild(p);
+    }
+
+    function enlace(texto: string, href: string) {
+      const p = document.createElement("p");
+      const a = document.createElement("a");
+      a.href = href;
+      a.textContent = texto;
+      a.target = href.startsWith("http") ? "_blank" : "_self";
+      a.rel = "noopener noreferrer";
+      a.className = "text-lima underline underline-offset-4";
+      p.appendChild(a);
+      salida!.appendChild(p);
+    }
+
+    function espacio() {
+      const p = document.createElement("p");
+      p.innerHTML = "&nbsp;";
+      salida!.appendChild(p);
+    }
+
+    const COMANDOS: Record<string, () => void> = {
+      help: () => {
+        for (const [comando, descripcion] of Object.entries(datos.textos.ayuda)) {
+          linea(`${comando.padEnd(14, " ")}${descripcion}`);
+        }
+      },
+      whoami: () => linea(`${datos.nombre} — ${datos.eyebrow}`),
+      about: () => linea(datos.about),
+      experience: () => {
+        linea(datos.textos.tituloExperiencia, "text-escarcha");
+        for (const puesto of datos.experiencia) {
+          linea(`${puesto.empresa} — ${puesto.rol} (${puesto.periodo})`);
+        }
+      },
+      projects: () => {
+        linea(datos.textos.tituloProyectos, "text-escarcha");
+        for (const proyecto of datos.proyectos) {
+          linea(proyecto.titulo, "text-escarcha");
+          linea(proyecto.resultado);
+          if (proyecto.urlVivo) enlace(`→ ${datos.textos.verEnVivo}: ${proyecto.urlVivo}`, proyecto.urlVivo);
+          espacio();
+        }
+      },
+      contact: () => {
+        linea(`email: ${datos.email}`);
+        linea(`tel: ${datos.telefono}`);
+        enlace(`linkedin: ${datos.linkedin}`, datos.linkedin);
+        enlace(`github: ${datos.github}`, datos.github);
+      },
+      clear: () => {
+        salida!.innerHTML = "";
+      },
+      exit: () => alternar(false),
+      sudo: () => linea(datos.textos.sudo),
+    };
+
+    function ejecutar(comandoCrudo: string) {
+      const comando = comandoCrudo.trim();
+      if (!comando) return;
+
+      linea(`~$ ${comando}`, "text-escarcha");
+      historial.push(comando);
+      indiceHistorial = historial.length;
+
+      const nombre = comando.toLowerCase().split(/\s+/)[0] ?? "";
+      const manejador = COMANDOS[nombre];
+      if (manejador) {
+        manejador();
+      } else {
+        linea(datos.textos.noEncontrado.replace("{0}", nombre));
+      }
+      salida!.scrollTop = salida!.scrollHeight;
+    }
+
+    function alternar(abrir: boolean) {
+      overlay!.hidden = !abrir;
+      if (abrir) {
+        if (!salida!.hasChildNodes()) {
+          linea(datos.textos.bienvenida);
+          espacio();
+        }
+        input!.focus();
+      } else {
+        boton!.focus();
+      }
+    }
+
+    boton.addEventListener("click", () => alternar(true));
+    cerrar.addEventListener("click", () => alternar(false));
+    overlay.addEventListener("click", (evento) => {
+      if (evento.target === overlay) alternar(false);
+    });
+
+    document.addEventListener("keydown", (evento) => {
+      const escribiendo = document.activeElement?.tagName === "INPUT" || document.activeElement?.tagName === "TEXTAREA";
+      if (evento.key === "/" && !escribiendo && overlay!.hidden) {
+        evento.preventDefault();
+        alternar(true);
+      } else if (evento.key === "Escape" && !overlay!.hidden) {
+        alternar(false);
+      }
+    });
+
+    input.addEventListener("keydown", (evento) => {
+      if (evento.key === "Enter") {
+        ejecutar(input!.value);
+        input!.value = "";
+      } else if (evento.key === "ArrowUp") {
+        evento.preventDefault();
+        if (indiceHistorial > 0) {
+          indiceHistorial -= 1;
+          input!.value = historial[indiceHistorial] ?? "";
+        }
+      } else if (evento.key === "ArrowDown") {
+        evento.preventDefault();
+        if (indiceHistorial < historial.length - 1) {
+          indiceHistorial += 1;
+          input!.value = historial[indiceHistorial] ?? "";
+        } else {
+          indiceHistorial = historial.length;
+          input!.value = "";
+        }
+      } else if (evento.key === "Tab") {
+        evento.preventDefault();
+        const parcial = input!.value.toLowerCase();
+        if (!parcial) return;
+        const coincidencias = Object.keys(COMANDOS).filter((c) => c.startsWith(parcial));
+        if (coincidencias.length === 1) input!.value = coincidencias[0]!;
+      }
+    });
+  }
+</script>

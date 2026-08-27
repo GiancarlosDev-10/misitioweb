@@ -1,0 +1,22 @@
+---
+import Hero from "./Hero.astro";
+import Pipeline from "./Pipeline.astro";
+import Proyectos from "./Proyectos.astro";
+import Negocio from "./Negocio.astro";
+import Experiencia from "./Experiencia.astro";
+import Contacto from "./Contacto.astro";
+import type { Idioma } from "../../datos/sitio";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+---
+
+<Hero idioma={idioma} />
+<Pipeline idioma={idioma} />
+<Proyectos idioma={idioma} />
+<Negocio idioma={idioma} />
+<Experiencia idioma={idioma} />
+<Contacto idioma={idioma} />

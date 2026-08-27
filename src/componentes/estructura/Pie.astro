@@ -1,0 +1,43 @@
+---
+import { SITIO, type Idioma } from "../../datos/sitio";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+const anio = new Date().getFullYear();
+---
+
+<footer class="hairline">
+  <div class="contenedor flex flex-col gap-4 py-10 md:flex-row md:items-center md:justify-between">
+    <p class="text-leyenda text-pizarra">© {anio} {t.pie.derechos}</p>
+    <p class="max-w-md text-leyenda text-pizarra">{t.pie.hecho}</p>
+    <div class="flex gap-6">
+      <a
+        href={SITIO.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-leyenda text-humo transition-colors duration-200 hover:text-escarcha"
+      >
+        {t.contacto.linkedin}
+      </a>
+      <a
+        href={SITIO.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-leyenda text-humo transition-colors duration-200 hover:text-escarcha"
+      >
+        {t.contacto.github}
+      </a>
+      <a
+        href={`mailto:${SITIO.email}`}
+        class="text-leyenda text-humo transition-colors duration-200 hover:text-escarcha"
+      >
+        {t.contacto.email}
+      </a>
+    </div>
+  </div>
+</footer>

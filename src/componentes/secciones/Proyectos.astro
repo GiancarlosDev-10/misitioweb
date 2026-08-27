@@ -1,0 +1,166 @@
+---
+import Topologia from "../interfaz/Topologia.astro";
+import GrillaPuntos from "../islas/GrillaPuntos.astro";
+import type { Idioma } from "../../datos/sitio";
+import { obtenerWorkflows, type Workflow } from "../../datos/n8n";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+const workflows = await obtenerWorkflows();
+
+const porCaso = (caso: string): Workflow[] => workflows.filter((workflow) => workflow.caso === caso);
+---
+
+<section id="proyectos" class="relative overflow-hidden border-b border-[var(--linea)] py-24 md:py-32">
+  <GrillaPuntos opacidad={0.12} />
+
+  <div class="contenedor relative z-10">
+    <header class="aparece max-w-3xl">
+      <p class="etiqueta text-humo">{t.proyectos.eyebrow}</p>
+      <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo-lg">{t.proyectos.titulo}</h2>
+      <p class="mt-5 max-w-xl text-cuerpo text-ceniza">{t.proyectos.bajada}</p>
+    </header>
+
+    <ol class="mt-16 space-y-px">
+      {
+        t.proyectos.lista.map((proyecto, indice) => {
+          const numero = String(indice + 1).padStart(2, "0");
+          const suyos = porCaso(proyecto.id);
+
+          return (
+            <li class="aparece border-t border-[var(--linea)]">
+              <article class="grid gap-8 py-12 md:grid-cols-[6rem_1fr] md:py-16">
+                <p class="cifra text-subtitulo text-humo">{numero}</p>
+
+                <div>
+                  <h3 class="max-w-3xl text-subtitulo text-escarcha md:text-titulo-sm">{proyecto.titulo}</h3>
+                  <p class="mt-3 text-leyenda text-humo">{proyecto.cliente}</p>
+
+                  <div class="mt-8 grid gap-8 md:grid-cols-2">
+                    <div>
+                      <p class="etiqueta text-pizarra">{t.proyectos.problema}</p>
+                      <p class="mt-3 text-cuerpo font-[400] text-ceniza">{proyecto.problema}</p>
+                    </div>
+                    <div>
+                      <p class="etiqueta text-pizarra">{t.proyectos.resultado}</p>
+                      <p class="mt-3 text-cuerpo font-[400] text-escarcha">{proyecto.resultado}</p>
+                    </div>
+                  </div>
+
+                  <div class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+                    {proyecto.urlVivo && (
+                      <a
+                        href={proyecto.urlVivo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="enlace-subrayado text-cuerpo text-lima"
+                      >
+                        {t.proyectos.verEnVivo} ↗
+                      </a>
+                    )}
+                    {proyecto.urlRepo && (
+                      <a
+                        href={proyecto.urlRepo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
+                      >
+                        {t.proyectos.verRepo} ↗
+                      </a>
+                    )}
+                  </div>
+
+                  <details class="group mt-10 border-t border-[var(--linea)] pt-6">
+                    <summary class="etiqueta flex items-center gap-3 text-humo transition-colors duration-200 hover:text-escarcha">
+                      <span
+                        aria-hidden="true"
+                        class="inline-block transition-transform duration-200 group-open:rotate-45"
+                      >
+                        +
+                      </span>
+                      {t.proyectos.verTecnico}
+                    </summary>
+
+                    <div class="mt-8 grid gap-10 md:grid-cols-2">
+                      <ul class="space-y-3">
+                        {proyecto.modulos.map((modulo) => (
+                          <li class="flex gap-3 text-cuerpo text-ceniza">
+                            <span aria-hidden="true" class="text-pizarra">
+                              —
+                            </span>
+                            <span>{modulo}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      <div class="space-y-8">
+                        <div>
+                          <p class="etiqueta text-pizarra">{t.proyectos.arquitectura}</p>
+                          <p class="mt-3 text-cuerpo text-ceniza">{proyecto.arquitectura}</p>
+                        </div>
+
+                        {proyecto.stack.length > 0 && (
+                          <div>
+                            <p class="etiqueta text-pizarra">{t.proyectos.stack}</p>
+                            <ul class="mt-3 flex flex-wrap gap-2">
+                              {proyecto.stack.map((tecnologia) => (
+                                <li class="rounded-none border border-[var(--linea)] px-3 py-1 text-leyenda text-ceniza">
+                                  {tecnologia}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {suyos.length > 0 && (
+                      <ul class="mt-12 grid gap-px border-t border-[var(--linea)] md:grid-cols-2">
+                        {suyos.map((workflow) => (
+                          <li class="border-b border-r border-[var(--linea)] p-6 last:border-r-0">
+                            <div class="flex items-baseline justify-between gap-4">
+                              <p class="text-cuerpo text-escarcha">{workflow.nombre[idioma]}</p>
+                              <p class="cifra shrink-0 text-leyenda text-humo">
+                                {workflow.nodos} {t.proyectos.nodos}
+                              </p>
+                            </div>
+
+                            <div class="mt-5 text-ceniza">
+                              <Topologia workflow={workflow} titulo={workflow.nombre[idioma]} />
+                            </div>
+
+                            <ul class="mt-5 flex flex-wrap gap-2">
+                              {workflow.tecnologias.map((tecnologia) => (
+                                <li class="rounded-none border border-[var(--linea)] px-2 py-1 text-leyenda text-humo">
+                                  {tecnologia}
+                                </li>
+                              ))}
+                            </ul>
+
+                            <a
+                              href={workflow.urlRaw}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="enlace-subrayado mt-5 inline-block text-leyenda text-ceniza hover:text-escarcha"
+                            >
+                              {t.proyectos.verJson} ↗
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </details>
+                </div>
+              </article>
+            </li>
+          );
+        })
+      }
+    </ol>
+  </div>
+</section>

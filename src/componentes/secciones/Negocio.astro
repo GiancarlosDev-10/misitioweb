@@ -1,0 +1,105 @@
+---
+import type { Idioma } from "../../datos/sitio";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+---
+
+<section id="negocio" class="border-b border-[var(--linea)] py-24 md:py-32">
+  <div class="contenedor">
+    <header class="aparece max-w-3xl">
+      <p class="etiqueta text-humo">{t.negocio.eyebrow}</p>
+      <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo-lg">{t.negocio.titulo}</h2>
+      <p class="mt-5 max-w-xl text-cuerpo text-ceniza">{t.negocio.bajada}</p>
+    </header>
+
+    <ol class="mt-16">
+      {
+        t.negocio.lista.map((caso, indice) => (
+          <li class="aparece border-t border-[var(--linea)]" data-fila-negocio>
+            <div class="grid gap-6 py-10 md:grid-cols-[4rem_1fr_1fr] md:gap-10 md:py-12">
+              <p class="cifra text-subtitulo text-humo">{String(indice + 1).padStart(2, "0")}</p>
+
+              <div>
+                <h3 class="text-subtitulo text-escarcha">{caso.titulo}</h3>
+                <p class="etiqueta mt-4 inline-block rounded-full border border-lima/40 px-3 py-1 text-lima">
+                  {caso.delta}
+                </p>
+                <p class="mt-5 text-leyenda uppercase tracking-[0.12em] text-pizarra">{t.negocio.antes}</p>
+                <p class="mt-2 text-cuerpo text-ceniza" data-antes>
+                  {caso.antes}
+                </p>
+              </div>
+
+              <div class="md:pt-9">
+                <p class="text-leyenda uppercase tracking-[0.12em] text-pizarra">{t.negocio.despues}</p>
+                <p class="mt-2 text-cuerpo font-[400] text-escarcha" data-despues>
+                  {caso.despues}
+                </p>
+                <p class="mt-4 text-leyenda text-humo">{caso.prueba}</p>
+              </div>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <p class="aparece mt-14 max-w-2xl border-t border-[var(--linea)] pt-10 text-subtitulo text-escarcha">
+      {t.negocio.cierre}
+    </p>
+  </div>
+</section>
+
+<script>
+  // "Antes" se tipea letra por letra y, al terminar, encadena "después" —
+  // mismo patrón STATED → SIMULATED de aaru.com, en vanilla JS.
+  function escribir(el: HTMLElement, texto: string, alTerminar?: () => void) {
+    const paso = Math.max(1, Math.ceil(texto.length / 60));
+    let i = 0;
+    const id = window.setInterval(() => {
+      i += paso;
+      el.textContent = texto.slice(0, i);
+      if (i >= texto.length) {
+        window.clearInterval(id);
+        el.textContent = texto;
+        alTerminar?.();
+      }
+    }, 16);
+  }
+
+  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reducido) {
+    document.querySelectorAll<HTMLElement>("[data-fila-negocio]").forEach((fila) => {
+      const antes = fila.querySelector<HTMLElement>("[data-antes]");
+      const despues = fila.querySelector<HTMLElement>("[data-despues]");
+      if (!antes || !despues) return;
+
+      const textoAntes = antes.textContent?.trim() ?? "";
+      const textoDespues = despues.textContent?.trim() ?? "";
+
+      // Reserva el alto final antes de vaciar el texto: nada se mueve debajo mientras se tipea.
+      antes.style.minHeight = `${antes.offsetHeight}px`;
+      despues.style.minHeight = `${despues.offsetHeight}px`;
+      antes.textContent = "";
+      despues.textContent = "";
+
+      let escrito = false;
+      const observador = new IntersectionObserver(
+        ([entrada]) => {
+          if (!entrada?.isIntersecting || escrito) return;
+          escrito = true;
+          observador.disconnect();
+          escribir(antes, textoAntes, () => escribir(despues, textoDespues));
+        },
+        { threshold: 0.3 }
+      );
+      observador.observe(fila);
+    });
+  }
+</script>

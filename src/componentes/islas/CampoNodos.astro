@@ -1,0 +1,191 @@
+---
+import type { Workflow } from "../../datos/n8n";
+
+interface Props {
+  workflows: Workflow[];
+}
+
+const { workflows } = Astro.props;
+
+/**
+ * Cada punto del campo es un nodo real: se conserva su posición dentro del
+ * workflow y se coloca el workflow completo como un clúster de la grilla.
+ * Los datos van serializados en build time; el cliente solo dibuja.
+ */
+const COLUMNAS = 3;
+
+const campo = workflows.map((workflow, indice) => ({
+  cx: (indice % COLUMNAS) / (COLUMNAS - 1),
+  cy: Math.floor(indice / COLUMNAS) / (Math.ceil(workflows.length / COLUMNAS) - 1),
+  puntos: workflow.puntos.map((punto) => [punto.x, punto.y] as const),
+  aristas: workflow.aristas,
+}));
+
+const datos = JSON.stringify(campo);
+---
+
+<canvas
+  id="campo-nodos"
+  data-campo={datos}
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-0 h-full w-full"></canvas>
+
+<script>
+  /**
+   * El campo se anima con rAF y una interpolación propia. Se evaluó GSAP con
+   * ScrollTrigger: son 116 KB de JS para una animación de opacidad y mezcla,
+   * y el brief pide performance real en Lighthouse.
+   */
+  interface Clúster {
+    cx: number;
+    cy: number;
+    puntos: [number, number][];
+    aristas: [number, number][];
+  }
+
+  const lienzo = document.querySelector<HTMLCanvasElement>("#campo-nodos");
+  const contexto = lienzo?.getContext("2d");
+  const bruto = lienzo?.dataset.campo;
+
+  if (lienzo && contexto && bruto) {
+    const clusteres = JSON.parse(bruto) as Clúster[];
+    const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Dispersión inicial determinista: mismo render en cada carga.
+    let semilla = 7;
+    const azar = () => {
+      semilla = (semilla * 1664525 + 1013904223) % 4294967296;
+      return semilla / 4294967296;
+    };
+
+    interface Punto {
+      destinoX: number;
+      destinoY: number;
+      origenX: number;
+      origenY: number;
+      x: number;
+      y: number;
+      fase: number;
+    }
+
+    const puntos: Punto[] = [];
+    const aristas: [number, number][] = [];
+
+    for (const clúster of clusteres) {
+      const base = puntos.length;
+      for (const [px, py] of clúster.puntos) {
+        puntos.push({
+          destinoX: 0.08 + (clúster.cx * 0.84 + (px - 0.5) * 0.24),
+          destinoY: 0.1 + (clúster.cy * 0.8 + (py - 0.5) * 0.2),
+          origenX: azar(),
+          origenY: azar(),
+          x: 0,
+          y: 0,
+          fase: azar() * Math.PI * 2,
+        });
+      }
+      for (const [desde, hasta] of clúster.aristas) {
+        aristas.push([base + desde, base + hasta]);
+      }
+    }
+
+    const estado = { mezcla: reducido ? 1 : 0, opacidad: reducido ? 1 : 0, deriva: 0 };
+    let ancho = 0;
+    let alto = 0;
+
+    function redimensionar() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const caja = lienzo!.getBoundingClientRect();
+      ancho = caja.width;
+      alto = caja.height;
+      lienzo!.width = Math.round(ancho * dpr);
+      lienzo!.height = Math.round(alto * dpr);
+      contexto!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function dibujar() {
+      contexto!.clearRect(0, 0, ancho, alto);
+      if (estado.opacidad <= 0.001) return;
+
+      for (const punto of puntos) {
+        const mx = punto.origenX + (punto.destinoX - punto.origenX) * estado.mezcla;
+        const my = punto.origenY + (punto.destinoY - punto.origenY) * estado.mezcla;
+        punto.x = mx * ancho + Math.sin(estado.deriva + punto.fase) * 4;
+        punto.y = my * alto + Math.cos(estado.deriva * 0.8 + punto.fase) * 4;
+      }
+
+      contexto!.strokeStyle = `rgba(255, 255, 255, ${0.14 * estado.opacidad * estado.mezcla})`;
+      contexto!.lineWidth = 1;
+      contexto!.beginPath();
+      for (const [desde, hasta] of aristas) {
+        const a = puntos[desde];
+        const b = puntos[hasta];
+        if (!a || !b) continue;
+        contexto!.moveTo(a.x, a.y);
+        contexto!.lineTo(b.x, b.y);
+      }
+      contexto!.stroke();
+
+      contexto!.fillStyle = `rgba(255, 255, 255, ${0.62 * estado.opacidad})`;
+      for (const punto of puntos) {
+        contexto!.fillRect(punto.x - 1, punto.y - 1, 2, 2);
+      }
+
+      // Un solo nodo en Reactor Lime: marca el inicio del flujo.
+      const primero = puntos[0];
+      if (primero) {
+        contexto!.fillStyle = `rgba(235, 251, 16, ${estado.opacidad})`;
+        contexto!.fillRect(primero.x - 1.5, primero.y - 1.5, 3, 3);
+      }
+    }
+
+    redimensionar();
+    dibujar();
+    window.addEventListener("resize", () => {
+      redimensionar();
+      dibujar();
+    });
+
+    if (!reducido) {
+      const seccion = lienzo.parentElement ?? lienzo;
+      const DURACION_ENTRADA = 2400;
+      const suavizar = (valor: number) =>
+        valor < 0.5 ? 4 * valor ** 3 : 1 - (-2 * valor + 2) ** 3 / 2;
+
+      let inicio: number | null = null;
+      let visible = true;
+      let corriendo = false;
+
+      // Se deja de dibujar en cuanto el hero sale de pantalla: cero CPU al scrollear.
+      new IntersectionObserver(
+        ([entrada]) => {
+          visible = entrada?.isIntersecting ?? false;
+          if (visible && !corriendo) {
+            corriendo = true;
+            requestAnimationFrame(animar);
+          }
+        },
+        { threshold: 0 }
+      ).observe(seccion);
+
+      function animar(ahora: number) {
+        inicio ??= ahora;
+        const progreso = Math.min((ahora - inicio) / DURACION_ENTRADA, 1);
+
+        estado.mezcla = suavizar(progreso);
+        estado.deriva += 0.004;
+
+        // Al scrollear, el campo cede el protagonismo al texto.
+        const salida = Math.min(Math.max(-seccion.getBoundingClientRect().top / window.innerHeight, 0), 1);
+        estado.opacidad = Math.min(progreso * 2, 1) * (1 - salida * 0.82);
+
+        dibujar();
+        corriendo = visible;
+        if (visible) requestAnimationFrame(animar);
+      }
+
+      corriendo = true;
+      requestAnimationFrame(animar);
+    }
+  }
+</script>

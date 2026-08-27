@@ -1,0 +1,85 @@
+---
+import { SITIO, LOCALES, rutaIdioma, type Idioma } from "../../datos/sitio";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+
+const inicio = `${SITIO.url}${rutaIdioma(idioma, "/") === "/" ? "" : rutaIdioma(idioma, "/")}`;
+const idPersona = `${SITIO.url}/#persona`;
+
+/** Un único bloque JSON-LD para todo el sitio: Person, WebSite y los proyectos. */
+const grafo = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": idPersona,
+      name: SITIO.nombre,
+      jobTitle: SITIO.rol,
+      email: `mailto:${SITIO.email}`,
+      telephone: SITIO.telefonoEnlace,
+      url: SITIO.url,
+      image: new URL(SITIO.imagenOg, SITIO.url).href,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Lima",
+        addressCountry: "PE",
+      },
+      sameAs: [SITIO.linkedin, SITIO.github],
+      knowsAbout: [
+        "n8n",
+        "Automatización con IA",
+        "Next.js",
+        "Astro",
+        "TypeScript",
+        "Telegram Bot API",
+        "OpenAI API",
+        "MongoDB",
+        "Supabase",
+      ],
+      knowsLanguage: ["es", "en"],
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${SITIO.url}/#sitio`,
+      url: SITIO.url,
+      name: SITIO.nombre,
+      inLanguage: LOCALES[idioma],
+      description: t.meta.descripcion,
+      publisher: { "@id": idPersona },
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": `${SITIO.url}/#servicio`,
+      name: `${SITIO.nombre} — desarrollo y automatización`,
+      url: inicio || SITIO.url,
+      founder: { "@id": idPersona },
+      areaServed: "Global",
+      availableLanguage: ["es", "en"],
+      serviceType: [
+        "Automatización de procesos con n8n",
+        "Desarrollo web full-stack",
+        "Integración de IA en producto",
+      ],
+    },
+    ...t.proyectos.lista
+      .filter((proyecto) => proyecto.urlVivo)
+      .map((proyecto) => ({
+        "@type": "SoftwareApplication",
+        name: proyecto.titulo,
+        applicationCategory: "BusinessApplication",
+        url: proyecto.urlVivo,
+        description: proyecto.resultado,
+        operatingSystem: "Web",
+        author: { "@id": idPersona },
+      })),
+  ],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(grafo).replace(/</g, "\\u003c")} is:inline />

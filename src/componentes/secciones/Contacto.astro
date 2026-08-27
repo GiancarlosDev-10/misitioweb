@@ -1,0 +1,58 @@
+---
+import LluviaCodigo from "../islas/LluviaCodigo.astro";
+import { SITIO, type Idioma } from "../../datos/sitio";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+
+const canales = [
+  { etiqueta: t.contacto.email, valor: SITIO.email, href: `mailto:${SITIO.email}` },
+  { etiqueta: t.contacto.telefono, valor: SITIO.telefono, href: `tel:${SITIO.telefonoEnlace}` },
+  { etiqueta: t.contacto.linkedin, valor: "in/giancarlos-ormeno", href: SITIO.linkedin },
+  { etiqueta: t.contacto.github, valor: "GiancarlosDev-10", href: SITIO.github },
+];
+---
+
+<section id="contacto" class="relative overflow-hidden py-24 md:py-32">
+  <LluviaCodigo opacidad={0.5} />
+
+  <div class="contenedor relative z-10">
+    <div class="aparece max-w-3xl">
+      <p class="etiqueta text-humo">{t.contacto.eyebrow}</p>
+      <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo-lg">{t.contacto.titulo}</h2>
+      <p class="mt-5 max-w-xl text-cuerpo font-[400] text-ceniza">{t.contacto.bajada}</p>
+
+      <a
+        href={`mailto:${SITIO.email}`}
+        class="etiqueta boton-lima mt-9 inline-block rounded-none bg-lima px-6 py-3 text-vacio"
+      >
+        {t.contacto.cta}
+      </a>
+    </div>
+
+    <dl class="aparece mt-16 grid gap-px border-t border-[var(--linea)] md:grid-cols-4">
+      {
+        canales.map((canal) => (
+          <div class="border-r border-[var(--linea)] pr-4 pt-6 last:border-r-0">
+            <dt class="etiqueta text-pizarra">{canal.etiqueta}</dt>
+            <dd class="mt-2">
+              <a
+                href={canal.href}
+                target={canal.href.startsWith("http") ? "_blank" : undefined}
+                rel={canal.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                class="enlace-subrayado text-cuerpo text-escarcha"
+              >
+                {canal.valor}
+              </a>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
