@@ -6,16 +6,6 @@ Los conteos de workflows, los nodos y los badges de tecnología **no están escr
 se leen en build time desde los JSON públicos de
 [GiancarlosDev-10/n8n-workflows](https://github.com/GiancarlosDev-10/n8n-workflows).
 
-## Documentación de origen
-
-`docs/` guarda el material con el que se construyó el sitio, para que cualquier cambio posterior
-mantenga el mismo criterio:
-
-- `BRIEF.md` — brief del proyecto: audiencias, contenido, arquitectura y requisitos. Fuente de verdad.
-- `AARU.md` — sistema de diseño de referencia (color, tipografía, densidad, movimiento).
-- `GIGA.md` — referencia de arquitectura de información, solo estructura.
-- `PLAN-DISENO.md` — plan de diseño, autocrítica y los datos que se verificaron o se descartaron.
-
 ## Requisitos
 
 - [Bun](https://bun.sh) >= 1.3
