@@ -7,6 +7,9 @@ import { SITIO } from "./src/datos/sitio";
 export default defineConfig({
   site: SITIO.url,
   trailingSlash: "never",
+  build: {
+    inlineStylesheets: "always",
+  },
   integrations: [
     sitemap({
       i18n: {

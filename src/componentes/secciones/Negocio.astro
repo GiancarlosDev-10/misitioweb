@@ -75,20 +75,35 @@ const t = contenido(idioma);
   const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   if (!reducido) {
-    document.querySelectorAll<HTMLElement>("[data-fila-negocio]").forEach((fila) => {
-      const antes = fila.querySelector<HTMLElement>("[data-antes]");
-      const despues = fila.querySelector<HTMLElement>("[data-despues]");
-      if (!antes || !despues) return;
+    // Fase de lectura: todas las mediciones de layout antes de tocar el DOM,
+    // para no intercalar lecturas y escrituras (evita reflow forzado).
+    const filas = Array.from(document.querySelectorAll<HTMLElement>("[data-fila-negocio]"))
+      .map((fila) => {
+        const antes = fila.querySelector<HTMLElement>("[data-antes]");
+        const despues = fila.querySelector<HTMLElement>("[data-despues]");
+        if (!antes || !despues) return null;
+        return {
+          fila,
+          antes,
+          despues,
+          textoAntes: antes.textContent?.trim() ?? "",
+          textoDespues: despues.textContent?.trim() ?? "",
+          altoAntes: antes.offsetHeight,
+          altoDespues: despues.offsetHeight,
+        };
+      })
+      .filter((f): f is NonNullable<typeof f> => f !== null);
 
-      const textoAntes = antes.textContent?.trim() ?? "";
-      const textoDespues = despues.textContent?.trim() ?? "";
-
-      // Reserva el alto final antes de vaciar el texto: nada se mueve debajo mientras se tipea.
-      antes.style.minHeight = `${antes.offsetHeight}px`;
-      despues.style.minHeight = `${despues.offsetHeight}px`;
+    // Fase de escritura: reserva el alto final antes de vaciar el texto,
+    // así nada se mueve debajo mientras se tipea.
+    for (const { antes, despues, altoAntes, altoDespues } of filas) {
+      antes.style.minHeight = `${altoAntes}px`;
+      despues.style.minHeight = `${altoDespues}px`;
       antes.textContent = "";
       despues.textContent = "";
+    }
 
+    for (const { fila, antes, despues, textoAntes, textoDespues } of filas) {
       let escrito = false;
       const observador = new IntersectionObserver(
         ([entrada]) => {
@@ -100,6 +115,6 @@ const t = contenido(idioma);
         { threshold: 0.3 }
       );
       observador.observe(fila);
-    });
+    }
   }
 </script>
