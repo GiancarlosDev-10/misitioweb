@@ -1,6 +1,6 @@
 # Portafolio — Giancarlos Ormeño
 
-Sitio estático en Astro. Español por defecto en `/`, inglés en `/en`.
+Mi sitio web en Español por defecto en `/`, inglés en `/en`.
 
 Los conteos de workflows, los nodos y los badges de tecnología **no están escritos a mano**:
 se leen en build time desde los JSON públicos de
