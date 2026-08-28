@@ -13,10 +13,10 @@ const t = contenido(idioma);
 const { workflows, totalWorkflows, totalNodos } = await obtenerResumen();
 
 const metricas = [
-  { valor: String(totalWorkflows), texto: t.hero.metricas.workflows },
-  { valor: String(totalNodos), texto: t.hero.metricas.nodos },
-  { valor: "5", texto: t.hero.metricas.productos },
-  { valor: "10+", texto: t.hero.metricas.años },
+  { valor: `+${totalWorkflows}`, texto: t.hero.metricas.workflows },
+  { valor: `+${totalNodos}`, texto: t.hero.metricas.nodos },
+  { valor: "+5", texto: t.hero.metricas.productos },
+  { valor: "+10", texto: t.hero.metricas.años },
 ];
 ---
 
@@ -60,8 +60,7 @@ const metricas = [
         {t.hero.ctaCV}
       </a>
     </div>
-
-    <dl id="metricas-hero" class="mt-16 grid grid-cols-2 gap-px border-t border-[var(--linea)] md:grid-cols-4">
+    <dl id="metricas-hero" class="mt-8 grid grid-cols-2 gap-px border-t border-[var(--linea)] md:grid-cols-4">
       {
         metricas.map((metrica) => (
           <div class="border-r border-[var(--linea)] pr-4 pt-6 last:border-r-0 md:pt-8">
@@ -73,8 +72,6 @@ const metricas = [
         ))
       }
     </dl>
-
-    <p class="mt-10 max-w-md text-leyenda text-pizarra">{t.hero.leyendaCampo}</p>
   </div>
 </section>
 
@@ -86,16 +83,17 @@ const metricas = [
   if (contenedor && !reducido) {
     const cifras = Array.from(contenedor.querySelectorAll<HTMLElement>("[data-valor]")).map((el) => {
       const bruto = el.dataset.valor ?? "0";
-      const coincidencia = bruto.match(/^(\d+)(.*)$/);
+      const coincidencia = bruto.match(/^(\D*)(\d+)(.*)$/);
       return {
         el,
-        numero: coincidencia ? Number(coincidencia[1]) : 0,
-        sufijo: coincidencia ? coincidencia[2] : "",
+        prefijo: coincidencia ? coincidencia[1] : "",
+        numero: coincidencia ? Number(coincidencia[2]) : 0,
+        sufijo: coincidencia ? coincidencia[3] : "",
       };
     });
 
-    cifras.forEach(({ el, sufijo }) => {
-      el.textContent = `0${sufijo}`;
+    cifras.forEach(({ el, prefijo, sufijo }) => {
+      el.textContent = `${prefijo}0${sufijo}`;
     });
 
     const suavizar = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -113,8 +111,8 @@ const metricas = [
           inicio ??= ahora;
           const progreso = Math.min((ahora - inicio) / DURACION, 1);
           const avance = suavizar(progreso);
-          for (const { el, numero, sufijo } of cifras) {
-            el.textContent = `${Math.round(numero * avance)}${sufijo}`;
+          for (const { el, prefijo, numero, sufijo } of cifras) {
+            el.textContent = `${prefijo}${Math.round(numero * avance)}${sufijo}`;
           }
           if (progreso < 1) requestAnimationFrame(paso);
         }

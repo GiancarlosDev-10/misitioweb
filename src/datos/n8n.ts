@@ -63,13 +63,13 @@ export const REGISTRO_WORKFLOWS = [
   {
     id: "karlant-informes",
     caso: "workflows",
-    nombre: { es: "KARLANT · informes médicos con GPT-4o", en: "KARLANT · medical reports with GPT-4o" },
+    nombre: { es: "Informes médicos con GPT-4o", en: "KARLANT · medical reports with GPT-4o" },
     ruta: "karlant-informes-medicos/workflow.json",
   },
   {
     id: "karlant-sigeps",
     caso: "workflows",
-    nombre: { es: "KARLANT · descarga masiva SIGEPS", en: "KARLANT · SIGEPS bulk download" },
+    nombre: { es: "Descarga masiva de documentos sector salud", en: "KARLANT · SIGEPS bulk download" },
     ruta: "karlant-sigeps-pdfs/workflow.json",
   },
 ] as const;
@@ -216,9 +216,7 @@ async function guardar(ruta: string, contenido: string): Promise<void> {
 let enCurso: Promise<Workflow[]> | null = null;
 
 /**
- * Workflows resueltos en build time. Orden de preferencia: caché fresca en
- * disco → descarga desde GitHub → instantánea versionada en el repo. Una caída
- * de GitHub no rompe el deploy.
+ * Workflows resueltos en build time.
  */
 export function obtenerWorkflows(): Promise<Workflow[]> {
   enCurso ??= (async () => {

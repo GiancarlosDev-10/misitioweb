@@ -1,7 +1,7 @@
 {
   "meta": {
     "titulo": "Giancarlos Ormeño — Full-Stack & Automation Developer",
-    "descripcion": "Construyo sistemas web y automatizaciones con IA que corren en producción: un sistema académico completo con reconocimiento facial y bots de Telegram, y 9 workflows de n8n publicados y auditables.",
+    "descripcion": "Construyo sistemas web y automatizaciones con IA en producción: reconocimiento facial, bots de Telegram y 9 workflows de n8n publicados y auditables.",
     "tituloOg": "Giancarlos Ormeño — sistemas en producción, no demos"
   },
   "nav": {
@@ -22,47 +22,46 @@
     "enlace": "Escríbeme"
   },
   "hero": {
-    "eyebrow": "Full-Stack & Automation Developer · Lima, Perú — remoto",
-    "titular": "Construí el sistema con el que un colegio toma asistencia por reconocimiento facial y avisa a cada apoderado por Telegram.",
-    "bajada": "Diseño, programo y despliego productos web completos y automatizaciones con IA. Todo lo que hay en esta página está en producción con usuarios reales y cada número enlaza al artefacto que lo respalda.",
+    "eyebrow": "Full-Stack & Automation Developer · Lima, Perú",
+    "titular": "Construí la solución completa con la que un colegio toma asistencia por reconocimiento facial y notifica a cada apoderado para sentirse seguro.",
+    "bajada": "Diseño y desarrollo de sistemas web y automatizaciones con IA que llegan a producción y resuelven problemas reales. Lo que ves acá, es lo que hago todos los días. Bienvenido.",
     "cta": "Hablemos de tu proyecto",
     "ctaSecundario": "Ver los workflows en GitHub",
     "ctaLinkedin": "Ver LinkedIn",
     "ctaCV": "Descargar CV",
-    "leyendaCampo": "Cada punto es un nodo real de mis workflows publicados, en su posición original.",
     "metricas": {
       "workflows": "workflows en producción, publicados y auditables",
       "nodos": "nodos de automatización que puedes revisar uno por uno",
       "productos": "productos web desplegados y en uso",
-      "años": "años en seguridad en la Fuerza Aérea del Perú"
+      "años": "años en seguridad, Fuerza Aérea del Perú"
     }
   },
   "pipeline": {
     "eyebrow": "Cómo funciona, en producción",
-    "titulo": "Del reconocimiento facial al aviso en Telegram, sin que nadie intervenga.",
+    "titulo": "Del reconocimiento facial al aviso en segundos, sin que nadie intervenga.",
     "pasos": [
       {
         "titulo": "La cámara reconoce al alumno",
-        "detalle": "El navegador captura un frame cada 500 ms y lo envía al servicio de reconocimiento facial en el VPS."
+        "detalle": "El sistema lo identifica en tiempo real y registra su asistencia."
       },
       {
-        "titulo": "El sistema guarda la asistencia",
-        "detalle": "El servicio identifica al alumno, guarda el encoding de 128 dimensiones y registra la marca contra MongoDB."
+        "titulo": "El sistema guarda su asistencia",
+        "detalle": "Con esto, el profesor automatiza este proceso, todos los días."
       },
       {
-        "titulo": "El apoderado recibe el aviso",
-        "detalle": "El bot de Telegram notifica automáticamente al apoderado en el momento en que el sistema detecta el ingreso."
+        "titulo": "El apoderado recibe la notificación",
+        "detalle": "Recibe el aviso y tiene la seguridad de que el alumno está en su aula."
       }
     ]
   },
   "proyectos": {
-    "eyebrow": "Casos de estudio",
+    "eyebrow": "Proyectos",
     "titulo": "Seis sistemas, todos en producción.",
-    "bajada": "El problema y el resultado están siempre a la vista. El detalle técnico se abre si te interesa.",
+    "bajada": "Eso sí, no todos los que he hecho se muestran aquí — tú sabes. El detalle técnico se abre si te interesa.",
     "verTecnico": "Detalle técnico",
     "cerrarDetalle": "Cerrar detalle técnico",
     "problema": "Problema",
-    "resultado": "Resultado",
+    "resultado": "Propuesta de valor",
     "stack": "Stack",
     "arquitectura": "Arquitectura",
     "nodos": "nodos",
@@ -75,18 +74,18 @@
         "id": "colegio",
         "titulo": "Sistema de Gestión Académica — Colegio Juan Velasco Alvarado",
         "cliente": "Colegio privado en Perú · desarrollado íntegramente por mí",
-        "problema": "Un colegio llevaba matrículas, notas, horarios y asistencia en planillas sueltas, y cada aviso a un apoderado dependía de que alguien se acordara de llamar.",
-        "resultado": "Un solo sistema en producción: el administrador gestiona matrículas y secciones, el profesor registra notas y asistencia, la cámara reconoce al alumno al entrar y el apoderado recibe el aviso en Telegram sin que nadie intervenga.",
+        "problema": "Este colegio llevaba matrículas, notas, horarios y asistencia en planillas sueltas, y no había forma de avisar al apoderado si el alumno había llegado.",
+        "resultado": "Un solo sistema: información académica centralizada y notificaciones automáticas diarias. Seguridad y confianza.",
         "modulos": [
           "Panel de administrador: usuarios, estudiantes, matrículas, secciones y periodos académicos",
           "Panel de profesor: registro de calificaciones, control de asistencia y horario semanal",
           "Asistencia biométrica: la cámara envía frames al servicio de reconocimiento y la marca se registra sola",
           "Bot de notificación a apoderados: aviso automático por Telegram al detectar el ingreso",
           "Bot de consulta de notas para docentes: autenticación por PIN y AI Agent con tool calling",
-          "Bot de ayuda del sistema: reemplaza el manual estático y acepta preguntas por audio (Whisper)",
+          "Bot de ayuda del sistema: reemplaza el manual estático y acepta preguntas por audio",
           "Bot de vinculación de apoderados: verificación por DNI antes de habilitar notificaciones"
         ],
-        "arquitectura": "Arquitectura por módulos con dominio, aplicación, infraestructura y presentación separados (estudiantes, asistencia, notas, matrículas, horarios, telegram y ocho módulos más). El reconocimiento facial vive fuera del app: el navegador captura un frame cada 500 ms y lo manda al servicio en el VPS, que devuelve el alumno identificado y guarda el encoding de 128 dimensiones contra MongoDB.",
+        "arquitectura": "Arquitectura con módulos separados (estudiantes, asistencia, notas, matrículas, horarios, telegram y ocho módulos más). El reconocimiento facial vive fuera del app: el navegador captura un frame cada 500 ms y lo manda al servicio en el VPS, que devuelve el alumno identificado.",
         "stack": ["Next.js 16", "React 19", "MongoDB Atlas", "NextAuth v5", "n8n", "Telegram Bot API", "OpenAI GPT-4o-mini", "Whisper", "Reconocimiento facial (VPS)", "Vercel", "Hostinger VPS"],
         "urlVivo": "https://colegio-juan-velasco.vercel.app/auth/login",
         "urlRepo": "https://github.com/GiancarlosDev-10/final_proyect"
@@ -96,7 +95,7 @@
         "titulo": "App URE — PWA de estudio con IA",
         "cliente": "Producto propio, con usuarios",
         "problema": "Estudiar un material largo sin nadie que te tome la lección: leerlo otra vez no dice si de verdad lo entendiste.",
-        "resultado": "Una PWA instalable donde el administrador sube el material y la IA genera preguntas sobre ese material, corrige la respuesta al instante y lleva el consumo de cada usuario con alerta al acercarse al límite.",
+        "resultado": "Una PWA instalable: se sube el material, la IA genera preguntas usándolo como única fuente y corrige al instante — con control de uso por usuario.",
         "modulos": [
           "Generación de preguntas con OpenAI en JSON mode, validada con Zod antes de mostrarse",
           "Corrección inmediata con feedback, sin revelar la respuesta al generar",
@@ -112,14 +111,14 @@
       {
         "id": "workflows",
         "titulo": "Workflows de n8n — open source",
-        "cliente": "Repositorio público · cinco proyectos de cliente",
-        "problema": "Casi nadie puede probar que sus automatizaciones existen: se quedan dentro de la cuenta del cliente y hay que creerle al que las cuenta.",
-        "resultado": "Publiqué los flujos con los tokens reemplazados por placeholders, cada uno con su README y su diagrama. Puedes importarlos a tu n8n y ver exactamente cómo funcionan.",
+        "cliente": "Repositorio público · algunos en privado",
+        "problema": "Casi nadie puede probar que sus automatizaciones funcionan: la gran mayoría se quedan dentro de la cuenta del cliente sin poder demostrar su funcionalidad.",
+        "resultado": "Publiqué los flujos sin exponer datos sensibles, cada uno con su README y su diagrama. Puedes importarlos a tu n8n y ver exactamente cómo funcionan.",
         "modulos": [
           "Bot de cotizaciones inmobiliarias — cliente en México: guía al vendedor en 14 pasos, calcula montos según la modalidad de pago y devuelve un PDF terminado (incluye variante que acepta audio)",
-          "Pipeline de analytics de Instagram — para una cuenta ancla de +95K seguidores: +400 publicaciones históricas, métricas por hora, día y tipo de contenido, y análisis semántico de captions (tema, hook, emoción, estructura narrativa)",
-          "KARLANT · informes médicos — borradores de informes radiológicos generados con GPT-4o e insertados en la plantilla de Google Docs, con control de estado para no duplicar",
-          "KARLANT · SIGEPS — descarga masiva de PDFs de un portal estatal de salud con Playwright, validación de sesión, manejo de error por fila y sincronización a Drive",
+          "Pipeline de analytics de Instagram — para una cuenta ancla de +95K seguidores: +400 publicaciones históricas, métricas por hora, día y tipo de contenido, y análisis semántico de captions (tema, emoción, estructura narrativa)",
+          "Informes médicos — borradores de informes radiológicos generados con GPT-4o e insertados en la plantilla de Google Docs, con control de estado para no duplicar",
+          "Sistema SIGEPS — descarga masiva de PDFs de un portal estatal con Playwright, validación de sesión, manejo de error por fila y sincronización a Drive",
           "Sistema de bots del colegio — los cuatro flujos del proyecto anterior, también publicados"
         ],
         "arquitectura": "Los conteos de nodos y las tecnologías de esta página no están escritos a mano: se leen de estos mismos JSON en build time y los badges se derivan del campo type de cada nodo.",
@@ -131,15 +130,15 @@
         "id": "analia",
         "titulo": "analiacamarda.com — e-commerce bilingüe de productos digitales",
         "cliente": "Desarrollo full-stack de punta a punta",
-        "problema": "Vender PDFs y suscripciones sin un sistema significa cobrar a mano y mandar el archivo por correo, uno por uno.",
-        "resultado": "Sitio bilingüe donde el pago dispara la entrega: el webhook confirma la compra y el comprador recibe el enlace de descarga, con el archivo guardado en almacenamiento privado y servido por un proxy que valida en el servidor.",
+        "problema": "Vender libros online y suscripciones sin visibilidad, limitándose solo a redes sociales.",
+        "resultado": "Sitio bilingüe donde el pago dispara la entrega: el webhook confirma la compra y el comprador recibe el enlace al instante, servido desde almacenamiento privado con validación server-side.",
         "modulos": [
           "Stripe con Payment Links, webhooks de entrega automática y suscripciones recurrentes, más PayPal",
           "Vercel Blob privado y proxy de descarga con autorización del lado del servidor",
-          "Emails transaccionales con Resend sobre dominio propio (DKIM, SPF, MX)",
+          "Emails transaccionales con Resend sobre dominio propio",
           "SEO completo: canonical, hreflang, Schema JSON-LD y llms.txt para crawlers de IA"
         ],
-        "arquitectura": "Astro con islas mínimas para que el contenido siga siendo HTML estático, y Tailwind v4 con tokens propios.",
+        "arquitectura": "Astro con islas mínimas para que el contenido siga siendo estático, y Tailwind v4 con tokens propios.",
         "stack": ["Astro v6", "Tailwind CSS v4", "TypeScript", "Stripe", "PayPal", "Vercel Blob", "Resend", "GoDaddy DNS"],
         "urlVivo": "https://analiacamarda.com",
         "urlRepo": "https://github.com/GiancarlosDev-10/analiacamarda"
@@ -149,14 +148,13 @@
         "titulo": "L'Atelier d'Ana — repostería casera con pedidos por WhatsApp",
         "cliente": "Repostería en Lima · desarrollado íntegramente por mí",
         "problema": "Ana horneaba por encargo pero no tenía carta digital: cada pedido pasaba por explicar el menú completo y los precios por chat, uno por uno.",
-        "resultado": "Un catálogo con la carta completa, precios en soles y un botón directo a WhatsApp por producto — el cliente ve la carta, elige y pide sin ida y vuelta.",
+        "resultado": "Una landing page con catálogo completo, precios en soles y un botón directo a WhatsApp por producto — el cliente ve la carta, elige y pide sin ida y vuelta.",
         "modulos": [
           "Carta de productos filtrable por categoría (Clásicos, Especiales, Premium)",
           "Ficha por producto con descripción, precio en soles y botón directo a WhatsApp",
-          "Sección \"Sobre Ana\" y reseñas de clientes",
-          "Sitio 100% estático, sin backend ni base de datos"
+          "Sección \"Sobre Ana\" y reseñas de clientes"
         ],
-        "arquitectura": "Astro con Tailwind, con el mínimo de JavaScript de cliente posible — la carta y los precios son contenido estático, y el botón de pedido es un link directo a WhatsApp sin automatización detrás.",
+        "arquitectura": "Astro con Tailwind y transiciones top — la carta y los precios son contenido estático, y el botón de pedido es un link directo a WhatsApp sin automatización detrás.",
         "stack": ["Astro", "TypeScript", "CSS", "Vercel"],
         "urlVivo": "https://latelier-d-ana.vercel.app/",
         "urlRepo": "https://github.com/GiancarlosDev-10/latelier-d-Ana"
@@ -166,7 +164,7 @@
         "titulo": "Pablo — asistente financiero con IA en WhatsApp",
         "cliente": "Komu AI Software (Canadá, remoto) · trabajo en equipo",
         "problema": "Un producto con usuarios activos necesitaba que el onboarding y los cobros dejaran de depender de intervención manual.",
-        "resultado": "Diseñé los flujos de onboarding y las automatizaciones de pago en n8n para la segunda entrega, y participé en el frontend de la landing en Astro.",
+        "resultado": "Diseñé los flujos de onboarding y las automatizaciones de pago en n8n para la segunda entrega, y participé en el frontend de la landing.",
         "modulos": [
           "Flujos de onboarding de usuarios nuevos en n8n",
           "Automatizaciones de pago y control de estado de suscripción",
@@ -181,8 +179,8 @@
   },
   "negocio": {
     "eyebrow": "Para tu negocio",
-    "titulo": "Lo que automatizo suele ser lo que hoy le come el día a alguien de tu equipo.",
-    "bajada": "Cuatro casos reales, con el antes y el después que quedó funcionando.",
+    "titulo": "Lo que automatizo suele ser lo que hoy tu equipo realiza a mano.",
+    "bajada": "Casos reales, con el antes y el después que quedó funcionando.",
     "antes": "Hoy",
     "despues": "Después",
     "lista": [
@@ -190,32 +188,25 @@
         "titulo": "Cotizaciones armadas a mano",
         "delta": "de una tarde entera → minutos por Telegram",
         "antes": "El vendedor abre una plantilla, calcula el enganche y las mensualidades según la modalidad de pago y arma el PDF. Cada cotización se lleva parte de la tarde y cualquier distracción se convierte en un error de monto.",
-        "despues": "Responde 14 preguntas en Telegram y el bot devuelve el PDF ya calculado y con formato. El vendedor cotiza desde el celular, delante del cliente.",
+        "despues": "El bot responde y devuelve el PDF ya calculado y con formato. El vendedor cotiza desde el celular, delante del cliente.",
         "prueba": "Entregado a un desarrollador inmobiliario en México"
       },
       {
         "titulo": "Informes que se escriben desde cero",
         "delta": "de redactar todo → revisar y firmar",
-        "antes": "Cada informe radiológico se redacta completo aunque la estructura sea siempre la misma: técnica, hallazgos, conclusión.",
-        "despues": "El borrador llega generado dentro de la plantilla de Google Docs y el médico revisa y firma. El sistema marca lo ya procesado para no repetir estudios.",
-        "prueba": "En operación en una clínica de imágenes"
+        "antes": "Cada informe se redacta completo aunque la estructura sea siempre la misma: técnica, hallazgos, conclusión.",
+        "despues": "El borrador llega generado dentro de la plantilla y el médico revisa y firma. El sistema marca lo ya procesado para no repetir estudios.",
+        "prueba": "En apoyo al doctor de turno"
       },
       {
         "titulo": "Descargar expedientes uno por uno",
         "delta": "de uno por uno → por lotes, automático",
         "antes": "Alguien entra al portal estatal de salud, busca cada expediente y descarga el PDF a mano, sesión tras sesión.",
         "despues": "Un flujo con Playwright valida la sesión, descarga por lotes, maneja el error fila por fila y deja todo ordenado en Drive.",
-        "prueba": "Automatización en producción sobre el portal SIGEPS"
-      },
-      {
-        "titulo": "Consultas que interrumpen todo el día",
-        "delta": "de una persona respondiendo todo el día → bots 24/7",
-        "antes": "Docentes y apoderados preguntan por teléfono o WhatsApp por notas, asistencia y cómo se usa el sistema; siempre hay una persona respondiendo lo mismo.",
-        "despues": "Bots de Telegram autenticados responden con los datos reales del sistema: notas con PIN para el docente, asistencia en el momento para el apoderado y ayuda del sistema por texto o audio.",
-        "prueba": "Cuatro bots en producción en el sistema del colegio"
+        "prueba": "Automatización de un portal del sector salud"
       }
     ],
-    "cierre": "Si algo de esto se parece a tu operación, dime en qué se te va el tiempo y te digo si vale la pena automatizarlo."
+    "cierre": "Si algo de esto te suena familiar, dime y vemos si vale la pena automatizarlo."
   },
   "experiencia": {
     "eyebrow": "Experiencia",
@@ -233,21 +224,21 @@
         "lugar": "Lima — remoto",
         "rol": "Full-Stack Developer",
         "periodo": "May — Jun 2026",
-        "detalle": "Rediseño del sistema de monitoreo de flotas: migración a Angular 19 y .NET 8."
+        "detalle": "Proyecto corto rediseñando el sistema de monitoreo de flotas: migración a Angular 19 y .NET"
       },
       {
         "empresa": "Fuerza Aérea del Perú",
         "lugar": "Perú",
         "rol": "Jefe de Sección de Comunicaciones e Informática",
-        "periodo": "Ene 2026 — presente · más de 10 años en seguridad",
-        "detalle": "Más de una década en seguridad; desde inicios de 2026, en un rol técnico de comunicaciones e informática. De esa trayectoria viene el criterio con el que construyo automatizaciones: manejo de error por caso, control de estado para no duplicar y sistemas que se explican solos cuando algo falla.",
+        "periodo": "Ene 2026 — presente",
+        "detalle": "Más de 10 años en seguridad; desde 2026, en un rol técnico de comunicaciones e informática — redes, sistemas y activos TI bajo estándares militares.",
         "cita": "El seniority no se mide solo en años de experiencia, sino en la decisión técnica que tomas y la responsabilidad que asumes cuando algo falla."
       }
     ]
   },
   "formacion": {
     "eyebrow": "Formación",
-    "texto": "Desarrollo de Sistemas de Información en IESTP Gilda Ballivián — ingreso en segundo puesto y primer lugar en 1.º, 3.º y 4.º ciclo. Certificaciones en Ciberseguridad (Cisco) y Scrum Fundamentals (SFC), más tracks de Platzi en Prompt Engineering, JavaScript, Claude AI, SEO y Next.js."
+    "texto": "Cursando el 6to Ciclo de la carrera de Desarrollo de Sistemas de Información en el IESTP Gilda Ballivián — segundo puesto de ingreso, primer lugar en cuatro ciclos. Certificado en ciberseguridad (Cisco) y Scrum (SFC); mi espíritu autodidacta hace de mí una gran apuesta para cualquier empresa que quiere contar conmigo."
   },
   "contacto": {
     "eyebrow": "Contacto",

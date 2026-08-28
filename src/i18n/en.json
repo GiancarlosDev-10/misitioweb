@@ -22,14 +22,13 @@
     "enlace": "Get in touch"
   },
   "hero": {
-    "eyebrow": "Full-Stack & Automation Developer · Lima, Peru — remote",
-    "titular": "I built the system a school uses to take attendance by facial recognition and notify every parent over Telegram.",
-    "bajada": "I design, build and ship complete web products and AI automations. Everything on this page runs in production with real users, and every number links to the artifact behind it.",
+    "eyebrow": "Full-Stack & Automation Developer · Lima, Peru",
+    "titular": "I built the complete solution a school uses to take attendance by facial recognition and notify every parent, so they can feel secure.",
+    "bajada": "I design and build web systems and AI automations that reach production and solve real problems. What you see here is what I do every day. Welcome.",
     "cta": "Let's talk about your project",
     "ctaSecundario": "See the workflows on GitHub",
     "ctaLinkedin": "View LinkedIn",
     "ctaCV": "Download resume",
-    "leyendaCampo": "Every dot is a real node from my published workflows, in its original position.",
     "metricas": {
       "workflows": "production workflows, published and auditable",
       "nodos": "automation nodes you can review one by one",
@@ -39,30 +38,30 @@
   },
   "pipeline": {
     "eyebrow": "How it works, in production",
-    "titulo": "From facial recognition to a Telegram notification, with nobody in the loop.",
+    "titulo": "From facial recognition to a notification in seconds, with nobody in the loop.",
     "pasos": [
       {
         "titulo": "The camera recognizes the student",
-        "detalle": "The browser captures a frame every 500 ms and sends it to the facial-recognition service on the VPS."
+        "detalle": "The system identifies them in real time and logs their attendance."
       },
       {
-        "titulo": "The system logs the attendance",
-        "detalle": "The service identifies the student, stores the 128-dimension encoding and writes the record to MongoDB."
+        "titulo": "The system logs their attendance",
+        "detalle": "This automates the process for the teacher, every day."
       },
       {
-        "titulo": "The parent gets notified",
-        "detalle": "The Telegram bot automatically notifies the parent the moment the system detects the student's arrival."
+        "titulo": "The parent gets the notification",
+        "detalle": "They get the notification and the certainty that the student is in class."
       }
     ]
   },
   "proyectos": {
-    "eyebrow": "Case studies",
+    "eyebrow": "Projects",
     "titulo": "Six systems, all in production.",
-    "bajada": "The problem and the outcome stay visible. The technical detail opens if you want it.",
+    "bajada": "That said, not everything I've built is shown here — you know how it goes. The technical detail opens if you're curious.",
     "verTecnico": "Technical detail",
     "cerrarDetalle": "Close technical detail",
     "problema": "Problem",
-    "resultado": "Outcome",
+    "resultado": "Value proposition",
     "stack": "Stack",
     "arquitectura": "Architecture",
     "nodos": "nodes",
@@ -75,18 +74,18 @@
         "id": "colegio",
         "titulo": "Academic Management System — Colegio Juan Velasco Alvarado",
         "cliente": "Private school in Peru · built entirely by me",
-        "problema": "The school kept enrollment, grades, schedules and attendance in scattered spreadsheets, and every message to a parent depended on someone remembering to call.",
-        "resultado": "One system in production: admins manage enrollment and sections, teachers record grades and attendance, the camera recognizes the student on arrival, and the parent gets a Telegram notification with nobody in the loop.",
+        "problema": "This school kept enrollment, grades, schedules and attendance in scattered spreadsheets, with no way to tell a parent whether their child had arrived.",
+        "resultado": "One system: centralized academic information and automatic daily notifications. Security and peace of mind.",
         "modulos": [
           "Admin panel: users, students, enrollment, sections and academic terms",
           "Teacher panel: grade entry, attendance control and weekly schedule",
           "Biometric attendance: the browser streams frames to the recognition service and the record is written automatically",
           "Parent notification bot: automatic Telegram message on detected arrival",
           "Grade lookup bot for teachers: PIN authentication and an AI Agent with tool calling",
-          "System help bot: replaces the static manual and accepts voice questions (Whisper)",
+          "System help bot: replaces the static manual and accepts voice questions",
           "Parent linking bot: ID verification before notifications are enabled"
         ],
-        "arquitectura": "Modular architecture with domain, application, infrastructure and presentation kept apart (students, attendance, grades, enrollment, schedules, telegram and eight more modules). Facial recognition lives outside the app: the browser captures a frame every 500 ms and posts it to the VPS service, which returns the identified student and stores the 128-dimension encoding against MongoDB.",
+        "arquitectura": "Architecture with separate modules (students, attendance, grades, enrollment, schedules, telegram and eight more modules). Facial recognition lives outside the app: the browser captures a frame every 500 ms and sends it to the VPS service, which returns the identified student.",
         "stack": ["Next.js 16", "React 19", "MongoDB Atlas", "NextAuth v5", "n8n", "Telegram Bot API", "OpenAI GPT-4o-mini", "Whisper", "Facial recognition (VPS)", "Vercel", "Hostinger VPS"],
         "urlVivo": "https://colegio-juan-velasco.vercel.app/auth/login",
         "urlRepo": "https://github.com/GiancarlosDev-10/final_proyect"
@@ -96,7 +95,7 @@
         "titulo": "App URE — AI study PWA",
         "cliente": "Own product, with users",
         "problema": "Studying long material with nobody to quiz you: rereading it never tells you whether you actually understood it.",
-        "resultado": "An installable PWA where the admin uploads the material and the AI generates questions from that material, grades the answer instantly and tracks each user's consumption with an alert as the limit approaches.",
+        "resultado": "An installable PWA: you upload the material, the AI generates questions using it as the only source and grades instantly — with per-user usage control.",
         "modulos": [
           "Question generation with OpenAI in JSON mode, validated with Zod before it reaches the user",
           "Instant grading with feedback, without revealing the answer at generation time",
@@ -112,14 +111,14 @@
       {
         "id": "workflows",
         "titulo": "n8n workflows — open source",
-        "cliente": "Public repository · five client projects",
-        "problema": "Almost nobody can prove their automations exist: they stay inside the client's account and you have to take their word for it.",
-        "resultado": "I published the flows with every token replaced by placeholders, each with its README and diagram. You can import them into your own n8n and see exactly how they work.",
+        "cliente": "Public repository · some kept private",
+        "problema": "Almost nobody can prove their automations actually work: most stay locked inside the client's account with no way to show they function.",
+        "resultado": "I published the flows without exposing sensitive data, each with its own README and diagram. You can import them into your own n8n and see exactly how they work.",
         "modulos": [
           "Real-estate quoting bot — client in Mexico: walks the salesperson through 14 steps, computes amounts by payment plan and returns a finished PDF (including a variant that accepts voice notes)",
-          "Instagram analytics pipeline — for an anchor account with 95K+ followers: 400+ historical posts, metrics by hour, day and content type, and semantic caption analysis (topic, hook, emotion, narrative structure)",
-          "KARLANT · medical reports — radiology report drafts generated with GPT-4o and inserted into the Google Docs template, with state tracking to avoid duplicates",
-          "KARLANT · SIGEPS — bulk PDF download from a government health portal with Playwright, session validation, per-row error handling and Drive sync",
+          "Instagram analytics pipeline — for an anchor account with 95K+ followers: 400+ historical posts, metrics by hour, day and content type, and semantic caption analysis (topic, emotion, narrative structure)",
+          "Medical reports — radiology report drafts generated with GPT-4o and inserted into the Google Docs template, with state tracking to avoid duplicates",
+          "SIGEPS system — bulk PDF download from a government portal with Playwright, session validation, per-row error handling and Drive sync",
           "School bot system — the four flows from the project above, also published"
         ],
         "arquitectura": "The node counts and technologies on this page are not hand-written: they are read from these very JSON files at build time and the badges are derived from each node's type field.",
@@ -131,15 +130,15 @@
         "id": "analia",
         "titulo": "analiacamarda.com — bilingual digital-products store",
         "cliente": "End-to-end full-stack build",
-        "problema": "Selling PDFs and subscriptions without a system means charging by hand and emailing the file, one customer at a time.",
-        "resultado": "A bilingual site where payment triggers delivery: the webhook confirms the purchase and the buyer receives the download link, with the file in private storage served through a proxy that authorizes server-side.",
+        "problema": "Selling books online and subscriptions with no visibility, limited to social media alone.",
+        "resultado": "A bilingual site where payment triggers delivery: the webhook confirms the purchase and the buyer gets the link instantly, served from private storage with server-side validation.",
         "modulos": [
           "Stripe with Payment Links, automatic delivery webhooks and recurring subscriptions, plus PayPal",
           "Private Vercel Blob storage and a download proxy with server-side authorization",
-          "Transactional email with Resend on the site's own domain (DKIM, SPF, MX)",
+          "Transactional email with Resend on the site's own domain",
           "Full SEO: canonical, hreflang, JSON-LD schema and llms.txt for AI crawlers"
         ],
-        "arquitectura": "Astro with minimal islands so the content stays static HTML, and Tailwind v4 with custom tokens.",
+        "arquitectura": "Astro with minimal islands so the content stays static, and Tailwind v4 with custom tokens.",
         "stack": ["Astro v6", "Tailwind CSS v4", "TypeScript", "Stripe", "PayPal", "Vercel Blob", "Resend", "GoDaddy DNS"],
         "urlVivo": "https://analiacamarda.com",
         "urlRepo": "https://github.com/GiancarlosDev-10/analiacamarda"
@@ -149,14 +148,13 @@
         "titulo": "L'Atelier d'Ana — home bakery with WhatsApp ordering",
         "cliente": "Home bakery in Lima · built entirely by me",
         "problema": "Ana baked to order but had no digital menu: every order meant explaining the full menu and prices over chat, one by one.",
-        "resultado": "A catalog with the full menu, prices in soles, and a direct WhatsApp button per product — the customer sees the menu, picks what they want, and orders without back-and-forth.",
+        "resultado": "A landing page with a full catalog, prices in soles, and a direct WhatsApp button per product — the customer sees the menu, picks what they want, and orders without back-and-forth.",
         "modulos": [
           "Product catalog filterable by category (Classics, Specials, Premium)",
           "Per-product card with description, price in soles, and a direct WhatsApp button",
-          "\"About Ana\" section and customer reviews",
-          "Fully static site, no backend or database"
+          "\"About Ana\" section and customer reviews"
         ],
-        "arquitectura": "Astro with Tailwind and minimal client-side JavaScript — the menu and prices are static content, and the order button is a plain WhatsApp link with no automation behind it.",
+        "arquitectura": "Astro with Tailwind and top-layer transitions — the menu and prices are static content, and the order button is a plain WhatsApp link with no automation behind it.",
         "stack": ["Astro", "TypeScript", "CSS", "Vercel"],
         "urlVivo": "https://latelier-d-ana.vercel.app/",
         "urlRepo": "https://github.com/GiancarlosDev-10/latelier-d-Ana"
@@ -166,7 +164,7 @@
         "titulo": "Pablo — AI financial assistant on WhatsApp",
         "cliente": "Komu AI Software (Canada, remote) · team work",
         "problema": "A product with active users needed onboarding and payments to stop depending on manual intervention.",
-        "resultado": "I designed the onboarding flows and payment automations in n8n for the second release, and contributed to the landing page frontend in Astro.",
+        "resultado": "I designed the onboarding flows and payment automations in n8n for the second release, and contributed to the landing page frontend.",
         "modulos": [
           "New-user onboarding flows in n8n",
           "Payment automations and subscription state handling",
@@ -181,8 +179,8 @@
   },
   "negocio": {
     "eyebrow": "For your business",
-    "titulo": "What I automate is usually what eats someone's whole day on your team.",
-    "bajada": "Four real cases, with the before and after that stayed running.",
+    "titulo": "What I automate is usually what your team does by hand today.",
+    "bajada": "Real cases, with the before and after that stuck.",
     "antes": "Today",
     "despues": "After",
     "lista": [
@@ -190,32 +188,25 @@
         "titulo": "Quotes assembled by hand",
         "delta": "from a full afternoon → minutes on Telegram",
         "antes": "The salesperson opens a template, works out the down payment and installments for each payment plan and builds the PDF. Every quote eats part of the afternoon and any distraction becomes a wrong number.",
-        "despues": "They answer 14 questions on Telegram and the bot returns the PDF already calculated and formatted. Quoting happens from a phone, in front of the client.",
+        "despues": "The bot answers and returns the PDF already calculated and formatted. Quoting happens from a phone, in front of the client.",
         "prueba": "Delivered to a real-estate developer in Mexico"
       },
       {
         "titulo": "Reports written from scratch",
         "delta": "from writing it all → reviewing and signing",
-        "antes": "Every radiology report is written in full even though the structure never changes: technique, findings, conclusion.",
-        "despues": "The draft arrives generated inside the Google Docs template and the doctor reviews and signs. The system marks what was already processed so no study is repeated.",
-        "prueba": "Running at an imaging clinic"
+        "antes": "Every report is written in full even though the structure never changes: technique, findings, conclusion.",
+        "despues": "The draft arrives generated inside the template and the doctor reviews and signs. The system marks what was already processed so no study is repeated.",
+        "prueba": "Supporting the doctor on duty"
       },
       {
         "titulo": "Downloading records one by one",
         "delta": "from one by one → automatic batches",
         "antes": "Someone logs into the government health portal, looks up each record and downloads the PDF by hand, session after session.",
         "despues": "A Playwright flow validates the session, downloads in batches, handles errors row by row and leaves everything organized in Drive.",
-        "prueba": "Automation in production against the SIGEPS portal"
-      },
-      {
-        "titulo": "Questions that interrupt all day",
-        "delta": "from one person answering all day → bots 24/7",
-        "antes": "Teachers and parents call or text about grades, attendance and how to use the system; there is always someone answering the same thing.",
-        "despues": "Authenticated Telegram bots answer with real system data: grades behind a PIN for teachers, live attendance for parents, and system help by text or voice.",
-        "prueba": "Four bots in production in the school system"
+        "prueba": "Automation for a healthcare-sector portal"
       }
     ],
-    "cierre": "If any of this looks like your operation, tell me where your time goes and I'll tell you whether automating it is worth it."
+    "cierre": "If any of this sounds familiar, tell me and we'll see if it's worth automating."
   },
   "experiencia": {
     "eyebrow": "Experience",
@@ -233,21 +224,21 @@
         "lugar": "Lima — remote",
         "rol": "Full-Stack Developer",
         "periodo": "May — Jun 2026",
-        "detalle": "Fleet monitoring system redesign: migration to Angular 19 and .NET 8."
+        "detalle": "Short project redesigning the fleet monitoring system: migration to Angular 19 and .NET."
       },
       {
         "empresa": "Peruvian Air Force",
         "lugar": "Peru",
         "rol": "Head of Communications and IT Section",
-        "periodo": "Jan 2026 — present · 10+ years in security",
-        "detalle": "More than a decade in security; since early 2026, in a technical communications and IT role. That trajectory is where the judgment in my automations comes from: per-case error handling, state tracking to avoid duplicates, and systems that explain themselves when something breaks.",
+        "periodo": "Jan 2026 — present",
+        "detalle": "More than 10 years in security; since 2026, in a technical communications and IT role — networks, systems and IT assets under military standards.",
         "cita": "Seniority isn't measured only in years of experience — it's measured in the technical calls you make and the responsibility you take when something breaks."
       }
     ]
   },
   "formacion": {
     "eyebrow": "Education",
-    "texto": "Information Systems Development at IESTP Gilda Ballivián — admitted in second place, ranked first in the 1st, 3rd and 4th terms. Certifications in Cybersecurity (Cisco) and Scrum Fundamentals (SFC), plus Platzi tracks in Prompt Engineering, JavaScript, Claude AI, SEO and Next.js."
+    "texto": "Currently in the 6th term of Information Systems Development at IESTP Gilda Ballivián — admitted in second place, ranked first in four terms. Certified in cybersecurity (Cisco) and Scrum (SFC); my self-taught drive makes me a strong bet for any company that wants me on their team."
   },
   "contacto": {
     "eyebrow": "Contact",

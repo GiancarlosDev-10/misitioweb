@@ -46,7 +46,7 @@ const datos = {
   id="cli-boton"
   aria-haspopup="dialog"
   aria-label={t.cli.abrir}
-  class="fixed bottom-5 right-5 z-40 rounded-full border border-[var(--linea)] bg-vacio/70 px-5 py-3 font-mono text-cuerpo text-lima backdrop-blur-md transition-colors duration-200 hover:text-escarcha"
+  class="cli-boton-glow fixed bottom-5 right-5 z-40 rounded-full border border-lima/60 bg-vacio/70 px-5 py-3 font-mono text-cuerpo text-lima backdrop-blur-md transition-colors duration-200 hover:text-escarcha"
 >
   $ cli
 </button>
@@ -87,6 +87,13 @@ const datos = {
 <script type="application/json" id="cli-datos" set:html={JSON.stringify(datos).replace(/</g, "\\u003c")} is:inline />
 
 <style>
+  /* Resplandor lima alrededor del botón — mismo color de acento del sitio. */
+  .cli-boton-glow {
+    box-shadow:
+      0 0 12px rgb(166 255 26 / 0.45),
+      0 0 28px rgb(166 255 26 / 0.2);
+  }
+
   .cli-cursor {
     animation: cli-parpadeo 1s step-start infinite;
   }
