@@ -1,0 +1,124 @@
+---
+/**
+ * Retrato real renderizado como puntos — mismo tratamiento que
+ * AvionPuntos/N8nPuntos/SistemasPuntos/GithubLogoPuntos (extraído de
+ * scripts/referencias/FOTO PERFIL.jpeg con scripts/extraer-retrato.mjs,
+ * por contornos, no por umbral plano — ver el script para el porqué). Cada
+ * punto titila (shimmer) con fase propia — no hay traslación, solo brillo.
+ */
+import retratoPuntos from "../../datos/retrato-puntos.json";
+
+interface Props {
+  opacidad?: number;
+}
+
+const { opacidad = 1 } = Astro.props;
+---
+
+<canvas
+  class="retrato-puntos pointer-events-none absolute inset-0 h-full w-full"
+  style={`opacity:${opacidad}`}
+  aria-hidden="true"
+></canvas>
+
+<script type="application/json" class="retrato-datos" set:html={JSON.stringify(retratoPuntos).replace(/</g, "\\u003c")} is:inline />
+
+<script>
+  interface DatosSilueta {
+    ancho: number;
+    alto: number;
+    puntos: [number, number][];
+  }
+
+  const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Misma silueta para todas las instancias del componente en la página:
+  // basta con leer el primer bloque de datos.
+  const bloqueDatos = document.querySelector<HTMLScriptElement>(".retrato-datos");
+
+  document.querySelectorAll<HTMLCanvasElement>("canvas.retrato-puntos").forEach((lienzo) => {
+    const contexto = lienzo.getContext("2d");
+    if (!contexto || !bloqueDatos) return;
+
+    const { ancho: ANCHO_TRAZO, alto: ALTO_TRAZO, puntos: crudos } = JSON.parse(bloqueDatos.textContent ?? "{}") as DatosSilueta;
+
+    interface Punto {
+      x: number;
+      y: number;
+      fase: number;
+      radio: number;
+    }
+
+    let ancho = 0;
+    let alto = 0;
+    let puntos: Punto[] = [];
+
+    // Seed propia: el shimmer cae siempre en el mismo patrón entre cargas.
+    let semilla = 17;
+    const azar = () => {
+      semilla = (semilla * 1664525 + 1013904223) % 4294967296;
+      return semilla / 4294967296;
+    };
+
+    function ubicarPuntos() {
+      // "cover" (no "contain"): se recorta al alto/ancho del cuadro en vez
+      // de dejar franjas vacías, para llenar el marco del Hero.
+      const escala = Math.max(ancho / ANCHO_TRAZO, alto / ALTO_TRAZO);
+      const offsetX = (ancho - ANCHO_TRAZO * escala) / 2;
+      const offsetY = (alto - ALTO_TRAZO * escala) / 2;
+
+      puntos = crudos.map(([xn, yn]) => ({
+        x: offsetX + xn * ANCHO_TRAZO * escala,
+        y: offsetY + yn * ALTO_TRAZO * escala,
+        fase: azar() * Math.PI * 2,
+        radio: 0.9 + azar() * 1.1,
+      }));
+    }
+
+    function redimensionar() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const caja = lienzo.getBoundingClientRect();
+      ancho = caja.width;
+      alto = caja.height;
+      lienzo.width = Math.round(ancho * dpr);
+      lienzo.height = Math.round(alto * dpr);
+      contexto!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ubicarPuntos();
+    }
+
+    function dibujar(tiempo: number) {
+      contexto!.clearRect(0, 0, ancho, alto);
+      for (const punto of puntos) {
+        const brillo = reducido ? 0.55 : 0.3 + 0.35 * (0.5 + 0.5 * Math.sin(tiempo * 0.0012 + punto.fase));
+        contexto!.fillStyle = `rgba(255, 255, 255, ${brillo})`;
+        contexto!.fillRect(punto.x - punto.radio / 2, punto.y - punto.radio / 2, punto.radio, punto.radio);
+      }
+    }
+
+    redimensionar();
+    window.addEventListener("resize", redimensionar);
+
+    if (reducido) {
+      dibujar(0);
+      return;
+    }
+
+    let visible = false;
+    let corriendo = false;
+    function animar(tiempo: number) {
+      dibujar(tiempo);
+      corriendo = visible;
+      if (visible) requestAnimationFrame(animar);
+    }
+
+    new IntersectionObserver(
+      ([entrada]) => {
+        visible = entrada?.isIntersecting ?? false;
+        if (visible && !corriendo) {
+          corriendo = true;
+          requestAnimationFrame(animar);
+        }
+      },
+      { threshold: 0 }
+    ).observe(lienzo);
+  });
+</script>

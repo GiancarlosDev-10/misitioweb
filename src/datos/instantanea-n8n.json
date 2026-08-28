@@ -953,7 +953,7 @@
     "id": "karlant-informes",
     "caso": "workflows",
     "nombre": {
-      "es": "KARLANT · informes médicos con GPT-4o",
+      "es": "Informes médicos con GPT-4o",
       "en": "KARLANT · medical reports with GPT-4o"
     },
     "ruta": "karlant-informes-medicos/workflow.json",
@@ -1084,7 +1084,7 @@
     "id": "karlant-sigeps",
     "caso": "workflows",
     "nombre": {
-      "es": "KARLANT · descarga masiva SIGEPS",
+      "es": "Descarga masiva de documentos sector salud",
       "en": "KARLANT · SIGEPS bulk download"
     },
     "ruta": "karlant-sigeps-pdfs/workflow.json",

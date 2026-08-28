@@ -1,4 +1,5 @@
 ---
+import GithubLogoPuntos from "../islas/GithubLogoPuntos.astro";
 import { SITIO, type Idioma } from "../../datos/sitio";
 import { contenido } from "../../i18n";
 import { obtenerActividadGithub, type DiaContribucion } from "../../datos/github-actividad";
@@ -81,11 +82,21 @@ const stats = [
 
 <section id="github" class="border-b border-[var(--linea)] py-24 md:py-32">
   <div class="contenedor">
-    <header class="aparece max-w-xl">
-      <p class="etiqueta text-humo">{t.github.eyebrow}</p>
-      <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo">{t.github.titulo}</h2>
-      <p class="mt-5 max-w-lg text-cuerpo text-ceniza">{t.github.bajada}</p>
-    </header>
+    <div class="pointer-events-none relative mb-8 h-36 w-full lg:hidden">
+      <GithubLogoPuntos opacidad={0.6} />
+    </div>
+
+    <div class="flex items-start justify-between gap-4">
+      <header class="aparece max-w-xl">
+        <p class="etiqueta text-humo">{t.github.eyebrow}</p>
+        <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo">{t.github.titulo}</h2>
+        <p class="mt-5 max-w-lg text-cuerpo text-ceniza">{t.github.bajada}</p>
+      </header>
+
+      <div class="pointer-events-none relative hidden h-48 w-96 shrink-0 lg:block">
+        <GithubLogoPuntos opacidad={0.8} />
+      </div>
+    </div>
 
     <div class="aparece mt-14 grid gap-10 rounded-2xl border border-[var(--linea)] bg-carbon p-8 md:grid-cols-[1.6fr_1fr] md:gap-12 md:p-12">
       <div class="min-w-0">

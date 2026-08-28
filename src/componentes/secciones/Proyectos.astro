@@ -1,6 +1,7 @@
 ---
 import Topologia from "../interfaz/Topologia.astro";
 import GrillaPuntos from "../islas/GrillaPuntos.astro";
+import SistemasPuntos from "../islas/SistemasPuntos.astro";
 import type { Idioma } from "../../datos/sitio";
 import { obtenerWorkflows, type Workflow } from "../../datos/n8n";
 import { contenido } from "../../i18n";
@@ -20,11 +21,21 @@ const porCaso = (caso: string): Workflow[] => workflows.filter((workflow) => wor
   <GrillaPuntos opacidad={0.12} />
 
   <div class="contenedor relative z-10">
-    <header class="aparece max-w-3xl">
-      <p class="etiqueta text-humo">{t.proyectos.eyebrow}</p>
-      <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo-lg">{t.proyectos.titulo}</h2>
-      <p class="mt-5 max-w-xl text-cuerpo text-ceniza">{t.proyectos.bajada}</p>
-    </header>
+    <div class="pointer-events-none relative mb-8 h-36 w-full lg:hidden">
+      <SistemasPuntos opacidad={0.6} />
+    </div>
+
+    <div class="flex items-start justify-between gap-4">
+      <header class="aparece max-w-3xl">
+        <p class="etiqueta text-humo">{t.proyectos.eyebrow}</p>
+        <h2 class="mt-5 text-titulo-sm text-escarcha md:text-titulo-lg">{t.proyectos.titulo}</h2>
+        <p class="mt-5 max-w-xl text-cuerpo text-ceniza">{t.proyectos.bajada}</p>
+      </header>
+
+      <div class="pointer-events-none relative hidden h-48 w-96 shrink-0 lg:block">
+        <SistemasPuntos opacidad={0.8} />
+      </div>
+    </div>
 
     <ol class="mt-16 space-y-px">
       {
