@@ -11,6 +11,7 @@
     "negocio": "Para tu negocio",
     "experiencia": "Experiencia",
     "cv": "GitHub",
+    "linkedin": "LinkedIn",
     "contacto": "Contacto",
     "cambiarIdioma": "English",
     "etiquetaIdioma": "Cambiar idioma a inglés",
@@ -26,6 +27,8 @@
     "bajada": "Diseño, programo y despliego productos web completos y automatizaciones con IA. Todo lo que hay en esta página está en producción con usuarios reales y cada número enlaza al artefacto que lo respalda.",
     "cta": "Hablemos de tu proyecto",
     "ctaSecundario": "Ver los workflows en GitHub",
+    "ctaLinkedin": "Ver LinkedIn",
+    "ctaCV": "Descargar CV",
     "leyendaCampo": "Cada punto es un nodo real de mis workflows publicados, en su posición original.",
     "metricas": {
       "workflows": "workflows en producción, publicados y auditables",

@@ -10,9 +10,13 @@ export const SITIO = {
   email: "giangio237@gmail.com",
   telefono: "+51 947 466 978",
   telefonoEnlace: "+51947466978",
-  linkedin: "https://linkedin.com/in/giancarlos-ormeno",
+  linkedin: "https://www.linkedin.com/in/giancarlos-ormeno",
   github: "https://github.com/GiancarlosDev-10",
   imagenOg: "/og/portada.png",
+  cv: {
+    es: "/cv/giancarlos-ormeno-cv-es.pdf",
+    en: "/cv/giancarlos-ormeno-cv-en.pdf",
+  },
 } as const;
 
 export const IDIOMAS = ["es", "en"] as const;

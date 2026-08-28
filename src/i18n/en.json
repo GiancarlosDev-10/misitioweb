@@ -11,6 +11,7 @@
     "negocio": "For your business",
     "experiencia": "Experience",
     "cv": "GitHub",
+    "linkedin": "LinkedIn",
     "contacto": "Contact",
     "cambiarIdioma": "Español",
     "etiquetaIdioma": "Switch language to Spanish",
@@ -26,6 +27,8 @@
     "bajada": "I design, build and ship complete web products and AI automations. Everything on this page runs in production with real users, and every number links to the artifact behind it.",
     "cta": "Let's talk about your project",
     "ctaSecundario": "See the workflows on GitHub",
+    "ctaLinkedin": "View LinkedIn",
+    "ctaCV": "Download resume",
     "leyendaCampo": "Every dot is a real node from my published workflows, in its original position.",
     "metricas": {
       "workflows": "production workflows, published and auditable",
