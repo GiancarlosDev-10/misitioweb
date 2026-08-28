@@ -179,6 +179,31 @@
   }
 }
 
+/* Scroll delgado para overlays (detalle técnico, CLI) — reemplaza el
+   scrollbar del sistema, que se ve muy claro contra el fondo negro. */
+@utility scroll-fino {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 0.25) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(255 255 255 / 0.25);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(255 255 255 / 0.4);
+  }
+}
+
 /* Aparición al hacer scroll. Sin transform pesado: solo opacidad y 8px. */
 .aparece {
   opacity: 0;

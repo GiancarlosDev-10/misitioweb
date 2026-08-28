@@ -67,7 +67,7 @@ const datos = {
       </button>
     </div>
 
-    <div id="cli-salida" class="flex-1 space-y-2 overflow-y-auto whitespace-pre-wrap px-4 py-4 font-mono text-cuerpo text-lima/80"></div>
+    <div id="cli-salida" class="scroll-fino flex-1 space-y-2 overflow-y-auto whitespace-pre-wrap px-4 py-4 font-mono text-cuerpo text-lima/80"></div>
 
     <div class="flex items-center gap-2 border-t border-[var(--linea)] px-4 py-3">
       <span class="font-mono text-cuerpo text-lima">~$</span>
@@ -354,7 +354,11 @@ const datos = {
       document.body.style.top = "";
       document.body.style.left = "";
       document.body.style.right = "";
+      // scroll-behavior: smooth es global — sin esto, restaurar la posición
+      // se ve como un scroll animado hacia ahí en vez de quedarse quieto.
+      document.documentElement.style.scrollBehavior = "auto";
       window.scrollTo(0, scrollPrevio);
+      document.documentElement.style.scrollBehavior = "";
     }
 
     function alternar(abrir: boolean) {

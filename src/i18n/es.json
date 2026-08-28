@@ -87,7 +87,7 @@
           "Bot de vinculación de apoderados: verificación por DNI antes de habilitar notificaciones"
         ],
         "arquitectura": "Arquitectura por módulos con dominio, aplicación, infraestructura y presentación separados (estudiantes, asistencia, notas, matrículas, horarios, telegram y ocho módulos más). El reconocimiento facial vive fuera del app: el navegador captura un frame cada 500 ms y lo manda al servicio en el VPS, que devuelve el alumno identificado y guarda el encoding de 128 dimensiones contra MongoDB.",
-        "stack": ["Next.js 16", "React 19", "MongoDB Atlas", "NextAuth v5", "n8n", "Telegram Bot API", "OpenAI GPT-4o-mini", "Whisper", "Reconocimiento facial (servicio Python en VPS)", "Vercel", "Hostinger VPS"],
+        "stack": ["Next.js 16", "React 19", "MongoDB Atlas", "NextAuth v5", "n8n", "Telegram Bot API", "OpenAI GPT-4o-mini", "Whisper", "Reconocimiento facial (VPS)", "Vercel", "Hostinger VPS"],
         "urlVivo": "https://colegio-juan-velasco.vercel.app/auth/login",
         "urlRepo": "https://github.com/GiancarlosDev-10/final_proyect"
       },

@@ -87,7 +87,7 @@
           "Parent linking bot: ID verification before notifications are enabled"
         ],
         "arquitectura": "Modular architecture with domain, application, infrastructure and presentation kept apart (students, attendance, grades, enrollment, schedules, telegram and eight more modules). Facial recognition lives outside the app: the browser captures a frame every 500 ms and posts it to the VPS service, which returns the identified student and stores the 128-dimension encoding against MongoDB.",
-        "stack": ["Next.js 16", "React 19", "MongoDB Atlas", "NextAuth v5", "n8n", "Telegram Bot API", "OpenAI GPT-4o-mini", "Whisper", "Facial recognition (Python service on VPS)", "Vercel", "Hostinger VPS"],
+        "stack": ["Next.js 16", "React 19", "MongoDB Atlas", "NextAuth v5", "n8n", "Telegram Bot API", "OpenAI GPT-4o-mini", "Whisper", "Facial recognition (VPS)", "Vercel", "Hostinger VPS"],
         "urlVivo": "https://colegio-juan-velasco.vercel.app/auth/login",
         "urlRepo": "https://github.com/GiancarlosDev-10/final_proyect"
       },

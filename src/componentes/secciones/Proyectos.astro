@@ -94,9 +94,9 @@ const porCaso = (caso: string): Workflow[] => workflows.filter((workflow) => wor
                     aria-modal="true"
                     aria-label={proyecto.titulo}
                     hidden
-                    class="detalle-popup fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-vacio/40 p-4 py-10 backdrop-blur-md sm:items-center sm:p-6"
+                    class="detalle-popup scroll-fino fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-vacio/40 p-4 py-10 backdrop-blur-md sm:items-center sm:p-6"
                   >
-                    <div class="w-full max-w-2xl rounded-2xl border border-[var(--linea)] bg-escarcha/[0.06] p-6 backdrop-blur-2xl sm:p-8">
+                    <div class="scroll-fino max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-[var(--linea)] bg-escarcha/[0.06] p-6 backdrop-blur-2xl sm:p-8">
                       <div class="flex items-center justify-between gap-4">
                         <p class="etiqueta text-humo">{proyecto.titulo}</p>
                         <button
@@ -208,7 +208,11 @@ const porCaso = (caso: string): Workflow[] => workflows.filter((workflow) => wor
     document.body.style.top = "";
     document.body.style.left = "";
     document.body.style.right = "";
+    // scroll-behavior: smooth es global — sin esto, restaurar la posición
+    // se ve como un scroll animado hacia ahí en vez de quedarse quieto.
+    document.documentElement.style.scrollBehavior = "auto";
     window.scrollTo(0, scrollPrevio);
+    document.documentElement.style.scrollBehavior = "";
   }
 
   function cerrarPopup(popup: HTMLElement) {
