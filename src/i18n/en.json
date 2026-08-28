@@ -54,6 +54,20 @@
       }
     ]
   },
+  "github": {
+    "eyebrow": "Real activity",
+    "titulo": "This isn't a screenshot — it's read from my GitHub profile on every build.",
+    "bajada": "No invented numbers — commits, issues and pull requests from the last twelve months.",
+    "menos": "Less",
+    "mas": "More",
+    "contribuciones": "Contributions in the last year",
+    "rachaActual": "Active streak",
+    "rachaMaxima": "Longest streak",
+    "repositorios": "Public repositories",
+    "dias": "days",
+    "verPerfil": "View profile on GitHub",
+    "actualizado": "Data from the latest deploy, not real-time."
+  },
   "proyectos": {
     "eyebrow": "Projects",
     "titulo": "Six systems, all in production.",

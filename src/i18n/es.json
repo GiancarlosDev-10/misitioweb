@@ -54,6 +54,20 @@
       }
     ]
   },
+  "github": {
+    "eyebrow": "Actividad real",
+    "titulo": "Esto no es una captura: se lee de mi perfil de GitHub en cada build.",
+    "bajada": "Sin números inventados — commits, issues y pull requests de los últimos doce meses.",
+    "menos": "Menos",
+    "mas": "Más",
+    "contribuciones": "Contribuciones último año",
+    "rachaActual": "Racha activa",
+    "rachaMaxima": "Racha máxima",
+    "repositorios": "Repositorios públicos",
+    "dias": "días",
+    "verPerfil": "Ver perfil en GitHub",
+    "actualizado": "Datos del último deploy, no en tiempo real."
+  },
   "proyectos": {
     "eyebrow": "Proyectos",
     "titulo": "Seis sistemas, todos en producción.",
