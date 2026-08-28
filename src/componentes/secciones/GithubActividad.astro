@@ -157,3 +157,11 @@ const stats = [
     </div>
   </div>
 </section>
+
+<script>
+  // En pantallas angostas el calendario no entra completo: arranca ya
+  // desplazado al final (lo más reciente) en vez de mostrar los meses
+  // más viejos por defecto.
+  const scroller = document.querySelector<HTMLElement>("#github .scroll-fino");
+  if (scroller) scroller.scrollLeft = scroller.scrollWidth;
+</script>
