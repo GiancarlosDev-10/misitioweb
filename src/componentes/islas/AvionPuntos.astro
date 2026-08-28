@@ -20,7 +20,7 @@ const { opacidad = 1 } = Astro.props;
   aria-hidden="true"
 ></canvas>
 
-<script type="application/json" id="avion-datos" set:html={JSON.stringify(avionPuntos).replace(/</g, "\\u003c")} is:inline />
+<script type="application/json" class="avion-datos" set:html={JSON.stringify(avionPuntos).replace(/</g, "\\u003c")} is:inline />
 
 <script>
   interface DatosSilueta {
@@ -30,7 +30,9 @@ const { opacidad = 1 } = Astro.props;
   }
 
   const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const bloqueDatos = document.querySelector<HTMLScriptElement>("#avion-datos");
+  // Misma silueta para todas las instancias del componente en la página:
+  // basta con leer el primer bloque de datos.
+  const bloqueDatos = document.querySelector<HTMLScriptElement>(".avion-datos");
 
   document.querySelectorAll<HTMLCanvasElement>("canvas.avion-puntos").forEach((lienzo) => {
     const contexto = lienzo.getContext("2d");

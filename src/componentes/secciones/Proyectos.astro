@@ -75,86 +75,109 @@ const porCaso = (caso: string): Workflow[] => workflows.filter((workflow) => wor
                     )}
                   </div>
 
-                  <details class="group mt-10 border-t border-[var(--linea)] pt-6">
-                    <summary class="etiqueta flex items-center gap-3 text-humo transition-colors duration-200 hover:text-escarcha">
-                      <span
-                        aria-hidden="true"
-                        class="inline-block transition-transform duration-200 group-open:rotate-45"
-                      >
-                        +
-                      </span>
-                      {t.proyectos.verTecnico}
-                    </summary>
+                  <button
+                    type="button"
+                    class="etiqueta mt-10 flex w-full items-center gap-3 border-t border-[var(--linea)] pt-6 text-humo transition-colors duration-200 hover:text-escarcha"
+                    data-detalle-abrir={`detalle-${proyecto.id}`}
+                    aria-haspopup="dialog"
+                    aria-controls={`detalle-${proyecto.id}`}
+                  >
+                    <span aria-hidden="true" class="inline-block">
+                      +
+                    </span>
+                    {t.proyectos.verTecnico}
+                  </button>
 
-                    <div class="mt-8 grid gap-10 md:grid-cols-2">
-                      <ul class="space-y-3">
-                        {proyecto.modulos.map((modulo) => (
-                          <li class="flex gap-3 text-cuerpo text-ceniza">
-                            <span aria-hidden="true" class="text-pizarra">
-                              —
-                            </span>
-                            <span>{modulo}</span>
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div class="space-y-8">
-                        <div>
-                          <p class="etiqueta text-pizarra">{t.proyectos.arquitectura}</p>
-                          <p class="mt-3 text-cuerpo text-ceniza">{proyecto.arquitectura}</p>
-                        </div>
-
-                        {proyecto.stack.length > 0 && (
-                          <div>
-                            <p class="etiqueta text-pizarra">{t.proyectos.stack}</p>
-                            <ul class="mt-3 flex flex-wrap gap-2">
-                              {proyecto.stack.map((tecnologia) => (
-                                <li class="rounded-none border border-[var(--linea)] px-3 py-1 text-leyenda text-ceniza">
-                                  {tecnologia}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        )}
+                  <div
+                    id={`detalle-${proyecto.id}`}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={proyecto.titulo}
+                    hidden
+                    class="detalle-popup fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-vacio/40 p-4 py-10 backdrop-blur-md sm:items-center sm:p-6"
+                  >
+                    <div class="w-full max-w-2xl rounded-2xl border border-[var(--linea)] bg-escarcha/[0.06] p-6 backdrop-blur-2xl sm:p-8">
+                      <div class="flex items-center justify-between gap-4">
+                        <p class="etiqueta text-humo">{proyecto.titulo}</p>
+                        <button
+                          type="button"
+                          class="detalle-cerrar text-humo transition-colors duration-200 hover:text-escarcha"
+                          aria-label={t.proyectos.cerrarDetalle}
+                        >
+                          ✕
+                        </button>
                       </div>
+
+                      <div class="mt-8 grid gap-10 md:grid-cols-2">
+                        <ul class="space-y-3">
+                          {proyecto.modulos.map((modulo) => (
+                            <li class="flex gap-3 text-cuerpo text-ceniza">
+                              <span aria-hidden="true" class="text-pizarra">
+                                —
+                              </span>
+                              <span>{modulo}</span>
+                            </li>
+                          ))}
+                        </ul>
+
+                        <div class="space-y-8">
+                          <div>
+                            <p class="etiqueta text-pizarra">{t.proyectos.arquitectura}</p>
+                            <p class="mt-3 text-cuerpo text-ceniza">{proyecto.arquitectura}</p>
+                          </div>
+
+                          {proyecto.stack.length > 0 && (
+                            <div>
+                              <p class="etiqueta text-pizarra">{t.proyectos.stack}</p>
+                              <ul class="mt-3 flex flex-wrap gap-2">
+                                {proyecto.stack.map((tecnologia) => (
+                                  <li class="rounded-none border border-[var(--linea)] px-3 py-1 text-leyenda text-ceniza">
+                                    {tecnologia}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {suyos.length > 0 && (
+                        <ul class="mt-12 grid gap-px border-t border-[var(--linea)] md:grid-cols-2">
+                          {suyos.map((workflow) => (
+                            <li class="border-b border-r border-[var(--linea)] p-6 last:border-r-0">
+                              <div class="flex items-baseline justify-between gap-4">
+                                <p class="text-cuerpo text-escarcha">{workflow.nombre[idioma]}</p>
+                                <p class="cifra shrink-0 text-leyenda text-humo">
+                                  {workflow.nodos} {t.proyectos.nodos}
+                                </p>
+                              </div>
+
+                              <div class="mt-5 text-ceniza">
+                                <Topologia workflow={workflow} titulo={workflow.nombre[idioma]} />
+                              </div>
+
+                              <ul class="mt-5 flex flex-wrap gap-2">
+                                {workflow.tecnologias.map((tecnologia) => (
+                                  <li class="rounded-none border border-[var(--linea)] px-2 py-1 text-leyenda text-humo">
+                                    {tecnologia}
+                                  </li>
+                                ))}
+                              </ul>
+
+                              <a
+                                href={workflow.urlRaw}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="enlace-subrayado mt-5 inline-block text-leyenda text-ceniza hover:text-escarcha"
+                              >
+                                {t.proyectos.verJson} ↗
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
-
-                    {suyos.length > 0 && (
-                      <ul class="mt-12 grid gap-px border-t border-[var(--linea)] md:grid-cols-2">
-                        {suyos.map((workflow) => (
-                          <li class="border-b border-r border-[var(--linea)] p-6 last:border-r-0">
-                            <div class="flex items-baseline justify-between gap-4">
-                              <p class="text-cuerpo text-escarcha">{workflow.nombre[idioma]}</p>
-                              <p class="cifra shrink-0 text-leyenda text-humo">
-                                {workflow.nodos} {t.proyectos.nodos}
-                              </p>
-                            </div>
-
-                            <div class="mt-5 text-ceniza">
-                              <Topologia workflow={workflow} titulo={workflow.nombre[idioma]} />
-                            </div>
-
-                            <ul class="mt-5 flex flex-wrap gap-2">
-                              {workflow.tecnologias.map((tecnologia) => (
-                                <li class="rounded-none border border-[var(--linea)] px-2 py-1 text-leyenda text-humo">
-                                  {tecnologia}
-                                </li>
-                              ))}
-                            </ul>
-
-                            <a
-                              href={workflow.urlRaw}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              class="enlace-subrayado mt-5 inline-block text-leyenda text-ceniza hover:text-escarcha"
-                            >
-                              {t.proyectos.verJson} ↗
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </details>
+                  </div>
                 </div>
               </article>
             </li>
@@ -164,3 +187,63 @@ const porCaso = (caso: string): Workflow[] => workflows.filter((workflow) => wor
     </ol>
   </div>
 </section>
+
+<script>
+  // Un solo listener delegado para todos los popups de "Detalle técnico"
+  // de la sección: se abren por [data-detalle-abrir], se cierran con el
+  // botón, clic en el backdrop o Escape. Bloquea el scroll del body
+  // mientras están abiertos (igual que el overlay del CLI).
+  let scrollPrevio = 0;
+
+  function bloquearScrollBody() {
+    scrollPrevio = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPrevio}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+  }
+
+  function restaurarScrollBody() {
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.style.left = "";
+    document.body.style.right = "";
+    window.scrollTo(0, scrollPrevio);
+  }
+
+  function cerrarPopup(popup: HTMLElement) {
+    popup.hidden = true;
+    restaurarScrollBody();
+  }
+
+  document.addEventListener("click", (evento) => {
+    const objetivo = evento.target as HTMLElement;
+
+    const disparador = objetivo.closest<HTMLElement>("[data-detalle-abrir]");
+    if (disparador) {
+      const popup = document.getElementById(disparador.dataset.detalleAbrir ?? "");
+      if (popup) {
+        bloquearScrollBody();
+        popup.hidden = false;
+      }
+      return;
+    }
+
+    const cerrar = objetivo.closest<HTMLElement>(".detalle-cerrar");
+    if (cerrar) {
+      const popup = cerrar.closest<HTMLElement>(".detalle-popup");
+      if (popup) cerrarPopup(popup);
+      return;
+    }
+
+    const popupAbierto = objetivo.closest<HTMLElement>(".detalle-popup");
+    if (popupAbierto && objetivo === popupAbierto) {
+      cerrarPopup(popupAbierto);
+    }
+  });
+
+  document.addEventListener("keydown", (evento) => {
+    if (evento.key !== "Escape") return;
+    document.querySelectorAll<HTMLElement>(".detalle-popup:not([hidden])").forEach(cerrarPopup);
+  });
+</script>

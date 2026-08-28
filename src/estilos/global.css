@@ -19,6 +19,16 @@
   font-display: swap;
 }
 
+/* Silkscreen — solo para el wordmark del CLI (banner "GIANCARLOS.DEV"),
+   guiño pixelado al estilo de cris.fast. No se usa en ningún otro lado. */
+@font-face {
+  font-family: "Silkscreen";
+  src: url("/fuentes/silkscreen-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Paleta Aaru — no se agrega ningún color fuera de esta lista. */
   --color-vacio: #000000;
@@ -33,6 +43,7 @@
 
   --font-cuerpo: "Oracle", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Pantheon", "Oracle", ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: "Silkscreen", ui-monospace, monospace;
 
   /* Escala tipográfica Aaru */
   --text-leyenda: 0.75rem;

@@ -13,6 +13,10 @@ const t = contenido(idioma);
 
 <section id="experiencia" class="border-b border-[var(--linea)] py-24 md:py-32">
   <div class="contenedor">
+    <div class="pointer-events-none relative mb-8 h-28 w-full lg:hidden">
+      <AvionPuntos opacidad={0.6} />
+    </div>
+
     <div class="flex items-center gap-4">
       <header class="aparece max-w-3xl">
         <p class="etiqueta text-humo">{t.experiencia.eyebrow}</p>

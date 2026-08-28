@@ -57,6 +57,7 @@
     "titulo": "Six systems, all in production.",
     "bajada": "The problem and the outcome stay visible. The technical detail opens if you want it.",
     "verTecnico": "Technical detail",
+    "cerrarDetalle": "Close technical detail",
     "problema": "Problem",
     "resultado": "Outcome",
     "stack": "Stack",
@@ -262,9 +263,11 @@
   "cli": {
     "abrir": "Open terminal",
     "cerrar": "Close terminal",
-    "bienvenida": "Portfolio terminal. Type \"help\" to see the commands.",
+    "bienvenida": "Type **help** to see the commands, **about** to start, or **exit** to close.",
+    "arranque": "ready in {0} ms",
     "prompt": "visitor@giancarlos",
-    "noEncontrado": "Command not found: {0}. Type \"help\" for the list.",
+    "noEncontrado": "Command not found: {0}",
+    "sugerencia": "Did you mean **{0}**? · Type **help** for the list.",
     "ayuda": {
       "help": "list every command",
       "whoami": "who I am",

@@ -17,6 +17,9 @@ const t = contenido(idioma);
 
 const datos = {
   nombre: SITIO.nombre,
+  // Wordmark del banner del CLI — versión corta y estilizada del dominio,
+  // como "CRIS.FAST" en cris.fast. No es la URL real: es una marca.
+  wordmark: "GIANCARLOS.DEV",
   eyebrow: t.hero.eyebrow,
   email: SITIO.email,
   telefono: SITIO.telefono,
@@ -56,25 +59,25 @@ const datos = {
   hidden
   class="fixed inset-0 z-50 flex items-end justify-center bg-vacio/60 p-0 backdrop-blur-md sm:items-center sm:p-6"
 >
-  <div class="flex h-[70svh] w-full flex-col overflow-hidden border border-[var(--linea)] bg-vacio sm:h-[32rem] sm:max-w-2xl sm:rounded-2xl">
+  <div class="flex h-[70svh] max-h-full w-full flex-col overflow-hidden border border-[var(--linea)] bg-vacio sm:h-[32rem] sm:max-w-2xl sm:rounded-2xl">
     <div class="flex items-center justify-between border-b border-[var(--linea)] px-4 py-3">
-      <p class="font-mono text-leyenda text-humo">{datos.prompt}</p>
+      <p class="font-mono text-cuerpo text-humo">{datos.prompt}</p>
       <button type="button" id="cli-cerrar" aria-label={t.cli.cerrar} class="text-humo transition-colors duration-200 hover:text-escarcha">
         ✕
       </button>
     </div>
 
-    <div id="cli-salida" class="flex-1 space-y-2 overflow-y-auto whitespace-pre-wrap px-4 py-4 font-mono text-leyenda text-lima/80"></div>
+    <div id="cli-salida" class="flex-1 space-y-2 overflow-y-auto whitespace-pre-wrap px-4 py-4 font-mono text-cuerpo text-lima/80"></div>
 
     <div class="flex items-center gap-2 border-t border-[var(--linea)] px-4 py-3">
-      <span class="font-mono text-leyenda text-lima">~$</span>
+      <span class="font-mono text-cuerpo text-lima">~$</span>
       <input
         id="cli-input"
         type="text"
         autocomplete="off"
         autocapitalize="off"
         spellcheck="false"
-        class="flex-1 bg-transparent font-mono text-leyenda text-escarcha outline-none"
+        class="flex-1 bg-transparent font-mono text-cuerpo text-escarcha outline-none"
       />
       <span id="cli-cursor" class="cli-cursor h-4 w-2 bg-lima"></span>
     </div>
@@ -104,6 +107,7 @@ const datos = {
 <script>
   interface DatosCli {
     nombre: string;
+    wordmark: string;
     eyebrow: string;
     email: string;
     telefono: string;
@@ -114,7 +118,9 @@ const datos = {
     proyectos: { titulo: string; resultado: string; urlVivo: string }[];
     textos: {
       bienvenida: string;
+      arranque: string;
       noEncontrado: string;
+      sugerencia: string;
       ayuda: Record<string, string>;
       tituloExperiencia: string;
       tituloProyectos: string;
@@ -123,6 +129,10 @@ const datos = {
     };
     prompt: string;
   }
+
+  // Tiempo real desde que arrancó esta página hasta que este script corrió
+  // — no un número inventado — para la línea de "boot" tipo cris.fast.
+  const iniciadoEnMs = Math.round(performance.now());
 
   const boton = document.querySelector<HTMLButtonElement>("#cli-boton");
   const cerrar = document.querySelector<HTMLButtonElement>("#cli-cerrar");
@@ -135,12 +145,106 @@ const datos = {
     const datos = JSON.parse(bloqueDatos.textContent ?? "{}") as DatosCli;
     const historial: string[] = [];
     let indiceHistorial = -1;
+    const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function linea(texto: string, clase = "") {
       const p = document.createElement("p");
       p.textContent = texto;
       if (clase) p.className = clase;
       salida!.appendChild(p);
+    }
+
+    /** Segmenta "texto **fuerte**" en partes planas y en negrita. */
+    function segmentar(texto: string): { texto: string; enfasis: boolean }[] {
+      return texto
+        .split(/\*\*(.+?)\*\*/g)
+        .filter((parte) => parte.length > 0)
+        .map((parte, indice) => ({ texto: parte, enfasis: indice % 2 === 1 }));
+    }
+
+    function pintarSegmentos(p: HTMLParagraphElement, segmentos: { texto: string; enfasis: boolean }[], hasta: number) {
+      p.textContent = "";
+      let restante = hasta;
+      for (const segmento of segmentos) {
+        if (restante <= 0) break;
+        const trozo = segmento.texto.slice(0, restante);
+        if (segmento.enfasis) {
+          const fuerte = document.createElement("strong");
+          fuerte.className = "text-escarcha";
+          fuerte.textContent = trozo;
+          p.appendChild(fuerte);
+        } else {
+          p.appendChild(document.createTextNode(trozo));
+        }
+        restante -= trozo.length;
+      }
+    }
+
+    /** Igual que linea(), pero interpreta "**negrita**" sin tipeo. */
+    function lineaFormateada(texto: string, clase = "") {
+      const segmentos = segmentar(texto);
+      const p = document.createElement("p");
+      if (clase) p.className = clase;
+      salida!.appendChild(p);
+      pintarSegmentos(p, segmentos, texto.length);
+    }
+
+    /** Efecto de tipeo: revela el texto letra por letra, respetando "**negrita**". */
+    function escribirLinea(texto: string, alTerminar?: () => void) {
+      const segmentos = segmentar(texto);
+      const plano = segmentos.map((s) => s.texto).join("");
+      const p = document.createElement("p");
+      salida!.appendChild(p);
+
+      if (reducido) {
+        pintarSegmentos(p, segmentos, plano.length);
+        alTerminar?.();
+        return;
+      }
+
+      const paso = Math.max(1, Math.ceil(plano.length / 60));
+      let i = 0;
+      const id = window.setInterval(() => {
+        i += paso;
+        pintarSegmentos(p, segmentos, Math.min(i, plano.length));
+        if (i >= plano.length) {
+          window.clearInterval(id);
+          alTerminar?.();
+        }
+      }, 16);
+    }
+
+    /** Distancia de Levenshtein, para sugerir el comando más parecido. */
+    function distancia(a: string, b: string): number {
+      const filas = a.length + 1;
+      const columnas = b.length + 1;
+      const matriz = Array.from({ length: filas }, (_, i) => {
+        const fila = new Array<number>(columnas).fill(0);
+        fila[0] = i;
+        return fila;
+      });
+      for (let j = 0; j < columnas; j++) matriz[0]![j] = j;
+
+      for (let i = 1; i < filas; i++) {
+        for (let j = 1; j < columnas; j++) {
+          const costo = a[i - 1] === b[j - 1] ? 0 : 1;
+          matriz[i]![j] = Math.min(matriz[i - 1]![j]! + 1, matriz[i]![j - 1]! + 1, matriz[i - 1]![j - 1]! + costo);
+        }
+      }
+      return matriz[filas - 1]![columnas - 1]!;
+    }
+
+    function sugerirComando(nombre: string, comandos: string[]): string | null {
+      let mejor: string | null = null;
+      let mejorDistancia = Infinity;
+      for (const comando of comandos) {
+        const d = distancia(nombre, comando);
+        if (d < mejorDistancia) {
+          mejorDistancia = d;
+          mejor = comando;
+        }
+      }
+      return mejor && mejorDistancia <= 2 ? mejor : null;
     }
 
     function enlace(texto: string, href: string) {
@@ -211,19 +315,79 @@ const datos = {
         manejador();
       } else {
         linea(datos.textos.noEncontrado.replace("{0}", nombre));
+        const sugerido = sugerirComando(nombre, Object.keys(COMANDOS));
+        if (sugerido) lineaFormateada(datos.textos.sugerencia.replace(/\{0\}/g, sugerido));
       }
       salida!.scrollTop = salida!.scrollHeight;
+    }
+
+    // El teclado móvil reduce el visual viewport sin que las unidades
+    // svh/dvh lo reflejen de forma confiable (Chrome Android en particular).
+    // Se sincroniza el alto y el offset del overlay a mano para que no
+    // quede recortado o "colapsado" detrás del teclado.
+    function sincronizarViewport() {
+      const vv = window.visualViewport;
+      if (!vv || overlay!.hidden) return;
+      overlay!.style.height = `${vv.height}px`;
+      overlay!.style.top = `${vv.offsetTop}px`;
+    }
+
+    window.visualViewport?.addEventListener("resize", sincronizarViewport);
+    window.visualViewport?.addEventListener("scroll", sincronizarViewport);
+
+    // Sin esto, el body sigue siendo scrolleable detrás del overlay: al
+    // enfocar el input, el navegador intenta hacer scroll a la página para
+    // revelarlo y choca con el position:fixed — eso es lo que "colapsaba"
+    // el overlay cuando aparecía el teclado.
+    let scrollPrevio = 0;
+
+    function bloquearScrollBody() {
+      scrollPrevio = window.scrollY;
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollPrevio}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+    }
+
+    function restaurarScrollBody() {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      window.scrollTo(0, scrollPrevio);
     }
 
     function alternar(abrir: boolean) {
       overlay!.hidden = !abrir;
       if (abrir) {
+        bloquearScrollBody();
+        sincronizarViewport();
         if (!salida!.hasChildNodes()) {
-          linea(datos.textos.bienvenida);
+          // Wordmark estática (no se tipea, aparece de una) + secuencia de
+          // boot al estilo cris.fast: identidad, ubicación + tiempo real de
+          // carga, línea en blanco, y por último los atajos.
+          const banner = document.createElement("p");
+          banner.className = "font-pixel text-titulo-sm leading-none tracking-normal text-lima sm:text-display sm:tracking-wide";
+          banner.textContent = datos.wordmark;
+          salida!.appendChild(banner);
           espacio();
+
+          const [rol = "", ubicacion = ""] = datos.eyebrow.split(" · ");
+          const lineaIdentidad = `**${datos.nombre}** — ${rol}`;
+          const lineaUbicacion = `${ubicacion} · ${datos.textos.arranque.replace("{0}", String(iniciadoEnMs))}`;
+
+          escribirLinea(lineaIdentidad, () => {
+            escribirLinea(lineaUbicacion, () => {
+              espacio();
+              escribirLinea(datos.textos.bienvenida, espacio);
+            });
+          });
         }
         input!.focus();
       } else {
+        overlay!.style.height = "";
+        overlay!.style.top = "";
+        restaurarScrollBody();
         boton!.focus();
       }
     }

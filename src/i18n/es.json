@@ -57,6 +57,7 @@
     "titulo": "Seis sistemas, todos en producción.",
     "bajada": "El problema y el resultado están siempre a la vista. El detalle técnico se abre si te interesa.",
     "verTecnico": "Detalle técnico",
+    "cerrarDetalle": "Cerrar detalle técnico",
     "problema": "Problema",
     "resultado": "Resultado",
     "stack": "Stack",
@@ -262,9 +263,11 @@
   "cli": {
     "abrir": "Abrir terminal",
     "cerrar": "Cerrar terminal",
-    "bienvenida": "Terminal del portafolio. Escribe \"help\" para ver los comandos.",
+    "bienvenida": "Escribe **help** para ver los comandos, **about** para empezar, o **exit** para cerrar.",
+    "arranque": "listo en {0} ms",
     "prompt": "visitante@giancarlos",
-    "noEncontrado": "Comando no encontrado: {0}. Escribe \"help\" para ver la lista.",
+    "noEncontrado": "Comando no encontrado: {0}",
+    "sugerencia": "¿Quisiste decir **{0}**? · Escribe **help** para ver la lista.",
     "ayuda": {
       "help": "lista todos los comandos",
       "whoami": "quién soy",
