@@ -10,6 +10,8 @@ interface Props {
 const { idioma } = Astro.props;
 const t = contenido(idioma);
 
+const enlaceWhatsapp = `${SITIO.whatsapp}?text=${encodeURIComponent(t.contacto.mensajeWhatsapp)}`;
+
 const canales = [
   { etiqueta: t.contacto.email, valor: SITIO.email, href: `mailto:${SITIO.email}` },
   { etiqueta: t.contacto.telefono, valor: SITIO.telefono, href: `tel:${SITIO.telefonoEnlace}` },
@@ -28,7 +30,7 @@ const canales = [
       <p class="mt-5 max-w-xl text-cuerpo font-[400] text-ceniza">{t.contacto.bajada}</p>
 
       <a
-        href={SITIO.whatsapp}
+        href={enlaceWhatsapp}
         target="_blank"
         rel="noopener noreferrer"
         class="etiqueta boton-lima mt-9 inline-block rounded-none bg-lima px-6 py-3 text-vacio"
