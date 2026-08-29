@@ -1847,12 +1847,17 @@
     },
     {
       "fecha": "2026-08-28",
-      "nivel": 1,
-      "conteo": 1
+      "nivel": 2,
+      "conteo": 5
+    },
+    {
+      "fecha": "2026-08-29",
+      "nivel": 0,
+      "conteo": 0
     }
   ],
-  "totalContribuciones": 319,
-  "rachaActual": 5,
+  "totalContribuciones": 323,
+  "rachaActual": 0,
   "rachaMaxima": 7,
   "repositoriosPublicos": 12
 }
