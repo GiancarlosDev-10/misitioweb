@@ -238,6 +238,12 @@ const porCaso = (caso: string): Workflow[] => workflows.filter((workflow) => wor
     if (disparador) {
       const popup = document.getElementById(disparador.dataset.detalleAbrir ?? "");
       if (popup) {
+        // El popup nace dentro de ".contenedor.z-10": ese ancestro atrapa su
+        // z-50 en un contexto de apilamiento propio (nivel 10), así que por
+        // más z-index que tenga, queda debajo del header (z-50, fuera de ese
+        // contexto). Moverlo a <body> lo saca de esa trampa — mismo patrón
+        // que ya usan el overlay del CLI y el menú móvil.
+        document.body.appendChild(popup);
         bloquearScrollBody();
         popup.hidden = false;
       }

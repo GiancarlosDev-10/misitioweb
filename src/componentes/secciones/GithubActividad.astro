@@ -11,7 +11,18 @@ interface Props {
 const { idioma } = Astro.props;
 const t = contenido(idioma);
 
-const { dias, totalContribuciones, rachaActual, rachaMaxima, repositoriosPublicos } = await obtenerActividadGithub();
+const { dias, totalContribuciones, rachaMaxima, repositoriosPublicos } = await obtenerActividadGithub();
+
+// Cuenta tecnologías únicas del stack de los proyectos ya publicados en esta
+// misma web — no depende de GitHub, así que no varía por lo seguido que
+// pushees. Normaliza versiones ("Next.js 14" / "Next.js 16") para no contar
+// la misma tecnología dos veces solo porque subiste de versión entre casos.
+function normalizarTecnologia(nombre: string): string {
+  return nombre.replace(/\s+v?\d+(\.\d+)?(-mini)?$/i, "").trim();
+}
+const tecnologiasDominadas = new Set(
+  t.proyectos.lista.flatMap((proyecto) => proyecto.stack ?? []).map(normalizarTecnologia)
+).size;
 
 // GitHub siempre arranca el calendario en domingo y entrega semanas completas,
 // así que trocear de 7 en 7 alcanza — no hace falta calcular día de semana.
@@ -74,7 +85,7 @@ function clasePorNivel(nivel: number): string {
 
 const stats = [
   { valor: String(totalContribuciones), texto: t.github.contribuciones },
-  { valor: `${rachaActual} ${t.github.dias}`, texto: t.github.rachaActual },
+  { valor: String(tecnologiasDominadas), texto: t.github.tecnologiasDominadas },
   { valor: `${rachaMaxima} ${t.github.dias}`, texto: t.github.rachaMaxima },
   { valor: String(repositoriosPublicos), texto: t.github.repositorios },
 ];

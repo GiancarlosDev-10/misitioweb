@@ -1,41 +1,6 @@
 {
   "dias": [
     {
-      "fecha": "2025-08-24",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-08-25",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-08-26",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-08-27",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-08-28",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-08-29",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-08-30",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
       "fecha": "2025-08-31",
       "nivel": 0,
       "conteo": 0
@@ -1852,12 +1817,16 @@
     },
     {
       "fecha": "2026-08-29",
+      "nivel": 1,
+      "conteo": 3
+    },
+    {
+      "fecha": "2026-08-30",
       "nivel": 0,
       "conteo": 0
     }
   ],
-  "totalContribuciones": 323,
-  "rachaActual": 0,
+  "totalContribuciones": 326,
   "rachaMaxima": 7,
   "repositoriosPublicos": 12
 }
