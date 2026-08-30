@@ -399,7 +399,13 @@ const datos = {
         overlay!.style.height = "";
         overlay!.style.top = "";
         restaurarScrollBody();
-        boton!.focus();
+        // Diferido: si esto corre sincrónico dentro del keydown de Enter
+        // (ej. al ejecutar "exit"), el foco pasa al botón ANTES del keyup
+        // de esa misma tecla — el navegador interpreta ese keyup como un
+        // Enter sobre un botón enfocado y le dispara un click, reabriendo
+        // el overlay al toque. Con el foco corriendo en el siguiente tick,
+        // el keyup ya se resolvió sobre el input, no sobre el botón.
+        setTimeout(() => boton!.focus(), 0);
       }
     }
 
