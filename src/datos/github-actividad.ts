@@ -26,7 +26,6 @@ export interface DiaContribucion {
 export interface ActividadGithub {
   dias: DiaContribucion[];
   totalContribuciones: number;
-  rachaActual: number;
   rachaMaxima: number;
   repositoriosPublicos: number;
 }
@@ -54,22 +53,15 @@ function extraerDias(html: string): DiaContribucion[] {
     .sort((a, b) => a.fecha.localeCompare(b.fecha));
 }
 
-/** Racha activa = días consecutivos con actividad terminando en el último día leído. */
-function calcularRachas(dias: DiaContribucion[]): { actual: number; maxima: number } {
-  let actual = 0;
-  for (let i = dias.length - 1; i >= 0; i--) {
-    if (dias[i]!.conteo <= 0) break;
-    actual++;
-  }
-
+/** Racha máxima = la corrida más larga de días consecutivos con actividad. */
+function calcularRachaMaxima(dias: DiaContribucion[]): number {
   let maxima = 0;
   let corrida = 0;
   for (const dia of dias) {
     corrida = dia.conteo > 0 ? corrida + 1 : 0;
     if (corrida > maxima) maxima = corrida;
   }
-
-  return { actual, maxima };
+  return maxima;
 }
 
 async function leerJson<T>(ruta: string): Promise<T | null> {
@@ -104,13 +96,11 @@ async function descargar(): Promise<ActividadGithub> {
   if (dias.length === 0) throw new Error("No se pudo leer ningún día del calendario de contribuciones");
 
   const perfil = respuestaPerfil.ok ? ((await respuestaPerfil.json()) as { public_repos?: number }) : {};
-  const { actual, maxima } = calcularRachas(dias);
 
   return {
     dias,
     totalContribuciones: dias.reduce((suma, dia) => suma + dia.conteo, 0),
-    rachaActual: actual,
-    rachaMaxima: maxima,
+    rachaMaxima: calcularRachaMaxima(dias),
     repositoriosPublicos: perfil.public_repos ?? 0,
   };
 }
