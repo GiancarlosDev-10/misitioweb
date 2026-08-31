@@ -1,6 +1,7 @@
 ---
 import "../estilos/global.css";
 
+import Analytics from "@vercel/analytics/astro";
 import Meta from "../componentes/seo/Meta.astro";
 import DatosEstructurados from "../componentes/seo/DatosEstructurados.astro";
 import Encabezado from "../componentes/estructura/Encabezado.astro";
@@ -34,6 +35,7 @@ const t = contenido(idioma);
       noindex={noindex}
     />
     <DatosEstructurados idioma={idioma} />
+    <Analytics />
   </head>
   <body class="min-h-screen antialiased">
     <a
