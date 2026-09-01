@@ -3,7 +3,9 @@
  * y en ningún otro archivo.
  */
 export const SITIO = {
-  url: "https://giancarlosormeno.dev",
+  // Dominio en producción hoy. Cuando giancarlosormeno.dev esté apuntando a
+  // Vercel, cambiar esta línea: de acá salen canonical, hreflang, og:url y sitemap.
+  url: "https://gianormeno-misitioweb.vercel.app",
   nombre: "Giancarlos Ormeño",
   rol: "Full-Stack & Automation Developer",
   ubicacion: "Lima, Perú — remoto",
