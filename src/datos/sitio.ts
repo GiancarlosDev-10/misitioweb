@@ -11,7 +11,7 @@ export const SITIO = {
   ubicacion: "Lima, Perú — remoto",
   email: "giangio237@gmail.com",
   telefono: "+51 947 466 978 — +51 939 378 048",
-  telefonoEnlace: "+51947466978-+51939378048",
+  telefonoEnlace: "+51947466978",
   whatsapp: "https://wa.me/51939378048",
   linkedin: "https://www.linkedin.com/in/giancarlos-ormeno",
   github: "https://github.com/GiancarlosDev-10",

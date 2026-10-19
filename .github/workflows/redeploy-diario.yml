@@ -1,0 +1,15 @@
+# La actividad de GitHub (y n8n) se lee solo en build time: sin un deploy
+# nuevo, el calendario se congela. Esto dispara un rebuild diario en Vercel.
+name: Redeploy diario
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # 04:00 hora de Lima
+  workflow_dispatch:
+
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar Deploy Hook de Vercel
+        run: curl -fsS -X POST "${{ secrets.VERCEL_DEPLOY_HOOK }}"

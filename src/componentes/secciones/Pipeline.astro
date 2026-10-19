@@ -25,7 +25,17 @@ const capturas = [
   { src: fotoReconocimiento, ancho: 1792, alto: 2400 },
   { src: fotoAsistencia, ancho: 1200, alto: 555 },
   { src: fotoWhatsapp, ancho: 1000, alto: 562 },
-];
+].map((captura) => {
+  // El alto es fijo (h-44 / md:h-52 = 176 / 208px): el ancho mostrado sale
+  // del ratio. Se generan 1x y 2x de ese ancho en vez de servir el original.
+  const anchoMovil = Math.round((176 * captura.ancho) / captura.alto);
+  const anchoDesktop = Math.round((208 * captura.ancho) / captura.alto);
+  return {
+    ...captura,
+    anchos: [anchoMovil, anchoDesktop, anchoDesktop * 2].filter((ancho) => ancho <= captura.ancho),
+    sizes: `(min-width: 768px) ${anchoDesktop}px, ${anchoMovil}px`,
+  };
+});
 ---
 
 <section id="pipeline" class="relative border-b border-[var(--linea)] py-24 md:py-32">
@@ -57,6 +67,8 @@ const capturas = [
                     aria-hidden="true"
                     width={captura.ancho}
                     height={captura.alto}
+                    widths={captura.anchos}
+                    sizes={captura.sizes}
                     loading="lazy"
                     class="h-full w-full object-cover"
                   />

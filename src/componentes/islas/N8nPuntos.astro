@@ -9,9 +9,11 @@ import n8nPuntos from "../../datos/n8n-puntos.json";
 
 interface Props {
   opacidad?: number;
+  /** El script lee el primer bloque de datos de la página: la segunda instancia no lo repite. */
+  conDatos?: boolean;
 }
 
-const { opacidad = 1 } = Astro.props;
+const { opacidad = 1, conDatos = true } = Astro.props;
 ---
 
 <canvas
@@ -20,7 +22,7 @@ const { opacidad = 1 } = Astro.props;
   aria-hidden="true"
 ></canvas>
 
-<script type="application/json" class="n8n-datos" set:html={JSON.stringify(n8nPuntos).replace(/</g, "\\u003c")} is:inline />
+{conDatos && <script type="application/json" class="n8n-datos" set:html={JSON.stringify(n8nPuntos).replace(/</g, "\\u003c")} is:inline />}
 
 <script>
   interface DatosSilueta {

@@ -14,7 +14,7 @@
     "linkedin": "LinkedIn",
     "contacto": "Contact",
     "cambiarIdioma": "Español",
-    "etiquetaIdioma": "Switch language to Spanish",
+    "etiquetaIdioma": "Español — switch language to Spanish",
     "abrirMenu": "Open navigation menu"
   },
   "anuncio": {
@@ -270,7 +270,7 @@
     "hecho": "Built with Astro. Workflow and node counts are computed at build time from the public repository."
   },
   "cli": {
-    "abrir": "Open terminal",
+    "abrir": "cli — open terminal",
     "cerrar": "Close terminal",
     "bienvenida": "Type **help** to see the commands, **about** to start, or **exit** to close.",
     "arranque": "ready in {0} ms",

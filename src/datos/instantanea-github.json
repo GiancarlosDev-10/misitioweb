@@ -1,251 +1,6 @@
 {
   "dias": [
     {
-      "fecha": "2025-08-31",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-01",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-02",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-03",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-04",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-05",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-06",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-07",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-08",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-09",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-10",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-11",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-12",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-13",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-14",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-15",
-      "nivel": 1,
-      "conteo": 1
-    },
-    {
-      "fecha": "2025-09-16",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-17",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-18",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-19",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-20",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-21",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-22",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-23",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-24",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-25",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-26",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-27",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-28",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-29",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-09-30",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-01",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-02",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-03",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-04",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-05",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-06",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-07",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-08",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-09",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-10",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-11",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-12",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-13",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-14",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-15",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-16",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-17",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
-      "fecha": "2025-10-18",
-      "nivel": 0,
-      "conteo": 0
-    },
-    {
       "fecha": "2025-10-19",
       "nivel": 0,
       "conteo": 0
@@ -1832,11 +1587,251 @@
     },
     {
       "fecha": "2026-09-01",
+      "nivel": 1,
+      "conteo": 1
+    },
+    {
+      "fecha": "2026-09-02",
+      "nivel": 1,
+      "conteo": 2
+    },
+    {
+      "fecha": "2026-09-03",
       "nivel": 0,
       "conteo": 0
+    },
+    {
+      "fecha": "2026-09-04",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-05",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-06",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-07",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-08",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-09",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-10",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-11",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-12",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-13",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-14",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-15",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-16",
+      "nivel": 1,
+      "conteo": 3
+    },
+    {
+      "fecha": "2026-09-17",
+      "nivel": 1,
+      "conteo": 1
+    },
+    {
+      "fecha": "2026-09-18",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-19",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-20",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-21",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-22",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-23",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-24",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-25",
+      "nivel": 1,
+      "conteo": 1
+    },
+    {
+      "fecha": "2026-09-26",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-27",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-09-28",
+      "nivel": 1,
+      "conteo": 2
+    },
+    {
+      "fecha": "2026-09-29",
+      "nivel": 1,
+      "conteo": 1
+    },
+    {
+      "fecha": "2026-09-30",
+      "nivel": 1,
+      "conteo": 2
+    },
+    {
+      "fecha": "2026-10-01",
+      "nivel": 1,
+      "conteo": 1
+    },
+    {
+      "fecha": "2026-10-02",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-03",
+      "nivel": 1,
+      "conteo": 1
+    },
+    {
+      "fecha": "2026-10-04",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-05",
+      "nivel": 1,
+      "conteo": 2
+    },
+    {
+      "fecha": "2026-10-06",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-07",
+      "nivel": 1,
+      "conteo": 2
+    },
+    {
+      "fecha": "2026-10-08",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-09",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-10",
+      "nivel": 2,
+      "conteo": 6
+    },
+    {
+      "fecha": "2026-10-11",
+      "nivel": 1,
+      "conteo": 3
+    },
+    {
+      "fecha": "2026-10-12",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-13",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-14",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-15",
+      "nivel": 1,
+      "conteo": 2
+    },
+    {
+      "fecha": "2026-10-16",
+      "nivel": 1,
+      "conteo": 2
+    },
+    {
+      "fecha": "2026-10-17",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-18",
+      "nivel": 0,
+      "conteo": 0
+    },
+    {
+      "fecha": "2026-10-19",
+      "nivel": 1,
+      "conteo": 1
     }
   ],
-  "totalContribuciones": 332,
-  "rachaMaxima": 8,
-  "repositoriosPublicos": 12
+  "totalContribuciones": 364,
+  "rachaMaxima": 10,
+  "repositoriosPublicos": 18
 }

@@ -14,7 +14,7 @@
     "linkedin": "LinkedIn",
     "contacto": "Contacto",
     "cambiarIdioma": "English",
-    "etiquetaIdioma": "Cambiar idioma a inglés",
+    "etiquetaIdioma": "English — cambiar idioma a inglés",
     "abrirMenu": "Abrir menú de navegación"
   },
   "anuncio": {
@@ -270,7 +270,7 @@
     "hecho": "Hecho con Astro. Los conteos de workflows y nodos se calculan en build time desde el repositorio público."
   },
   "cli": {
-    "abrir": "Abrir terminal",
+    "abrir": "cli — abrir terminal",
     "cerrar": "Cerrar terminal",
     "bienvenida": "Escribe **help** para ver los comandos, **about** para empezar, o **exit** para cerrar.",
     "arranque": "listo en {0} ms",

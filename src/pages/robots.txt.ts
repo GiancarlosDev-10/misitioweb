@@ -9,7 +9,6 @@ export const GET: APIRoute = () =>
       "Allow: /",
       "Disallow: /api/",
       "Disallow: /admin/",
-      "Disallow: /_astro/",
       "Disallow: /*?*",
       "",
       `Sitemap: ${SITIO.url}/sitemap-index.xml`,
