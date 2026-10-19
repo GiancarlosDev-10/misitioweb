@@ -24,11 +24,15 @@ const metricas = [
   <CampoNodos workflows={workflows} />
 
   <div class="contenedor relative flex min-h-[92svh] flex-col justify-end pb-14 pt-32">
-    <p class="etiqueta text-humo">{t.hero.eyebrow}</p>
+    <!-- El h1 es quién soy (lo que Google necesita leer); el titular grande es
+         un párrafo con el mismo estilo de siempre. -->
+    <h1 class="etiqueta font-cuerpo leading-[1.6] text-wrap text-humo">{SITIO.nombre} · {t.hero.eyebrow}</h1>
 
-    <h1 class="mt-6 max-w-4xl text-titulo-sm text-escarcha md:text-titulo-lg lg:text-display">
+    <p
+      class="mt-6 max-w-4xl font-display text-titulo-sm font-[330] leading-[1.08] tracking-[-0.02em] text-balance text-escarcha md:text-titulo-lg lg:text-display"
+    >
       {t.hero.titular}
-    </h1>
+    </p>
 
     <p class="mt-7 max-w-2xl text-cuerpo font-[400] text-ceniza">{t.hero.bajada}</p>
 
