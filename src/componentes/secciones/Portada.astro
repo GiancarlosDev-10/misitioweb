@@ -1,5 +1,8 @@
 ---
+import "../../estilos/efectos.css";
+
 import Hero from "./Hero.astro";
+import Manifiesto from "./Manifiesto.astro";
 import Pipeline from "./Pipeline.astro";
 import GithubActividad from "./GithubActividad.astro";
 import Proyectos from "./Proyectos.astro";
@@ -16,6 +19,7 @@ const { idioma } = Astro.props;
 ---
 
 <Hero idioma={idioma} />
+<Manifiesto idioma={idioma} />
 <Pipeline idioma={idioma} />
 <GithubActividad idioma={idioma} />
 <Proyectos idioma={idioma} />

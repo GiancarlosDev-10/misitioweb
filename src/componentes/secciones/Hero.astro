@@ -1,5 +1,6 @@
 ---
 import CampoNodos from "../islas/CampoNodos.astro";
+import RetratoPuntos from "../islas/RetratoPuntos.astro";
 import { SITIO, type Idioma } from "../../datos/sitio";
 import { obtenerResumen } from "../../datos/n8n";
 import { contenido } from "../../i18n";
@@ -12,6 +13,8 @@ const { idioma } = Astro.props;
 const t = contenido(idioma);
 const { workflows, totalWorkflows, totalNodos } = await obtenerResumen();
 
+const palabrasNombre = SITIO.nombre.split(" ");
+
 const metricas = [
   { valor: `+${totalWorkflows}`, texto: t.hero.metricas.workflows },
   { valor: `+${totalNodos}`, texto: t.hero.metricas.nodos },
@@ -23,49 +26,73 @@ const metricas = [
 <section class="relative isolate overflow-hidden border-b border-[var(--linea)]">
   <CampoNodos workflows={workflows} />
 
-  <div class="contenedor relative flex min-h-[92svh] flex-col justify-end pb-14 pt-32">
-    <!-- El h1 es quién soy (lo que Google necesita leer); el titular grande es
-         un párrafo con el mismo estilo de siempre. -->
-    <h1 class="etiqueta font-cuerpo leading-[1.6] text-wrap text-humo">{SITIO.nombre} · {t.hero.eyebrow}</h1>
+  <div class="luz-ambiente" aria-hidden="true"></div>
 
-    <p
-      class="mt-6 max-w-4xl font-display text-titulo-sm font-[330] leading-[1.08] tracking-[-0.02em] text-balance text-escarcha md:text-titulo-lg lg:text-display"
-    >
-      {t.hero.titular}
-    </p>
+  <div class="contenedor relative flex min-h-[92svh] flex-col justify-end pb-14 pt-28">
+    <div class="grid items-center gap-10 lg:grid-cols-[1.4fr_0.6fr] lg:gap-14">
+      <div>
+        <p class="etiqueta leading-[1.6] text-humo">{t.hero.eyebrow}</p>
 
-    <p class="mt-7 max-w-2xl text-cuerpo font-[400] text-ceniza">{t.hero.bajada}</p>
+        <!-- El h1 es quién soy (lo que Google necesita leer): el nombre en neón
+             y el rol solo para buscadores y lectores de pantalla. -->
+        <h1 class="mt-5">
+          {
+            palabrasNombre.map((palabra, indice) => (
+              <Fragment>
+                <span class="neon neon--nombre neon--enciende" style={`animation-delay:${250 + indice * 220}ms`}>
+                  {palabra}
+                </span>{" "}
+              </Fragment>
+            ))
+          }
+          <span class="sr-only">· {SITIO.rol}</span>
+        </h1>
 
-    <div class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
-      <a href="#contacto" class="etiqueta boton-lima rounded-none bg-lima px-6 py-3 text-vacio">
-        {t.hero.cta}
-      </a>
-      <a
-        href={SITIO.github + "/n8n-workflows"}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
+        <p
+          class="mt-8 max-w-2xl font-display text-subtitulo font-[330] leading-[1.2] tracking-[-0.015em] text-balance text-escarcha md:text-titulo-sm"
+        >
+          {t.hero.titular}
+        </p>
+
+        <div class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <a href="#contacto" class="etiqueta boton-lima rounded-none bg-lima px-6 py-3 text-vacio">
+            {t.hero.cta}
+          </a>
+          <a
+            href={SITIO.github + "/n8n-workflows"}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
+          >
+            {t.hero.ctaSecundario}
+          </a>
+          <a
+            href={SITIO.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
+          >
+            {t.hero.ctaLinkedin}
+          </a>
+          <a
+            href={SITIO.cv[idioma]}
+            download
+            class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
+          >
+            {t.hero.ctaCV}
+          </a>
+        </div>
+      </div>
+
+      <figure
+        class="retrato-marco relative mx-auto hidden aspect-[4/5] w-full max-w-[22rem] overflow-hidden rounded-2xl border border-[var(--linea)] lg:block"
+        aria-hidden="true"
       >
-        {t.hero.ctaSecundario}
-      </a>
-      <a
-        href={SITIO.linkedin}
-        target="_blank"
-        rel="noopener noreferrer"
-        class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
-      >
-        {t.hero.ctaLinkedin}
-      </a>
-      <a
-        href={SITIO.cv[idioma]}
-        download
-        class="enlace-subrayado text-cuerpo text-ceniza hover:text-escarcha"
-      >
-        {t.hero.ctaCV}
-      </a>
+        <RetratoPuntos />
+      </figure>
     </div>
 
-    <dl id="metricas-hero" class="mt-8 grid grid-cols-2 gap-px border-t border-[var(--linea)] md:grid-cols-4">
+    <dl id="metricas-hero" class="mt-12 grid grid-cols-2 gap-px border-t border-[var(--linea)] md:grid-cols-4">
       {
         metricas.map((metrica) => (
           <div class="border-r border-[var(--linea)] pr-4 pt-6 last:border-r-0 md:pt-8">

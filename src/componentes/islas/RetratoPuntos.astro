@@ -95,7 +95,11 @@ const { opacidad = 1 } = Astro.props;
     }
 
     redimensionar();
-    window.addEventListener("resize", redimensionar);
+    window.addEventListener("resize", () => {
+      redimensionar();
+      // Redimensionar borra el lienzo; sin animación nadie lo vuelve a pintar.
+      if (reducido) dibujar(0);
+    });
 
     if (reducido) {
       dibujar(0);

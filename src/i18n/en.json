@@ -36,6 +36,10 @@
       "años": "years in security at the Peruvian Air Force"
     }
   },
+  "manifiesto": {
+    "texto": "Web systems and AI automations that reach production and solve real problems.",
+    "detalle": "What you see here is what I do every day. Welcome."
+  },
   "pipeline": {
     "eyebrow": "How it works, in production",
     "titulo": "From facial recognition to a notification in seconds, with nobody in the loop.",
@@ -223,6 +227,7 @@
     "cierre": "If any of this sounds familiar, tell me and we'll see if it's worth automating."
   },
   "experiencia": {
+    "activo": "Active",
     "eyebrow": "Experience",
     "titulo": "More than ten years in security — the last one, in a technical role.",
     "lista": [
@@ -231,6 +236,7 @@
         "lugar": "Canada — remote",
         "rol": "AI Automation Developer",
         "periodo": "Aug 2025 — Jul 2026",
+        "activo": false,
         "detalle": "AI automations and product flows for Pablo, a WhatsApp financial assistant with active users."
       },
       {
@@ -238,6 +244,7 @@
         "lugar": "Lima — remote",
         "rol": "Full-Stack Developer",
         "periodo": "May — Jun 2026",
+        "activo": false,
         "detalle": "Short project redesigning the fleet monitoring system: migration to Angular 19 and .NET."
       },
       {
@@ -245,6 +252,7 @@
         "lugar": "Peru",
         "rol": "Head of Communications and IT Section",
         "periodo": "Jan 2026 — present",
+        "activo": true,
         "detalle": "More than 10 years in the military; since 2026, in a technical communications and IT role — networks, systems and IT assets under military standards.",
         "cita": "Seniority isn't measured only in years of experience — it's measured in the technical calls you make and the responsibility you take when something breaks."
       }
@@ -255,6 +263,8 @@
     "texto": "Currently in the 6th term of Information Systems Development at IESTP Gilda Ballivián — admitted in second place, ranked first in four terms. Certified in cybersecurity (Cisco) and Scrum (SFC); my self-taught drive makes me a strong bet for any company that wants me on their team."
   },
   "contacto": {
+    "neon": "Let’s talk.",
+    "neonAria": "Let’s talk on WhatsApp",
     "eyebrow": "Contact",
     "titulo": "Got a system to build or a process to automate?",
     "bajada": "Tell me what you need and I'll come back with a concrete diagnosis, not a generic proposal.",

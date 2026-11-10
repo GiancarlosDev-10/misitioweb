@@ -1,0 +1,33 @@
+---
+import type { Idioma } from "../../datos/sitio";
+import { contenido } from "../../i18n";
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const t = contenido(idioma);
+const palabras = t.manifiesto.texto.split(" ");
+---
+
+<!-- Una sola idea a pantalla completa, entre el Hero y la evidencia. Las
+     palabras se encienden con el scroll (ver global.css). -->
+<section class="border-b border-[var(--linea)] py-28 md:py-44">
+  <div class="contenedor">
+    <p
+      class="max-w-5xl font-display text-titulo-lg font-[500] leading-[1.05] tracking-[-0.03em] text-balance md:text-[4rem] lg:text-[4.75rem]"
+    >
+      {
+        palabras.map((palabra, indice) => (
+          <Fragment>
+            <span class="manifiesto__palabra" style={`--i:${indice}`}>
+              {palabra}
+            </span>{" "}
+          </Fragment>
+        ))
+      }
+    </p>
+    <p class="aparece mt-8 max-w-xl text-cuerpo font-[400] text-ceniza">{t.manifiesto.detalle}</p>
+  </div>
+</section>

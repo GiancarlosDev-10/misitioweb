@@ -36,6 +36,10 @@
       "años": "años en seguridad, Fuerza Aérea del Perú"
     }
   },
+  "manifiesto": {
+    "texto": "Sistemas web y automatizaciones con IA que llegan a producción y resuelven problemas reales.",
+    "detalle": "Lo que ves acá, es lo que hago todos los días. Bienvenido."
+  },
   "pipeline": {
     "eyebrow": "Cómo funciona, en producción",
     "titulo": "Del reconocimiento facial al aviso en segundos, sin que nadie intervenga.",
@@ -223,6 +227,7 @@
     "cierre": "Si algo de esto te suena familiar, dime y vemos si vale la pena automatizarlo."
   },
   "experiencia": {
+    "activo": "Activo",
     "eyebrow": "Experiencia",
     "titulo": "Más de diez años en seguridad — el último, en un rol técnico.",
     "lista": [
@@ -231,6 +236,7 @@
         "lugar": "Canadá — remoto",
         "rol": "AI Automation Developer",
         "periodo": "Ago 2025 — Jul 2026",
+        "activo": false,
         "detalle": "Automatizaciones con IA y flujos de producto para Pablo, asistente financiero en WhatsApp con usuarios activos."
       },
       {
@@ -238,6 +244,7 @@
         "lugar": "Lima — remoto",
         "rol": "Full-Stack Developer",
         "periodo": "May — Jun 2026",
+        "activo": false,
         "detalle": "Proyecto corto rediseñando el sistema de monitoreo de flotas: migración a Angular 19 y .NET"
       },
       {
@@ -245,6 +252,7 @@
         "lugar": "Perú",
         "rol": "Jefe de Sección de Comunicaciones e Informática",
         "periodo": "Ene 2026 — presente",
+        "activo": true,
         "detalle": "Más de 10 años como militar; desde 2026, en un rol técnico de comunicaciones e informática — redes, sistemas y activos TI bajo estándares militares.",
         "cita": "El seniority no se mide solo en años de experiencia, sino en la decisión técnica que tomas y la responsabilidad que asumes cuando algo falla."
       }
@@ -255,6 +263,8 @@
     "texto": "Cursando el 6to Ciclo de la carrera de Desarrollo de Sistemas de Información en el IESTP Gilda Ballivián — segundo puesto de ingreso, primer lugar en cuatro ciclos. Certificado en ciberseguridad (Cisco) y Scrum (SFC); mi espíritu autodidacta hace de mí una gran apuesta para cualquier empresa que quiere contar conmigo."
   },
   "contacto": {
+    "neon": "Hablemos.",
+    "neonAria": "Hablemos por WhatsApp",
     "eyebrow": "Contacto",
     "titulo": "¿Tienes un sistema que construir o un proceso que automatizar?",
     "bajada": "Cuéntame qué necesitas y te respondo con un diagnóstico concreto, no con una propuesta genérica.",
